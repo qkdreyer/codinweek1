@@ -13,6 +13,7 @@ function Ennemy()
     };
     this.missile = null;
     this.direction = null;
+    this.attackTimer = false;
     this.velocity = 0;
 }
 
@@ -79,7 +80,17 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     	this.sprite.body.velocity.x = ennemyTypes[ennemyType].velocity;    	
     }
 };
-    
+
+Ennemy.prototype.setAttackTimer = function(){
+    var self = this;
+    if (!this.attackTimer) {
+        this.attackTimer = true;
+        setInterval(function(){
+            self.attackTimer = false;
+        },3000);
+    }
+};
+
 Ennemy.prototype.lostHp = function(qtyHp) 
 {
     this.stats.hp -= qtyHp;
@@ -113,3 +124,4 @@ Ennemy.prototype.render = function(ennemy_data)
     this.hp = ennemy_data.hp;
     
 };
+

@@ -4,7 +4,7 @@ function preload() {
     game.load.tilemap('mario', 'assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.spritesheet('player', 'assets/dude.png', 32, 48);
-    game.load.image('missile', 'assets/star.png');
+    game.load.image('missile', 'assets/games/invaders/enemy-bullet.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32); 
     game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
