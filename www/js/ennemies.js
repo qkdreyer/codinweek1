@@ -70,5 +70,22 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     {
     	this.sprite.body.velocity.x = ennemyTypes[ennemyType].velocity;    	
     }
+    
+    
+Ennemy.prototype.lostHp = function(qtyHp) {
+    this.stats.hp -= qtyHp;
+    if (this.stats.hp <= 0) 
+    {
+    	this.die();
+    }
+    //else  this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+};
+
+
+Player.prototype.die = function() {
+    this.stats.hp = 0;
+    //this.statusBar.sprite.width = 0;
+	this.sprite.kill();
+};
          
 };
