@@ -64,7 +64,10 @@ var player =
     lostHp: function(qtyHp){
         this.stats.hp -= qtyHp;
         if (this.stats.hp <= 0) this.die();
-        else this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        else {
+            console.log(this.stats.hp);
+            this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        }
     },
 
     isDead: function(){
@@ -86,11 +89,11 @@ var player =
         this.statusBar.text = this.stats.hp;
     },
 
-
     update: function()
     {
-        if (player.isDead()) 
+        if (player.isDead())
         {
+            player.sprite.body.velocity.x = 0;
             return;
         }
 
@@ -135,6 +138,7 @@ var player =
             }
 
             console.log(this.direction);
+            console.log(missileVelocity);
 
             this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.missileSprite);
@@ -142,16 +146,17 @@ var player =
             this.missileSprite.body.bounce.x = 0.6;
             this.missileSprite.body.velocity.x = missileVelocity;
             this.missileSprite.body.gravity.y = 100;
+
+            this.isMissileActive = true;
         }
                  
 
-        this.isMissileActive = true;
+        
     },
 
     //Gère la vitesse du missile
     attackMissileHandling: function()
     {
-
         if (this.missileSprite.body.velocity.x > 0)
         {
             this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
@@ -160,12 +165,15 @@ var player =
         {
             this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
         }
-        else
+
+        if (this.missileSprite.body.velocity.x === 0 || !map.contains(this.missileSprite.body))
         {
             //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
             this.missileSprite.kill();
             this.isMissileActive = false;
         }
+
+        console.log("REDUCTION DE LA VITESSE : " + this.missileSprite.body.velocity.x);
     }
 
 

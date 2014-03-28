@@ -54,12 +54,8 @@ function create() {
 
 function update() {
 
-    if (player.isDead()) {
-        player.sprite.body.velocity.x = 0;
-        return;
-    }
-    physics.update();
     
+    physics.update();
 
 
     if (cursors.up.isDown || control.moveButton == 'up')
