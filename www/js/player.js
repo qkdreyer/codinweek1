@@ -15,7 +15,7 @@ var player =
     },
     statusBar: null,
 
-    init: function(){
+    init: function(){ 
         this.sprite = game.add.sprite(32, 32, 'dude');
 
         //  Our two animations, walking left and right.
