@@ -95,8 +95,8 @@ Missile.prototype.attackMissileHandling = function() {
     }
 
     if (!map.contains(this.sprite.body)) {
-        console.log('!!! OUT OF MAP !!!');
+        //console.log('!!! OUT OF MAP !!!');
     }
 
-    console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
+    //console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
 };

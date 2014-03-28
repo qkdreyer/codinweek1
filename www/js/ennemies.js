@@ -1,89 +1,74 @@
 
-var ennemy =
+
+function Ennemy()     
 {
-
-    sprite: null,
-    stats: {
-        hp: 0
-    },
-    statusBar: null,
-
-    init: function(){
-        this.sprite = game.add.sprite(400, 170, 'baddie'); 
-        //  Our two animations, walking left and right.
-        this.sprite.animations.add('left', [0, 1], 5,true);
-        this.sprite.animations.add('right', [2, 3], 5, true);
- 
-       //game.physics.enable(this.sprite);
-        game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
- 
-        //Don't leave the world zone when collides
-        this.sprite.body.collideWorldBounds = true;
-        
-		this.sprite.body.velocity.x=-100;
-        ennemy.sprite.animations.play('left');
-		
-
-    //  Here we add a new animation called 'run'
-    //  We haven't specified any frames because it's using every frame in the texture atlas
-    //this.sprite.animations.add('run');
-
-    //  And this starts the animation playing by using its key ("run")
-    //  15 is the frame rate (15fps)
-    //  true means it will loop when it finishes
-    //this.sprite.animations.play('run', 5, true);
-/*
-        this.stats.hp = 100;
-        this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
-  */  }
- /*
-    ,
-
-    lostHp: function(qtyHp){
-        this.stats.hp -= qtyHp;
-    },
-
-    statusBarPosition: function(){
-        this.statusBar.x = this.sprite.x;
-        this.statusBar.y = this.sprite.y;
-        this.statusBar.text = this.stats.hp;
-    }
- */
+	this.sprite = null;
+    this.stats = {
+        hp: 0,
+        power: 0
+    };
+    this.statusBar = {
+        sprite: null,
+        maxWidth: 0
+    };
+    this.missile = null;
+    this.direction = null;
+    this.velocity = 0;
 }
 
-/*
-var ennemies =
-{
-    
-    init: function() {
-    	
-		console.log('testmanu');
-		createEnnemy();
-    }
+//Liste des types d'ennemis existants, avec leurs propriétés 
+//(définissant les images utilisés dans le sprite, la vitesse de déplacement, la vitesse de changement d'image, les hp,
+//s'il est capable de tirer, et s'il vole)
+
+var ennemyTypes = {
+	'baddie':{velocity:100, leftImages:[0,1], imageSpeed:5, rightImages:[2,3], hp:20, shooter:0, flyer:0 }
 };
 
-function createEnnemy()
+//création d'ennemi avec paramètres: 
+//- type d'ennemi 
+//(définissant les images utilisés dans le sprite, la vitesse de déplacement, la vitesse de changement d'image, les hp,
+//s'il est capable de tirer, et s'il vole)
+Ennemy.prototype.init = function(ennemyType, x, y, direction) 
 {
+    	 
 	
-	
-    //  This sprite is using a texture atlas for all of its animation data
-    bot = game.add.sprite(750, 500, 'bot');
+    this.sprite = game.add.sprite(x, y, ennemyType);
     
-    //console.log(game.physics);
-    
-    game.physics.enable(bot, Phaser.Physics.ARCADE);
-    //game.physics.enable(bot, Phaser.Physics.ARCADE);
 	
-	//bot.body.velocity.x=-85;
+    //  Our two animations, walking left and right.
+    this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
+    this.sprite.animations.add('right', ennemyTypes[ennemyType].rightImages, ennemyTypes[ennemyType].imageSpeed, true);
 
-    //  Here we add a new animation called 'run'
-    //  We haven't specified any frames because it's using every frame in the texture atlas
-    //bot.animations.add('run');
+    game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
+    
+    //Don't leave the world zone when collides
+    this.sprite.body.collideWorldBounds = true;
 
-    //  And this starts the animation playing by using its key ("run")
-    //  15 is the frame rate (15fps)
-    //  true means it will loop when it finishes
-    //bot.animations.play('run', 5, true);
+    this.stats.hp = 100;
+    this.stats.maxHp = this.stats.hp;
 
-}
-*/
+    this.statusBar.sprite = game.add.sprite(x, x-40, 'statusBar');
+    var statusBarFrame = game.add.sprite(x, x-40, 'statusBarFrame');
+    this.statusBar.maxWidth = 0.95*statusBarFrame.width;
+    this.statusBar.sprite.width = this.statusBar.maxWidth;
+
+	if (ennemyTypes[ennemyType].shooter = 1)
+	{    
+		this.missile = new Missile(this);
+	}
+
+    statusBarFrame.fixedToCamera = true;
+    this.statusBar.sprite.fixedToCamera = true;
+    this.direction = direction;
+    this.sprite.animations.play(direction);
+    
+    if (direction = 'left')
+    {
+    	this.sprite.body.velocity.x = -ennemyTypes[ennemyType].velocity;
+    }
+    else
+    {
+    	this.sprite.body.velocity.x = ennemyTypes[ennemyType].velocity;    	
+    }
+         
+};
