@@ -1,4 +1,20 @@
-var game = new Phaser.Game(460, 320, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Phaser - Making your first game, part 9</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
 
@@ -10,38 +26,12 @@ function preload() {
 }
 
 var player;
-var players = {};
 var platforms;
 var cursors;
 
 var stars;
 var score = 0;
 var scoreText;
-
-function create_player(coordinates, enable_engine) {
-    var x = coordinates.x;
-    var y = coordinates.y;
-
-    console.log('Adding Player', x , y);
-    // The player and its settings
-    var player = game.add.sprite(x, y, 'dude');
-
-    if (enable_engine) {
-        //  We need to enable physics on the player
-        game.physics.arcade.enable(player);
-
-        //  Player physics properties. Give the little guy a slight bounce.
-        player.body.bounce.y = 0.2;
-        player.body.gravity.y = 300;
-        player.body.collideWorldBounds = true;
-
-        //  Our two animations, walking left and right.
-        player.animations.add('left', [0, 1, 2, 3], 10, true);
-        player.animations.add('right', [5, 6, 7, 8], 10, true);
-    }
-
-    return player;
-}
 
 function create() {
 
@@ -67,14 +57,26 @@ function create() {
     ground.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = platforms.create(50, 100, 'ground');
+    var ledge = platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
 
     ledge = platforms.create(-150, 250, 'ground');
     ledge.body.immovable = true;
 
-    // Create a Player
-    player = create_player({x: 32, y: game.world.height - 150}, true);
+    // The player and its settings
+    player = game.add.sprite(32, game.world.height - 150, 'dude');
+
+    //  We need to enable physics on the player
+    game.physics.arcade.enable(player);
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 300;
+    player.body.collideWorldBounds = true;
+
+    //  Our two animations, walking left and right.
+    player.animations.add('left', [0, 1, 2, 3], 10, true);
+    player.animations.add('right', [5, 6, 7, 8], 10, true);
 
     //  Finally some stars to collect
     stars = game.add.group();
@@ -100,12 +102,11 @@ function create() {
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
-
-    // Start Client Connection to Server
-    socket.init();
+    
 }
 
 function update() {
+
     //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.collide(stars, platforms);
@@ -144,25 +145,6 @@ function update() {
         player.body.velocity.y = -350;
     }
 
-    if (socket.io) sync(player);
-}
-
-function sync(player) {
-
-    // Retrieves current player position
-    var x_int = parseInt(player.x, 10);
-    var y_int = parseInt(player.y, 10);
-
-    // Compare current to last player position
-    if ((player.x_int != x_int || player.y_int != y_int))
-    {
-        // If it differs, notify server
-        socket.io.emit('client_moved', {x: player.x, y: player.y});
-    }
-
-    // Updates last player position
-    player.x_int = x_int;
-    player.y_int = y_int;
 }
 
 function collectStar (player, star) {
@@ -175,3 +157,8 @@ function collectStar (player, star) {
     scoreText.text = 'Score: ' + score;
 
 }
+
+</script>
+
+</body>
+</html>

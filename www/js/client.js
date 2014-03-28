@@ -1,7 +1,8 @@
 (function(exports) {
 
+	var host = "codinweek.zapto.org";
 	var port = 8200;
-	var url = location.origin + ":" + port;
+	var url = host + ":" + port;
 	
 	exports.socket = {
 		io: null,
@@ -23,7 +24,7 @@
 				var connected_players = data.clients;
 				for (var id in connected_players) {
 					var coordinates = connected_players[id];
-					players[id] = create_player(coordinates);
+					players[id] = player.add(coordinates);
 				}
 			});
 
@@ -45,7 +46,7 @@
 				var coordinates = data.userdata;
 				
 				if (!players[data.userid]) {
-					players[data.userid] = create_player(coordinates);
+					players[data.userid] = player.add(coordinates);
 				}
 				players[player_id].x = coordinates.x;
 				players[player_id].y = coordinates.y;
@@ -54,8 +55,9 @@
 			});
 		},
 
-		sync: function() {
+		sync: function(player) {
 			// Retrieves current player position
+
 			var x_int = parseInt(player.x, 10);
 			var y_int = parseInt(player.y, 10);
 

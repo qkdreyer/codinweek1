@@ -6,14 +6,15 @@ function preload() {
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32); 
+    game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
+    game.load.image('statusBar', 'assets/players/statusbar.png');
 }
 
 var layer;
 var cursors;
 var scoreText;
 var score = 0;
-var starIsMoving;
-var star;
+var players = {};
 
 function create() {
 
@@ -21,7 +22,7 @@ function create() {
     var mapInstance = map.init();
 
     //PHYSICS
-    physics.init();
+    physics.init(mapInstance);
 
     //layer.debug = true;
     layer.resizeWorld();
@@ -30,10 +31,9 @@ function create() {
     player.init();
 
     //COLLISIONS
-    collisions.initialize(mapInstance);
 
     //SCORE
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 46, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     //CAMERA
     game.camera.follow(player.sprite);
@@ -43,56 +43,23 @@ function create() {
     control.initMoveButton();
 
     cursors = game.input.keyboard.createCursorKeys();
-
-    //Adds a star
-    //stars = game.add.group();
-
-    var starIsMoving = false;
-    
-    console.log("avant enemy init");
+	 
+	     
     //ENNEMIS
     ennemy.init();
-
-    console.log("apres enemy init");
+   
     // Start Client Connection to Server
     socket.init();
 }
 
 function update() {
 
+    if (player.isDead()) {
+        player.sprite.body.velocity.x = 0;
+        return;
+    }
     physics.update();
-
-    player.sprite.body.velocity.x = 0;
-
     
-    
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
-    {
-        /*if (starIsMoving)
-        {
-            star.kill();
-        }*/
-
-        if (!starIsMoving)
-        { 
-            //star = stars.create(player.x+20, player.y+20, 'star');
-            star = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
-            game.physics.enable(star);
-            star.body.velocity.x = 0;
-        }
-                 
-
-        starIsMoving = true;
-        //star.body.bounce.x = 0.7 + Math.random() * 0.2;
-        //star.body.gravity.y = 50;
-
-    }
-
-    if (starIsMoving)
-    {
-        star.x+=0.5;
-    }
 
 
     if (cursors.up.isDown || control.moveButton == 'up')
@@ -107,21 +74,24 @@ function update() {
     {
         player.sprite.body.velocity.x = -150;
         player.sprite.animations.play('left');
+        player.direction = 'left';
     }
     else if (cursors.right.isDown  || control.moveButton == 'right')
     {
         player.sprite.body.velocity.x = 150;
         player.sprite.animations.play('right');
+        player.direction = 'right';
     }
     else
     {
         player.sprite.animations.stop();
     }
 
-    player.statusBarPosition();
+    player.update();
 
-    if (socket.io) client.sync();
- 
+
+    if (socket.io) socket.sync(player.sprite);
+     
     if (ennemy.sprite.x > 410)
     {
     	ennemy.sprite.body.velocity.x = -85;
@@ -130,8 +100,6 @@ function update() {
     {
     	ennemy.sprite.body.velocity.x = 85;
     }
- 
-    //console.log(ennemy.sprite.x);
 }
 
 function render() {

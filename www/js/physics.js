@@ -22,14 +22,12 @@ function hitCoin(sprite, tile) {
 
 var physics =
 {
-    init: function() {
+    init: function(mapInstance) {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.stage.backgroundColor = '#787878';
         game.physics.arcade.gravity.y = 250;
 
         //COLLISIONS
-        var mapInstance = map.mapInstance;
-        
         mapInstance.setCollisionBetween(15, 16);
         mapInstance.setCollisionBetween(20, 25);
         mapInstance.setCollisionBetween(27, 29);
@@ -43,8 +41,10 @@ var physics =
     },
 
     update: function() {
-        game.physics.arcade.collide(star, layer);
+        
         game.physics.arcade.collide(player.sprite, layer);
         game.physics.arcade.collide(ennemy.sprite, layer);
+        player.sprite.body.velocity.x = 0;
+
     }
 };

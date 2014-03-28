@@ -36,4 +36,6 @@ io.sockets.on('connection', function (socket) {
 		clients_count--;
 		io.sockets.emit('client_disconnected', {userid: socket.userid});
 	});
-}).set('log level', log_level);
+});
+
+io.set('log level', log_level);
