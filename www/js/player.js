@@ -7,23 +7,28 @@
  */
 
 
-function Player() {
+function Player(x, y) {
     this.sprite = null;
     this.stats = {
-        hp: 0,
-        maxHp: 0
+        hp: 100,
+        maxHp: 100,
+        distanceDamage: 20
     };
     this.statusBar = {
         sprite: null,
         maxWidth: 0
     };
     this.missile = null;
-    this.direction = null;
-    this.velocity = 300   ;
+    this.direction = 'right';
+    this.velocity = 300;
+
+    if (!x) x = 32;
+    if (!y) y = 32;
+
+    this.sprite = game.add.sprite(x, y, 'player');
 }
 
 Player.prototype.init = function() {
-    this.sprite = game.add.sprite(32, 32, 'dude');
 
     //  Our two animations, walking left and right.
     this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -36,39 +41,45 @@ Player.prototype.init = function() {
     //Don't leave the world zone when collides
     this.sprite.body.collideWorldBounds = true;
 
-    this.stats.hp = 100;
-    this.stats.maxHp = this.stats.hp;
+    this.missile = new Missile(this);
 
     this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
     var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
     this.statusBar.maxWidth = 0.95*statusBarFrame.width;
     this.statusBar.sprite.width = this.statusBar.maxWidth;
-
-    this.missile = new Missile(this);
-
     statusBarFrame.fixedToCamera = true;
     this.statusBar.sprite.fixedToCamera = true;
-    //this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
-    this.direction = 'right'
 };
 
-Player.prototype.add = function(coordinates) {
-    var x = coordinates.x;
-    var y = coordinates.y;
-
-    console.log('Adding Player', x , y);
-
-    return game.add.sprite(x, y, 'dude');
+Player.prototype.render = function(player_data) {
+    this.sprite.x = player_data.x;
+    this.sprite.y = player_data.y;
+    this.stats.hp = player_data.hp;
 };
 
+Player.prototype.kill = function() {
+    this.sprite.kill();
+    this.missile.kill();
+};
+
+Player.prototype.doSync = function() {
+    return has_moved(this.sprite) || this.missile.doSync();
+}
+
+Player.prototype.serialize = function() {
+    return {
+        id: this.userid,
+        x: this.sprite.x,
+        y: this.sprite.y,
+        hp: this.stats.hp,
+        missile: this.missile.serialize()
+    };
+};
 
 Player.prototype.lostHp = function(qtyHp) {
     this.stats.hp -= qtyHp;
     if (this.stats.hp <= 0) this.die();
-    else {
-        console.log(this.stats.hp);
-        this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
-    }
+    else  this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
 };
 
 Player.prototype.isDead = function() {
@@ -81,7 +92,6 @@ Player.prototype.die = function() {
 
     endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
     endText.fixedToCamera = true;
-    console.log('U DIE BITCH');
 };
 
 Player.prototype.statusBarPosition = function() {
@@ -91,8 +101,7 @@ Player.prototype.statusBarPosition = function() {
 };
 
 Player.prototype.update = function() {
-    if (this.isDead())
-    {
+    if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
         return;
     }

@@ -13,12 +13,33 @@ function Missile(parent){
     this.attackTimer = false;
 }
 
+Missile.prototype.kill = function() {
+    this.sprite.kill();
+}
+
+Missile.prototype.doSync = function() {
+    return this.sprite != null && has_moved(this.sprite);
+}
+
+Missile.prototype.serialize = function() {
+    if (!this.sprite) return {};
+
+    return {
+        x: this.sprite.x,
+        y: this.sprite.y
+    };
+}
+
 Missile.prototype.update = function(){
     var self = this;
     game.physics.arcade.collide(this.sprite, layer);
     for (var p in players){
         game.physics.arcade.collide(players[p].sprite, this.sprite, function(){
-            if (!self.attackTimer) players[p].lostHp(20);
+            console.log('collide');
+            if (!self.attackTimer){
+                console.log('here');
+                players[p].lostHp(players[p].stats.distanceDamage);
+            }
             self.setAttackTimer();
         });
     }
@@ -41,7 +62,7 @@ Missile.prototype.setAttackTimer = function(){
     this.attackTimer = true;
     setInterval(function(){
         self.attackTimer = false;
-    },1000);
+    },3000);
 };
 
     //Lance un missile
@@ -65,7 +86,7 @@ Missile.prototype.startAttack = function () {
         }
         missileStartY = this.parent.sprite.y;
 
-        this.sprite = game.add.sprite(missileStartX, missileStartY, 'star');
+        this.sprite = game.add.sprite(missileStartX, missileStartY, 'missile');
         game.physics.enable(this.sprite);
         this.sprite.body.bounce.y = 0.7;
         this.sprite.body.bounce.x = 0.6;
@@ -86,11 +107,10 @@ Missile.prototype.attackMissileHandling = function() {
     {
         this.sprite.body.velocity.x = parseInt(++this.sprite.body.velocity.x, 10);
     }
-
-    if (this.sprite.body.velocity.x === 0)
+    else if (this.sprite.body.velocity.x === 0)
     {
         //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-        this.sprite.kill();
+        //this.sprite.kill();
         this.isMissileActive = false;
     }
 
@@ -99,4 +119,5 @@ Missile.prototype.attackMissileHandling = function() {
     }
 
     //console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
+
 };

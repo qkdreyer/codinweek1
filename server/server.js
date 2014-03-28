@@ -22,12 +22,9 @@ io.sockets.on('connection', function (socket) {
     //notifying other clients of client connection
     socket.broadcast.emit('client_connected', {userid: userid});
 
-	socket.on('client_moved', function (data) {
-		clients[socket.userid] = data;
-		socket.broadcast.emit('client_moved', {
-			userid: socket.userid,
-			userdata: data
-		});
+	socket.on('client_moved', function (player_data) {
+		clients[player_data.id] = player_data;
+		socket.broadcast.emit('client_moved', player_data);
 	});
 
 	socket.on('disconnect', function () {

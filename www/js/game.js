@@ -3,7 +3,8 @@ var game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', { preload:
 function preload() {
     game.load.tilemap('mario', 'assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    game.load.spritesheet('player', 'assets/dude.png', 32, 48);
+    game.load.image('missile', 'assets/star.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32); 
     game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
@@ -26,7 +27,6 @@ function create() {
     //PHYSICS
     physics.init(mapInstance);
 
-    //layer.debug = true;
     layer.resizeWorld();
 
     //SPRITES
@@ -47,7 +47,6 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
 	 
-	     
     //ENNEMIS
     var ennemy = new Ennemy();
     ennemy.init('baddie', 400, 170, 'left');
@@ -91,10 +90,6 @@ function update() {
 
     player.update();
 
-
-    if (socket.io) socket.sync(player.sprite);
-    
-   
     for (var ennemyId in ennemies)
 	{ 
 		var ennemy = ennemies[ennemyId];
@@ -109,7 +104,12 @@ function update() {
 	    	ennemy.sprite.body.velocity.x = 100;
 	        ennemy.sprite.animations.play('right');
 	    }
-    }
+	}
+
+    if (socket.io && player.doSync())
+    {
+        socket.sync(player);
+    } 
     
 }
 
