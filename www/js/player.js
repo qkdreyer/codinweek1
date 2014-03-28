@@ -8,7 +8,6 @@
 
 var player =
 {
-
     sprite: null,
     stats: {
         hp: 0,
@@ -18,8 +17,7 @@ var player =
         sprite: null,
         maxWidth: 0
     },
-    isActiveMissile: false,
-    missileSprite: null,
+    missile: null,
     direction: null,
     velocity: 300,
 
@@ -45,11 +43,12 @@ var player =
         this.statusBar.maxWidth = 0.95*statusBarFrame.width;
         this.statusBar.sprite.width = this.statusBar.maxWidth;
 
-        //statusBarFrame.width  => 100
+        this.missile = missile.init(this);
 
         statusBarFrame.fixedToCamera = true;
         this.statusBar.sprite.fixedToCamera = true;
         //this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
+        this.direction = 'right'
     },
 
     add: function(coordinates) {
@@ -97,84 +96,10 @@ var player =
             return;
         }
 
-        game.physics.arcade.collide(this.missileSprite, layer);
-        game.physics.arcade.collide(this.sprite, this.missileSprite, function(){
-            player.lostHp(100);
-        });
-
-        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
-        {
-            this.startAttack();
-        }
-
-        if (this.isMissileActive)
-        {
-            this.attackMissileHandling();
-        }
+        missile.update();
     },
 
-    //Lance un missile
-    startAttack: function ()
-    {
 
-        //On ne peut lancer un nouveau missile que si aucun autre n'est en cours de déplacement
-        if (!this.isMissileActive)
-        { 
-            var missileVelocity;
-            var missileStartX;
-            var missileStartY;
-
-            if (this.direction == 'left')
-            {
-                missileVelocity = this.velocity*-1;
-                missileStartX = this.sprite.x;
-                missileStartY = this.sprite.y;
-            }
-            else if (this.direction == 'right')
-            {
-                missileVelocity = this.velocity;
-                missileStartX = this.sprite.x+20;
-                missileStartY = this.sprite.y+20;
-            }
-
-            console.log(this.direction);
-            console.log(missileVelocity);
-
-            this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
-            game.physics.enable(this.missileSprite);
-            this.missileSprite.body.bounce.y = 0.7;
-            this.missileSprite.body.bounce.x = 0.6;
-            this.missileSprite.body.velocity.x = missileVelocity;
-            this.missileSprite.body.gravity.y = 100;
-
-            this.isMissileActive = true;
-        }
-                 
-
-        
-    },
-
-    //Gère la vitesse du missile
-    attackMissileHandling: function()
-    {
-        if (this.missileSprite.body.velocity.x > 0)
-        {
-            this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
-        }
-        else if (this.missileSprite.body.velocity.x < 0)
-        {
-            this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
-        }
-
-        if (this.missileSprite.body.velocity.x === 0 || !map.contains(this.missileSprite.body))
-        {
-            //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-            this.missileSprite.kill();
-            this.isMissileActive = false;
-        }
-
-        console.log("REDUCTION DE LA VITESSE : " + this.missileSprite.body.velocity.x);
-    }
 
 
 }
