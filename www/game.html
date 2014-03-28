@@ -36,6 +36,8 @@ var layer;
 var cursors;
 var scoreText;
 var score = 0;
+var starIsMoving;
+var star;
 
 function create() {
 
@@ -58,6 +60,7 @@ function create() {
     player.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
 
     //PHYSICS
+    //game.physics.enable(player);
     game.physics.enable(player.sprite);
     game.physics.arcade.gravity.y = 250;
     player.sprite.body.bounce.y = 0.2;
@@ -80,12 +83,52 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
 
+    //Adds a star
+    //stars = game.add.group();
+
+    var starIsMoving = false;
+
+
+
+
 }
 
 function update() {
+    game.physics.arcade.collide(star, layer);
     game.physics.arcade.collide(player.sprite, layer);
 
     player.sprite.body.velocity.x = 0;
+
+    
+    
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
+    {
+        /*if (starIsMoving)
+        {
+            star.kill();
+        }*/
+
+        if (!starIsMoving)
+        { 
+            //star = stars.create(player.x+20, player.y+20, 'star');
+            star = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
+            game.physics.enable(star);
+            star.body.velocity.x = 0;
+        }
+                 
+
+        starIsMoving = true;
+        //star.body.bounce.x = 0.7 + Math.random() * 0.2;
+        //star.body.gravity.y = 50;
+
+    }
+
+    if (starIsMoving)
+    {
+        star.x+=0.5;
+    }
+
 
     if (cursors.up.isDown || control.moveButton == 'up')
     {
