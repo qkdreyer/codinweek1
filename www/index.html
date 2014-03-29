@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Phaser - Making your first game, part 9</title>
 	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <script type="text/javascript" src="js/control.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -82,6 +83,8 @@ function create() {
 
     //  Finally some stars to collect
     stars = game.add.group();
+    control.buttons = game.add.group();
+    control.initMoveButton();
 
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
@@ -119,14 +122,14 @@ function update() {
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown || control.moveButton == 'left')
     {
         //  Move to the left
         player.body.velocity.x = -150;
 
         player.animations.play('left');
     }
-    else if (cursors.right.isDown)
+    else if (cursors.right.isDown || control.moveButton == 'right')
     {
         //  Move to the right
         player.body.velocity.x = 150;
@@ -142,7 +145,7 @@ function update() {
     }
     
     //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && player.body.touching.down)
+    if ((cursors.up.isDown && player.body.touching.down) || control.moveButton == 'up')
     {
         player.body.velocity.y = -350;
     }

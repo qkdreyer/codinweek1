@@ -1,9 +1,8 @@
-<!DOCTYPE html>
+<!doctype html> 
 <html lang="en"> 
 <head> 
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Phaser - Making your first game, part 9</title>
+    <title>Phaser - Making your first game, part 7</title>
 	<script type="text/javascript" src="js/phaser.min.js"></script>
     <style type="text/css">
         body {
@@ -13,10 +12,9 @@
 </head>
 <body>
 
-<script type-"text/javascript" src="lib/jquery-1.8.2.min.js"></script>
 <script type="text/javascript">
 
-var game = new Phaser.Game(460, 320, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
 
@@ -30,12 +28,6 @@ function preload() {
 var player;
 var platforms;
 var cursors;
-
-var stars;
-var moveButton;
-var buttons;
-var score = 0;
-var scoreText;
 
 function create() {
 
@@ -61,7 +53,7 @@ function create() {
     ground.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = platforms.create(50, 100, 'ground');
+    var ledge = platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
 
     ledge = platforms.create(-150, 250, 'ground');
@@ -82,84 +74,27 @@ function create() {
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-    //  Finally some stars to collect
-    stars = game.add.group();
-    buttons = game.add.group();
-
-    //  We will enable physics for any star that is created in this group
-    stars.enableBody = true;
-
-    // Create action buttons
-    buttons.enableBody = false;
-
-    var upButton = buttons.create(20, game.height-40, 'star');
-    var leftButton = buttons.create(0, game.height-20, 'star');
-    var rightButton = buttons.create(40, game.height-20, 'star');
-
-    upButton.inputEnabled = true;
-    upButton.events.onInputDown.add(function(){
-        moveButton = 'up';
-    });
-    leftButton.inputEnabled = true;
-    leftButton.events.onInputDown.add(function(){
-        moveButton = 'left';
-    });
-    rightButton.inputEnabled = true;
-    rightButton.events.onInputDown.add(function(){
-        moveButton = 'right';
-    });
-    leftButton.events.onInputUp.add(function(){
-        moveButton = '';
-    });
-    rightButton.events.onInputUp.add(function(){
-        moveButton = '';
-    });
-    upButton.events.onInputUp.add(function(){
-        moveButton = '';
-    });
-
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var star = stars.create(i * 70, 0, 'star');
-
-        //  Let gravity do its thing
-        star.body.gravity.y = 300;
-
-        //  This just gives each star a slightly random bounce value
-        star.body.bounce.y = 0.7 + Math.random() * 0.2;
-    }
-
-    //  The score
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
     
 }
 
 function update() {
-    console.log('update');
 
     //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(stars, platforms);
-
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    game.physics.arcade.overlap(player, stars, collectStar, null, this);
 
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
 
-    if (cursors.left.isDown || moveButton == 'left')
+    if (cursors.left.isDown)
     {
         //  Move to the left
         player.body.velocity.x = -150;
 
         player.animations.play('left');
     }
-    else if (cursors.right.isDown || moveButton == 'right')
+    else if (cursors.right.isDown)
     {
         //  Move to the right
         player.body.velocity.x = 150;
@@ -175,24 +110,12 @@ function update() {
     }
     
     //  Allow the player to jump if they are touching the ground.
-    if ((cursors.up.isDown && player.body.touching.down) || moveButton == 'up')
+    if (cursors.up.isDown && player.body.touching.down)
     {
         player.body.velocity.y = -350;
     }
 
 }
-
-function collectStar (player, star) {
-    
-    // Removes the star from the screen
-    star.kill();
-
-    //  Add and update the score
-    score += 10;
-    scoreText.text = 'Score: ' + score;
-
-}
-
 </script>
 
 </body>
