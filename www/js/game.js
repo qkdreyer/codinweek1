@@ -61,45 +61,7 @@ function update() {
         return;
     }
     physics.update();
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
-    {
-        if (!starIsMoving)
-        { 
-            //star = stars.create(player.x+20, player.y+20, 'star');
-            star = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
-            game.physics.enable(star);
-            //star.body.velocity.x = 1;
-            star.body.bounce.y = 0.7;
-            star.body.bounce.x = 0.6;
-            star.body.velocity.x = 300;
-            star.body.gravity.y = 100;
-        }
-                 
-
-        starIsMoving = true;
-        //star.body.bounce.x = 0.7 + Math.random() * 0.2;
-        //star.body.gravity.y = 50;
-
-    }
-
-    //Réduction de la vitesse
-    if (starIsMoving)
-    {
-        if (star.body.velocity.x > 0)
-        {
-            star.body.velocity.x = parseInt(--star.body.velocity.x, 10);
-        }
-        else if (star.body.velocity.x < 0)
-        {
-            star.body.velocity.x = parseInt(++star.body.velocity.x, 10);
-        }
-        else
-        {
-            star.kill();
-            starIsMoving = false;
-        }
-    }
+    player.update();
 
 
     if (cursors.up.isDown || control.moveButton == 'up')

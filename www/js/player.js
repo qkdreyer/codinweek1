@@ -19,6 +19,7 @@ var player =
         maxWidth: 0
     },
     isActiveMissile: false,
+    missileSprite: null,
 
     init: function(){
         this.sprite = game.add.sprite(32, 32, 'dude');
@@ -81,6 +82,68 @@ var player =
         this.statusBar.x = this.sprite.x;
         this.statusBar.y = this.sprite.y;
         this.statusBar.text = this.stats.hp;
+    },
+
+
+    update: function()
+    {
+        if (player.isDead()) 
+        {
+            return;
+        }
+
+        game.physics.arcade.collide(this.missileSprite, layer);
+
+        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
+        {
+            this.startAttack();
+        }
+
+        if (player.isMissileActive)
+        {
+            this.attackMissileHandling();
+        }
+    },
+
+
+    startAttack: function ()
+    {
+
+        if (!this.isMissileActive)
+        { 
+            //star = stars.create(player.x+20, player.y+20, 'star');
+            this.missileSprite = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
+            game.physics.enable(this.missileSprite);
+            this.missileSprite.body.bounce.y = 0.7;
+            this.missileSprite.body.bounce.x = 0.6;
+            this.missileSprite.body.velocity.x = 300;
+            this.missileSprite.body.gravity.y = 100;
+        }
+                 
+
+        this.isMissileActive = true;
+    },
+
+    attackMissileHandling: function()
+    {
+        //Réduction de la vitesse du missile
+        /*if (this.isMissileActive)
+        {*/
+            if (this.missileSprite.body.velocity.x > 0)
+            {
+                this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
+            }
+            else if (this.missileSprite.body.velocity.x < 0)
+            {
+                this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
+            }
+            else
+            {
+                //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
+                this.missileSprite.kill();
+                this.isMissileActive = false;
+            }
+        //}
     }
 
 

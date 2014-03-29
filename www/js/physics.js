@@ -41,7 +41,7 @@ var physics =
     },
 
     update: function() {
-        game.physics.arcade.collide(star, layer);
+        
         game.physics.arcade.collide(player.sprite, layer);
         game.physics.arcade.collide(player.sprite, star, function(){
             player.lostHp(100);
