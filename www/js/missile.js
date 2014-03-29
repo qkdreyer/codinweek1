@@ -13,6 +13,10 @@ function Missile(parent){
     this.attackTimer = false;
 }
 
+Missile.prototype.kill = function() {
+    this.sprite.kill();
+}
+
 Missile.prototype.doSync = function() {
     return this.sprite != null && has_moved(this.sprite);
 }

@@ -58,7 +58,7 @@
 		sync: function(player) {
 			var player_data = player.serialize();
 			socket.io.emit('client_moved', player_data);
-			console.log("player_moved", player_data);
+			//console.log("player_moved", player_data);
 		}
 	};
 

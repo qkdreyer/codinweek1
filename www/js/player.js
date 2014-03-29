@@ -58,7 +58,8 @@ Player.prototype.render = function(player_data) {
 };
 
 Player.prototype.kill = function() {
-    return this.sprite.kill();
+    this.sprite.kill();
+    this.missile.kill();
 };
 
 Player.prototype.doSync = function() {
