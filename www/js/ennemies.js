@@ -21,7 +21,8 @@ function Ennemy()
 //s'il est capable de tirer, et s'il vole)
 
 var ennemyTypes = {
-	'baddie':{velocity:100, leftImages:[0,1], imageSpeed:5, rightImages:[2,3], hp:20, shooter:0, flyer:0 }
+	'baddie':{velocity:100, leftImages:[0,1], imageSpeed:5, rightImages:[2,3], hp:20, shooter:0, flyer:0 },
+	'dragon':{velocity:130, leftImages:[7, 8, 9, 10, 11, 12], imageSpeed:10, rightImages:[1, 2, 3, 4, 5, 6], hp:80, shooter:1, flyer:1}
 };
 
 //création d'ennemi avec paramètres: 
@@ -52,9 +53,13 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     this.statusBar.maxWidth = 0.95*statusBarFrame.width;
     this.statusBar.sprite.width = this.statusBar.maxWidth;
 
-	if (ennemyTypes[ennemyType].shooter = 1)
+	if (ennemyTypes[ennemyType].shooter == 1)
 	{    
 		this.missile = new Missile(this);
+	}
+	if (ennemyTypes[ennemyType].flyer == 1)
+	{    
+		//this.missile = new Missile(this);
 	}
 
     statusBarFrame.fixedToCamera = true;
@@ -70,9 +75,10 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     {
     	this.sprite.body.velocity.x = ennemyTypes[ennemyType].velocity;    	
     }
+};
     
-    
-Ennemy.prototype.lostHp = function(qtyHp) {
+Ennemy.prototype.lostHp = function(qtyHp) 
+{
     this.stats.hp -= qtyHp;
     if (this.stats.hp <= 0) 
     {
@@ -82,10 +88,25 @@ Ennemy.prototype.lostHp = function(qtyHp) {
 };
 
 
-    Ennemy.prototype.die = function() {
+Ennemy.prototype.die = function() 
+{
     this.stats.hp = 0;
     //this.statusBar.sprite.width = 0;
 	this.sprite.kill();
 };
-         
+
+Ennemy.prototype.render = function(ennemy_data)
+{
+ 
+    if (!this.sprite) 
+    {
+        this.sprite = game.add.sprite(ennemy_data.x, ennemy_data.y, ennemy_data.key);
+    } 
+    else 
+    {
+        this.sprite.x = ennemy_data.x;
+        this.sprite.y = ennemy_data.y;
+    }
+    this.hp = ennemy_data.hp;
+    
 };
