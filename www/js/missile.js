@@ -10,11 +10,22 @@ var missile =
     sprite: null,
     isActiveMissile: false,
     parent: null,
+    attackTimer: false,
     init: function(parent){
         this.parent = parent;
         return this;
     },
     update: function(){
+        var self = this;
+        game.physics.arcade.collide(this.sprite, layer);
+        for (var p in players){
+            game.physics.arcade.collide(players[p].sprite, this.sprite, function(){
+                if (!self.attackTimer) players[p].lostHp(20);
+                self.setAttackTimer();
+            });
+        }
+
+
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
         {
             this.startAttack();
@@ -24,6 +35,14 @@ var missile =
         {
             this.attackMissileHandling();
         }
+    },
+
+    setAttackTimer: function(){
+        var self = this;
+        this.attackTimer = true;
+        setInterval(function(){
+            self.attackTimer = false;
+        },1000);
     },
 
     //Lance un missile
@@ -62,9 +81,6 @@ var missile =
 
             this.isMissileActive = true;
         }
-
-
-
     },
 
     //Gère la vitesse du missile

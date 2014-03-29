@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="" />
+    <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/client.js" afterPath="$PROJECT_DIR$/www/js/client.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/game.js" afterPath="$PROJECT_DIR$/www/js/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/missile.js" afterPath="$PROJECT_DIR$/www/js/missile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/player.js" afterPath="$PROJECT_DIR$/www/js/player.js" />
+    </list>
     <ignored path="codinweek1.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,7 +55,16 @@
       <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="40" selection-start="1254" selection-end="1254" vertical-scroll-proportion="-9.72">
+            <state line="58" column="45" selection-start="1673" selection-end="1673" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/client.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="55" column="24" selection-start="1508" selection-end="1508" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -59,7 +73,7 @@
       <file leaf-file-name="missile.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/missile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="56" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.4367622">
+            <state line="104" column="8" selection-start="3043" selection-end="3043" vertical-scroll-proportion="1.9578415">
               <folding>
                 <element signature="e#0#157#0" expanded="false" />
               </folding>
@@ -70,7 +84,7 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="56" selection-start="1455" selection-end="1455" vertical-scroll-proportion="-10.2">
+            <state line="52" column="50" selection-start="1415" selection-end="1415" vertical-scroll-proportion="-10.12">
               <folding />
             </state>
           </provider>
@@ -112,10 +126,11 @@
         <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/www/js/control.js" />
-        <option value="$PROJECT_DIR$/www/js/game.js" />
         <option value="$PROJECT_DIR$/www/js/physics.js" />
         <option value="$PROJECT_DIR$/www/game.html" />
         <option value="$PROJECT_DIR$/www/js/player.js" />
+        <option value="$PROJECT_DIR$/www/js/client.js" />
+        <option value="$PROJECT_DIR$/www/js/game.js" />
         <option value="$PROJECT_DIR$/www/js/missile.js" />
       </list>
     </option>
@@ -399,13 +414,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="56" selection-start="1455" selection-end="1455" vertical-scroll-proportion="-10.2">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/game.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="68" selection-start="821" selection-end="821" vertical-scroll-proportion="-11.115385">
@@ -413,16 +421,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="50" selection-start="1415" selection-end="1415" vertical-scroll-proportion="-10.12">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/client.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="24" selection-start="1508" selection-end="1508" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="40" selection-start="1254" selection-end="1254" vertical-scroll-proportion="-9.72">
+        <state line="58" column="45" selection-start="1673" selection-end="1673" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/missile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="56" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.4367622">
+        <state line="104" column="8" selection-start="3043" selection-end="3043" vertical-scroll-proportion="1.9578415">
           <folding>
             <element signature="e#0#157#0" expanded="false" />
           </folding>

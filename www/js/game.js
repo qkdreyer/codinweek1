@@ -49,7 +49,8 @@ function create() {
     ennemy.init();
    
     // Start Client Connection to Server
-    socket.init();
+    var socketResult = socket.init();
+    if (socketResult == false) players[1] = player;
 }
 
 function update() {

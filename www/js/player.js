@@ -95,11 +95,6 @@ var player =
             return;
         }
 
-        game.physics.arcade.collide(this.missile.sprite, layer);
-        game.physics.arcade.collide(this.sprite, this.missile.sprite, function(){
-            player.lostHp(100);
-        });
-
         missile.update();
     },
 

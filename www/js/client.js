@@ -8,7 +8,7 @@
 		io: null,
 
 		init: function() {
-			if (typeof io === "undefined") return;
+			if (typeof io === "undefined") return false;
 			
 			console.log('Connecting to Server', url);
 			
@@ -53,6 +53,7 @@
 				
 				//console.log('client_moved', player_id, coordinates);
 			});
+            return true;
 		},
 
 		sync: function(player) {
