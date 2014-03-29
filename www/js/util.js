@@ -1,5 +1,4 @@
 var has_moved = function(sprite) {
-    console.log(sprite);
     if (!sprite) debugger;
     // Retrieves current player position
     var x_int = (sprite.x + 0.5) | 0;
