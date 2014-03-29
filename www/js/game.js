@@ -97,7 +97,7 @@ function update() {
     player.update();
 
     for (var ennemyId in ennemies)
-	{ 
+	{
 		var ennemy = ennemies[ennemyId];
         if (!ennemy.sprite || !ennemy.sprite.body) continue;
         

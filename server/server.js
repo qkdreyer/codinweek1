@@ -61,6 +61,8 @@ var other_data = [];
 var handle_ennemy_collision = function(collision_data) {
 	var ennemy_id = collision_data.ennemy_id;
 	var angle = collision_data.angle;
+
+	console.log('EVENT handle_ennemy_collision', ennemy_id, angle);
 };
 
 var handle_ennemy_hit = function(hit_data) {
@@ -68,6 +70,7 @@ var handle_ennemy_hit = function(hit_data) {
 	var damage = hit_data.damage;
 
 	ennemies_data[ennemy_id].hp -= damage;
+	console.log('EVENT handle_ennemy_hit', ennemy_id, damage);
 };
 
 var generate_ennemy_data = function(ennemy_data) {
