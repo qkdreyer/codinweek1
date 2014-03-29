@@ -18,7 +18,7 @@ Missile.prototype.update = function(){
     game.physics.arcade.collide(this.sprite, layer);
     for (var p in players){
         game.physics.arcade.collide(players[p].sprite, this.sprite, function(){
-            if (!self.attackTimer) players[p].lostHp(20);
+            if (!self.attackTimer) players[p].lostHp(this.parent.distanceDamage);
             self.setAttackTimer();
         });
     }
