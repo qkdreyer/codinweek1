@@ -46,7 +46,7 @@ function create() {
     //CONTROl
     control.initMoveButton();
 
-    cursors = game.input.keyboard.createCursorKeys();
+    
 	 
     //ENNEMIS
     var ennemy = new Ennemy();
@@ -67,33 +67,6 @@ function update() {
 
     
     physics.update();
-
-
-    if (cursors.up.isDown || control.moveButton == 'up')
-    {
-        if (player.sprite.body.onFloor())
-        {
-            player.sprite.body.velocity.y = -200;
-        }
-    }
-
-    if (cursors.left.isDown  || control.moveButton == 'left')
-    {
-        player.sprite.body.velocity.x = -150;
-        player.sprite.animations.play('left');
-        player.direction = 'left';
-    }
-    else if (cursors.right.isDown  || control.moveButton == 'right')
-    {
-        player.sprite.body.velocity.x = 150;
-        player.sprite.animations.play('right');
-        player.direction = 'right';
-    }
-    else
-    {
-        player.sprite.animations.stop();
-    }
-
     player.update();
 
     for (var ennemyId in ennemies)

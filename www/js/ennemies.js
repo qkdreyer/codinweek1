@@ -105,9 +105,8 @@ Ennemy.prototype.setAttackTimer = function(){
     }
 };
 
-Ennemy.prototype.lostHp = function(qtyHp) 
+Ennemy.prototype.lostHp = function()
 {
-    this.stats.hp -= qtyHp;
     if (this.stats.hp <= 0) 
     {
     	this.die();
@@ -176,9 +175,9 @@ Ennemy.prototype.render = function(ennemy_data)
         this.sprite.x = ennemy_data.x;
         this.sprite.y = ennemy_data.y;
     }
-    this.hp = ennemy_data.hp;
+    this.stats.hp = ennemy_data.hp;
+    this.lostHp();
     this.miniStatus = player_data.miniStatus;
-  
-      
+
 };
 
