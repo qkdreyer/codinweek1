@@ -23,7 +23,7 @@
 				var connected_players = data.clients;
 				for (var id in connected_players) {
 					var coordinates = connected_players[id];
-					players[id] = create_player(coordinates);
+					players[id] = player.add(coordinates);
 				}
 			});
 

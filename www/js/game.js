@@ -21,7 +21,7 @@ function create() {
     var mapInstance = map.init();
 
     //PHYSICS
-    physics.init();
+    physics.init(mapInstance);
 
     //layer.debug = true;
     layer.resizeWorld();
@@ -30,7 +30,6 @@ function create() {
     player.init();
 
     //COLLISIONS
-    collisions.initialize(mapInstance);
 
     //SCORE
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });

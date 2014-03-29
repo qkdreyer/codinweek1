@@ -33,6 +33,16 @@ var player =
         this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
     },
 
+    add: function(coordinates) {
+        console.log("coor", coordinates);
+        var x = coordinates.x;
+        var y = coordinates.y;
+
+        console.log('Adding Player', x , y);
+
+        return game.add.sprite(x, y, 'dude');
+    },
+
     lostHp: function(qtyHp){
         this.stats.hp -= qtyHp;
     },
