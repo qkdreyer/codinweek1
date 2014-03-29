@@ -98,14 +98,16 @@ console.log("PLAYER OK");
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
+
+    socket.init();
     
     setInterval(function() {
         var x_int = parseInt(player.x, 10);
         var y_int = parseInt(player.y, 10);
 
-        if (typeof socket != "undefined" && (player.x_int != x_int || player.y_int != player.y_int))
+        if (socket.io && (player.x_int != x_int || player.y_int != player.y_int))
         {
-            socket.emit('client_moved', {x: player.x, y: player.y});
+            socket.io.emit('client_moved', {x: player.x, y: player.y});
         }
         player.x_int = x_int;
         player.y_int = y_int;
