@@ -14,6 +14,7 @@ var layer;
 var cursors;
 var scoreText;
 var score = 0;
+var player;
 var players = {};
 
 function create() {
@@ -28,6 +29,7 @@ function create() {
     layer.resizeWorld();
 
     //SPRITES
+    player = new Player();
     player.init();
 
     //COLLISIONS
@@ -49,7 +51,8 @@ function create() {
     ennemy.init();
    
     // Start Client Connection to Server
-    socket.init();
+    var socketResult = socket.init();
+    if (socketResult == false) players[1] = player;
 }
 
 function update() {
@@ -90,11 +93,14 @@ function update() {
      
     if (ennemy.sprite.x > 410)
     {
-    	ennemy.sprite.body.velocity.x = -85;
+    	ennemy.sprite.body.velocity.x = -100;
+        ennemy.sprite.animations.play('left');
     }
+ 
     if (ennemy.sprite.x < 10)
     {
-    	ennemy.sprite.body.velocity.x = 85;
+    	ennemy.sprite.body.velocity.x = 100;
+        ennemy.sprite.animations.play('right');
     }
 }
 

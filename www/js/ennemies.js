@@ -11,8 +11,8 @@ var ennemy =
     init: function(){
         this.sprite = game.add.sprite(400, 170, 'baddie'); 
         //  Our two animations, walking left and right.
-        this.sprite.animations.add('left', [0, 1], 10,true);
-        this.sprite.animations.add('right', [2, 3], 10, true);
+        this.sprite.animations.add('left', [0, 1], 5,true);
+        this.sprite.animations.add('right', [2, 3], 5, true);
  
        //game.physics.enable(this.sprite);
         game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
@@ -20,7 +20,8 @@ var ennemy =
         //Don't leave the world zone when collides
         this.sprite.body.collideWorldBounds = true;
         
-		this.sprite.body.velocity.x=-85;
+		this.sprite.body.velocity.x=-100;
+        ennemy.sprite.animations.play('left');
 		
 
     //  Here we add a new animation called 'run'
