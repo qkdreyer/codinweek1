@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var server = app.listen(8200);
 var io = require('socket.io').listen(server);
+var uuid = require('node-uuid');
 
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
