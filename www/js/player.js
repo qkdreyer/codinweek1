@@ -11,9 +11,15 @@ var player =
 
     sprite: null,
     stats: {
-        hp: 0
+        hp: 0,
+        maxHp: 0
     },
-    statusBar: null,
+    statusBar: {
+        sprite: null,
+        maxWidth: 0
+    },
+    isActiveMissile: false,
+    missileSprite: null,
 
     init: function(){
         this.sprite = game.add.sprite(32, 32, 'dude');
@@ -30,11 +36,21 @@ var player =
         this.sprite.body.collideWorldBounds = true;
 
         this.stats.hp = 100;
-        this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
+        this.stats.maxHp = this.stats.hp;
+
+        this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
+        var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
+        this.statusBar.maxWidth = 0.95*statusBarFrame.width;
+        this.statusBar.sprite.width = this.statusBar.maxWidth;
+
+        //statusBarFrame.width  => 100
+
+        statusBarFrame.fixedToCamera = true;
+        this.statusBar.sprite.fixedToCamera = true;
+        //this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
     },
 
     add: function(coordinates) {
-        console.log("coor", coordinates);
         var x = coordinates.x;
         var y = coordinates.y;
 
@@ -45,12 +61,67 @@ var player =
 
     lostHp: function(qtyHp){
         this.stats.hp -= qtyHp;
+        if (this.stats.hp <= 0) this.die();
+        else this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+    },
+
+    isDead: function(){
+        return (this.stats.hp == 0);
+    },
+
+    die: function(){
+        this.stats.hp = 0;
+        this.statusBar.sprite.width = 0;
+        player.sprite.body.velocity.x = 0;
+        player.sprite.body.velocity.y = 0;
+        console.log('U DIE BITCH');
     },
 
     statusBarPosition: function(){
         this.statusBar.x = this.sprite.x;
         this.statusBar.y = this.sprite.y;
         this.statusBar.text = this.stats.hp;
+    }
+
+
+    startAttack: function ()
+    {
+
+        if (!this.isMissileActive)
+        { 
+            //star = stars.create(player.x+20, player.y+20, 'star');
+            this.missileSprite = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
+            game.physics.enable(star);
+            this.missileSprite.body.bounce.y = 0.7;
+            this.missileSprite.body.bounce.x = 0.6;
+            this.missileSprite.body.velocity.x = 300;
+            this.missileSprite.body.gravity.y = 100;
+        }
+                 
+
+        this.isMissileActive = true;
+    }
+
+    attackMissileHandling: function()
+    {
+        //Réduction de la vitesse du missile
+        /*if (this.isMissileActive)
+        {*/
+            if (this.missileSprite.body.velocity.x > 0)
+            {
+                this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
+            }
+            else if (this.missileSprite.body.velocity.x < 0)
+            {
+                this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
+            }
+            else
+            {
+                //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
+                this.missileSprite.kill();
+                this.isMissileActive = false;
+            }
+        //}
     }
 
 

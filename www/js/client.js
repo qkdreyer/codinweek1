@@ -63,7 +63,6 @@
 			// Compare current to last player position
 			if ((player.x_int != x_int || player.y_int != y_int))
 			{
-				console.log("yes!");
 				// If it differs, notify server
 				socket.io.emit('client_moved', {x: player.x, y: player.y});
 			}

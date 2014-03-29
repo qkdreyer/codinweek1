@@ -5,6 +5,8 @@ function preload() {
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     game.load.image('star', 'assets/star.png');
+    game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
+    game.load.image('statusBar', 'assets/players/statusbar.png');
 }
 
 var layer;
@@ -32,7 +34,7 @@ function create() {
     //COLLISIONS
 
     //SCORE
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 46, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     //CAMERA
     game.camera.follow(player.sprite);
@@ -53,58 +55,25 @@ function create() {
 }
 
 
-function startAttack()
-{
-
-    if (!player.isMissileActive)
-    { 
-        //star = stars.create(player.x+20, player.y+20, 'star');
-        star = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
-        game.physics.enable(star);
-        star.body.bounce.y = 0.7;
-        star.body.bounce.x = 0.6;
-        star.body.velocity.x = 300;
-        star.body.gravity.y = 100;
-    }
-             
-
-    player.isMissileActive = true;
-}
-
-function attackMissileHandling()
-{
-    //Réduction de la vitesse
-    if (player.isMissileActive)
-    {
-        if (star.body.velocity.x > 0)
-        {
-            star.body.velocity.x = parseInt(--star.body.velocity.x, 10);
-        }
-        else if (star.body.velocity.x < 0)
-        {
-            star.body.velocity.x = parseInt(++star.body.velocity.x, 10);
-        }
-        else
-        {
-            //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-            star.kill();
-            player.isMissileActive = false;
-        }
-    }
-}
-
-
 function update() {
+
+    if (player.isDead()) {
+
+
+        return;
+    }
 
     physics.update();
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
-        startAttack();
+        player.startAttack();
     }
 
-    attackMissileHandling();
-
+    if (player.isMissileActive)
+    {
+        player.attackMissileHandling();
+    }
 
     if (cursors.up.isDown || control.moveButton == 'up')
     {
@@ -128,8 +97,6 @@ function update() {
     {
         player.sprite.animations.stop();
     }
-
-    player.statusBarPosition();
 
     if (socket.io) socket.sync(player.sprite);
 }
