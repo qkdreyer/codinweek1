@@ -93,11 +93,14 @@ function update() {
      
     if (ennemy.sprite.x > 410)
     {
-    	ennemy.sprite.body.velocity.x = -85;
+    	ennemy.sprite.body.velocity.x = -100;
+        ennemy.sprite.animations.play('left');
     }
+ 
     if (ennemy.sprite.x < 10)
     {
-    	ennemy.sprite.body.velocity.x = 85;
+    	ennemy.sprite.body.velocity.x = 100;
+        ennemy.sprite.animations.play('right');
     }
 }
 
