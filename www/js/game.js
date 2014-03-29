@@ -13,8 +13,6 @@ var layer;
 var cursors;
 var scoreText;
 var score = 0;
-var starIsMoving;
-var star;
 var players = {};
 
 function create() {
@@ -45,23 +43,14 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    //Adds a star
-    //stars = game.add.group();
-
-    starIsMoving = false;
-
     // Start Client Connection to Server
     socket.init();
 }
 
 function update() {
 
-    if (player.isDead()) {
-        player.sprite.body.velocity.x = 0;
-        return;
-    }
+    
     physics.update();
-    player.update();
 
 
     if (cursors.up.isDown || control.moveButton == 'up')
@@ -76,16 +65,20 @@ function update() {
     {
         player.sprite.body.velocity.x = -150;
         player.sprite.animations.play('left');
+        player.direction = 'left';
     }
     else if (cursors.right.isDown  || control.moveButton == 'right')
     {
         player.sprite.body.velocity.x = 150;
         player.sprite.animations.play('right');
+        player.direction = 'right';
     }
     else
     {
         player.sprite.animations.stop();
     }
+
+    player.update();
 
     if (socket.io) socket.sync(player.sprite);
 }

@@ -20,6 +20,8 @@ var player =
     },
     isActiveMissile: false,
     missileSprite: null,
+    direction: null,
+    velocity: 300,
 
     init: function(){
         this.sprite = game.add.sprite(32, 32, 'dude');
@@ -91,11 +93,12 @@ var player =
     {
         if (player.isDead())
         {
+            player.sprite.body.velocity.x = 0;
             return;
         }
 
         game.physics.arcade.collide(this.missileSprite, layer);
-        game.physics.arcade.collide(player.sprite, this.missileSprite, function(){
+        game.physics.arcade.collide(this.sprite, this.missileSprite, function(){
             player.lostHp(100);
         });
 
@@ -104,51 +107,73 @@ var player =
             this.startAttack();
         }
 
-        if (player.isMissileActive)
+        if (this.isMissileActive)
         {
             this.attackMissileHandling();
         }
     },
 
-
+    //Lance un missile
     startAttack: function ()
     {
 
+        //On ne peut lancer un nouveau missile que si aucun autre n'est en cours de déplacement
         if (!this.isMissileActive)
         { 
-            //star = stars.create(player.x+20, player.y+20, 'star');
-            this.missileSprite = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
+            var missileVelocity;
+            var missileStartX;
+            var missileStartY;
+
+            if (this.direction == 'left')
+            {
+                missileVelocity = this.velocity*-1;
+                missileStartX = this.sprite.x;
+                missileStartY = this.sprite.y;
+            }
+            else if (this.direction == 'right')
+            {
+                missileVelocity = this.velocity;
+                missileStartX = this.sprite.x+20;
+                missileStartY = this.sprite.y+20;
+            }
+
+            console.log(this.direction);
+            console.log(missileVelocity);
+
+            this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.missileSprite);
             this.missileSprite.body.bounce.y = 0.7;
             this.missileSprite.body.bounce.x = 0.6;
-            this.missileSprite.body.velocity.x = 300;
+            this.missileSprite.body.velocity.x = missileVelocity;
             this.missileSprite.body.gravity.y = 100;
+
+            this.isMissileActive = true;
         }
                  
 
-        this.isMissileActive = true;
+        
     },
 
+    //Gère la vitesse du missile
     attackMissileHandling: function()
     {
-        //Réduction de la vitesse du missile
-        /*if (this.isMissileActive)
-        {*/
-            if (this.missileSprite.body.velocity.x > 0)
-            {
-                this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
-            }
-            else if (this.missileSprite.body.velocity.x < 0)
-            {
-                this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
-            }
-            else
-            {
-                //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-                this.missileSprite.kill();
-                this.isMissileActive = false;
-            }
-        //}
+        if (this.missileSprite.body.velocity.x > 0)
+        {
+            this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
+        }
+        else if (this.missileSprite.body.velocity.x < 0)
+        {
+            this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
+        }
+
+        if (this.missileSprite.body.velocity.x === 0 || !map.contains(this.missileSprite.body))
+        {
+            //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
+            this.missileSprite.kill();
+            this.isMissileActive = false;
+        }
+
+        console.log("REDUCTION DE LA VITESSE : " + this.missileSprite.body.velocity.x);
     }
 
 

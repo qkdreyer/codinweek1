@@ -4,7 +4,7 @@
 function hitComestibleObject(sprite, tile, score) {
 
     tile.index = 1;
-    //scoreText.text = 'Score: ' + score;
+    scoreText.text = 'Score: ' + score;
 
     return false;
 
