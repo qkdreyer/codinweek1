@@ -1,6 +1,6 @@
 (function(exports) {
 
-    var host = "codinweek.zapto.org";
+    var host = location.origin;
     var port = 8200;
     var url = host + ":" + port;
     
