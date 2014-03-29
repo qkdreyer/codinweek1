@@ -57,23 +57,11 @@ function create() {
 
 function update() {
 
-    if (player.isDead()) {
-
-
-        return;
-    }
+    
 
     physics.update();
+    player.update();
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
-    {
-        player.startAttack();
-    }
-
-    if (player.isMissileActive)
-    {
-        player.attackMissileHandling();
-    }
 
     if (cursors.up.isDown || control.moveButton == 'up')
     {
