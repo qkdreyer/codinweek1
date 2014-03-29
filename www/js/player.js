@@ -124,15 +124,15 @@ var player =
 
             if (this.direction == 'left')
             {
-                var missileVelocity = this.velocity*-1;
-                var missileStartX = this.sprite.x;
-                var missileStartY = this.sprite.y;
+                missileVelocity = this.velocity*-1;
+                missileStartX = this.sprite.x;
+                missileStartY = this.sprite.y;
             }
             else if (this.direction == 'right')
             {
-                var missileVelocity = this.velocity;
-                var missileStartX = this.sprite.x+20;
-                var missileStartY = this.sprite.y+20;
+                missileVelocity = this.velocity;
+                missileStartX = this.sprite.x+20;
+                missileStartY = this.sprite.y+20;
             }
 
             console.log(this.direction);
@@ -155,7 +155,6 @@ var player =
     //Gère la vitesse du missile
     attackMissileHandling: function()
     {
-
         if (this.missileSprite.body.velocity.x > 0)
         {
             this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
@@ -164,7 +163,8 @@ var player =
         {
             this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
         }
-        else
+
+        if (this.missileSprite.body.velocity.x === 0 || !map.contains(this.missileSprite.body))
         {
             //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
             this.missileSprite.kill();
