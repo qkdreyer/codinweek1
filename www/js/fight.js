@@ -6,27 +6,28 @@
  * To change this template use File | Settings | File Templates.
  */
 
-function Missile(parent){
+function Fight(parent){
 
-    this.missiles = game.add.group();
+    /*this.missiles = game.add.group();
     this.missiles.enableBody = true;
     this.missiles.physicsBodyType = Phaser.Physics.ARCADE;
     this.missiles.createMultiple(1, 'missile');
-    //this.missiles.setAll('anchor.x', 0.5);
-    //this.missiles.setAll('anchor.y', 1);
+    this.missiles.setAll('anchor.x', 0.5);
+    this.missiles.setAll('anchor.y', 1);
     this.sprite = null;
 
-    this.isActiveMissile = false;
+    this.isActiveMissile = false;*/
     this.parent = parent;
     this.attackTimer = false;
-    this.velocity = 300;
+    this.sprite = parent.sprite;
+    //this.velocity = 300;
 }
 
-Missile.prototype.kill = function() {
+Fight.prototype.kill = function() {
     this.sprite.kill();
 }
 
-Missile.prototype.render = function(missile_data) {
+Fight.prototype.render = function(missile_data) {
     if (!this.sprite) {
         this.sprite = game.add.sprite(missile_data.x, missile_data.y, 'missile');
     } else {
@@ -51,22 +52,12 @@ var i =0;
 Missile.prototype.update = function(){
     var self = this;
     game.physics.arcade.collide(this.sprite, layer);
-    /*for (var p in players){
-        game.physics.arcade.collide(players[p].sprite, this.sprite, function(){
-            console.log('collide');
-            if (!self.attackTimer){
-                console.log('here');
-                players[p].lostHp(players[p].stats.distanceDamage);
-            }
-            self.setAttackTimer();
-        });
-    }*/
 
     for (var e in ennemies){
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
             if (!self.attackTimer) {
-                //socket.io.emit('missileHit', {ennemy_id: e, damage: self.parent.stats.missileDamage});
+                ennemies[e].lostHp(self.parent.stats.missileDamage);
             }
             self.setAttackTimer();
         });
@@ -111,7 +102,7 @@ Missile.prototype.startMissileAttack = function () {
             missileVelocity = this.velocity;
             missileStartX = this.parent.sprite.x+10;
         }
-        missileStartY = this.parent.sprite.y+20;
+        missileStartY = this.parent.sprite.y;
 
         this.sprite = this.missiles.getFirstExists(false);
 
