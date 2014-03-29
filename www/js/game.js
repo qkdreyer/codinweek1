@@ -1,15 +1,12 @@
 var game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
-
     game.load.tilemap('mario', 'assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     game.load.image('star', 'assets/star.png');
 }
 
-var map;
-var tileset;
 var layer;
 var cursors;
 var scoreText;
@@ -19,27 +16,20 @@ var star;
 
 function create() {
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    //MAP
+    var mapInstance = map.init();
 
-    game.stage.backgroundColor = '#787878';
-    map = game.add.tilemap('mario');
-    map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
-    layer = map.createLayer('World1');
+    //PHYSICS
+    physics.init();
 
     //layer.debug = true;
-
     layer.resizeWorld();
 
     //SPRITES
     player.init();
 
-    //PHYSICS
-    //game.physics.enable(player);
-    game.physics.enable(player.sprite);
-    game.physics.arcade.gravity.y = 250;
-
     //COLLISIONS
-    collisions.initialize(map);
+    collisions.initialize(mapInstance);
 
     //SCORE
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -58,14 +48,11 @@ function create() {
 
     var starIsMoving = false;
 
-
-
-
 }
 
 function update() {
-    game.physics.arcade.collide(star, layer);
-    game.physics.arcade.collide(player.sprite, layer);
+
+    physics.update();
 
     player.sprite.body.velocity.x = 0;
 
