@@ -49,9 +49,6 @@ var missile =
             }
             missileStartY = this.parent.sprite.y;
 
-            console.log(this.parent.direction);
-            console.log(missileVelocity);
-
             this.sprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.sprite);
             this.sprite.body.bounce.y = 0.7;
