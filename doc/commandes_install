@@ -1,0 +1,8 @@
+IOS :
+
+create the app : phonegap create hello com.example.hello HelloWorld
+build the app : phonegap build ios
+test the app : phonegap install ios
+SI BESOIN :
+sudo npm install -g ios-deploy
+sudo npm install -g ios-sim
