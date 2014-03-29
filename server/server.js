@@ -50,15 +50,22 @@ var ennemies_data = [{
 	"x": 400,
 	"y": 180,
 	"hp": 200,
-	"key": 'baddie'
+	"key": 'dragon'
 }];
 var other_data = [];
 
 generate_ennemy_data = function(ennemy_data) {
-	if (ennemy_data.x > 0)
-		ennemy_data.x -= 1;
-	else 
+	if (ennemy_data.dir = 1) {
 		ennemy_data.x += 1;
+	} else {
+		ennemy_data.x -= 1;
+	}
+
+	if (ennemy_data.x < 0) {
+		ennemy_data.dir = 1;
+	} else if (ennemy_data.x > 400) {
+		ennemy_data.dir = -1;
+	}
 
 	return ennemy_data;
 }

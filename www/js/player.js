@@ -119,7 +119,7 @@ Player.prototype.update = function() {
             if (!ennemies[e].attackTimer) {
                 self.lostHp(20);
                 var angle = touchingEvent(ennemies[e].sprite);
-                //socket.io.emit('playerHit', {ennemyId: e, angle: angle});
+                socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
             }
             ennemies[e].setAttackTimer();
         });
