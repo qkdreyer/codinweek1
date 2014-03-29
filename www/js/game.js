@@ -22,7 +22,7 @@ function create_player(coordinates, enable_engine) {
     var x = coordinates.x;
     var y = coordinates.y;
 
-    console.log('creating player', x , y);
+    console.log('Adding Player', x , y);
     // The player and its settings
     var player = game.add.sprite(x, y, 'dude');
 
@@ -101,19 +101,8 @@ function create() {
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
 
+    // Start Client Connection to Server
     socket.init();
-    
-    setInterval(function() {
-        var x_int = parseInt(player.x, 10);
-        var y_int = parseInt(player.y, 10);
-
-        if (socket.io && (player.x_int != x_int || player.y_int != player.y_int))
-        {
-            socket.io.emit('client_moved', {x: player.x, y: player.y});
-        }
-        player.x_int = x_int;
-        player.y_int = y_int;
-    }, 10);   
 }
 
 function update() {
@@ -155,6 +144,25 @@ function update() {
         player.body.velocity.y = -350;
     }
 
+    if (socket.io) sync(player);
+}
+
+function sync(player) {
+
+    // Retrieves current player position
+    var x_int = parseInt(player.x, 10);
+    var y_int = parseInt(player.y, 10);
+
+    // Compare current to last player position
+    if ((player.x_int != x_int || player.y_int != y_int))
+    {
+        // If it differs, notify server
+        socket.io.emit('client_moved', {x: player.x, y: player.y});
+    }
+
+    // Updates last player position
+    player.x_int = x_int;
+    player.y_int = y_int;
 }
 
 function collectStar (player, star) {

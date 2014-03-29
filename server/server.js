@@ -7,6 +7,7 @@ var util = require('util');
 
 var clients = {};
 var clients_count = 0;
+var log_level = 1;
 
 io.sockets.on('connection', function (socket) {
 	// generate unique userid
@@ -29,15 +30,10 @@ io.sockets.on('connection', function (socket) {
 		});
 	});
 
-	/*socket.on('client_connected', function (data) {
-		console.log('client_connected', data);
-		socket.broadcast.emit('')
-	})*/
-
 	socket.on('disconnect', function () {
 		console.log('client disconnected', socket.userid, clients_count);
 		delete clients[socket.userid];
 		clients_count--;
 		io.sockets.emit('client_disconnected', {userid: socket.userid});
 	});
-});
+}).set('log level', log_level);
