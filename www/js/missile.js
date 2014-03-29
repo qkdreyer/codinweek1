@@ -76,7 +76,7 @@ Missile.prototype.startAttack = function () {
         }
         missileStartY = this.parent.sprite.y;
 
-        this.sprite = game.add.sprite(missileStartX, missileStartY, 'star');
+        this.sprite = game.add.sprite(missileStartX, missileStartY, 'missile');
         game.physics.enable(this.sprite);
         this.sprite.body.bounce.y = 0.7;
         this.sprite.body.bounce.x = 0.6;

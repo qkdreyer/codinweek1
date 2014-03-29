@@ -25,7 +25,7 @@ function Player(x, y) {
     if (!x) x = 32;
     if (!y) y = 32;
 
-    this.sprite = game.add.sprite(x, y, 'dude');
+    this.sprite = game.add.sprite(x, y, 'player');
 }
 
 Player.prototype.init = function() {
