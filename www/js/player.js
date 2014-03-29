@@ -92,6 +92,9 @@ var player =
         }
 
         game.physics.arcade.collide(this.missileSprite, layer);
+        game.physics.arcade.collide(player.sprite, this.missileSprite, function(){
+            player.lostHp(100);
+        });
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
         {
