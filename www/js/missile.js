@@ -13,9 +13,13 @@ function Missile(parent){
     this.attackTimer = false;
 }
 
+Missile.prototype.doSync = function() {
+    return has_moved(this.sprite);
+}
+
 Missile.prototype.serialize = function() {
     if (!this.sprite) return {};
-    
+
     return {
         x: this.sprite.x,
         y: this.sprite.y

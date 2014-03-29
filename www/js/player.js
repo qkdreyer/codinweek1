@@ -61,19 +61,8 @@ Player.prototype.kill = function() {
     return this.sprite.kill();
 };
 
-Player.prototype.hasMoved = function() {
-    // Retrieves current player position
-    var x_int = (this.sprite.x + 0.5) | 0;
-    var y_int = (this.sprite.y + 0.5) | 0;
-
-    // Compare current to last player position
-    var has_moved = this.x_int != x_int || this.y_int != y_int;
-
-    // Updates last player position
-    this.x_int = x_int;
-    this.y_int = y_int;
-
-    return has_moved;
+Player.prototype.doSync = function() {
+    return has_moved(this.sprite) || this.missile.doSync();
 }
 
 Player.prototype.serialize = function() {

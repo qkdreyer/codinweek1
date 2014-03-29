@@ -88,7 +88,7 @@ function update() {
     player.update();
 
 
-    if (socket.io && player.hasMoved())
+    if (socket.io && player.doSync())
     {
         socket.sync(player);
     } 
