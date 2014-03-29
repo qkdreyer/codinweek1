@@ -92,7 +92,7 @@ var player =
         }
 
         game.physics.arcade.collide(this.missileSprite, layer);
-        game.physics.arcade.collide(player.sprite, this.missileSprite, function(){
+        game.physics.arcade.collide(this.sprite, this.missileSprite, function(){
             player.lostHp(100);
         });
 
@@ -101,13 +101,13 @@ var player =
             this.startAttack();
         }
 
-        if (player.isMissileActive)
+        if (this.isMissileActive)
         {
             this.attackMissileHandling();
         }
     },
 
-
+    //Lance un missile
     startAttack: function ()
     {
 
@@ -126,26 +126,24 @@ var player =
         this.isMissileActive = true;
     },
 
+    //Gère la vitesse du missile
     attackMissileHandling: function()
     {
-        //Réduction de la vitesse du missile
-        /*if (this.isMissileActive)
-        {*/
-            if (this.missileSprite.body.velocity.x > 0)
-            {
-                this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
-            }
-            else if (this.missileSprite.body.velocity.x < 0)
-            {
-                this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
-            }
-            else
-            {
-                //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-                this.missileSprite.kill();
-                this.isMissileActive = false;
-            }
-        //}
+
+        if (this.missileSprite.body.velocity.x > 0)
+        {
+            this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
+        }
+        else if (this.missileSprite.body.velocity.x < 0)
+        {
+            this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
+        }
+        else
+        {
+            //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
+            this.missileSprite.kill();
+            this.isMissileActive = false;
+        }
     }
 
 
