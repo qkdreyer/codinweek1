@@ -13,7 +13,7 @@ function Missile(parent){
     this.attackTimer = false;
 }
 
-Missile.prototype.serialyze = function() {
+Missile.prototype.serialize = function() {
     return {
         x: this.sprite.x,
         y: this.sprite.y
