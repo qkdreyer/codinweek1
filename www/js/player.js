@@ -12,7 +12,7 @@ function Player(x, y) {
     this.stats = {
         hp: 100,
         maxHp: 100,
-        distanceDamage: 20
+        missileDamage: 20
     };
     this.statusBar = {
         sprite: null,
