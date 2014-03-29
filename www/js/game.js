@@ -17,6 +17,7 @@ var scoreText;
 var score = 0;
 var player;
 var players = {};
+var ennemies = {};
 
 function create() {
 
@@ -47,7 +48,9 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
 	 
     //ENNEMIS
-    ennemy.init();
+    var ennemy = new Ennemy();
+    ennemy.init('baddie', 400, 170, 'left');
+    ennemies['baddie1'] = ennemy;
    
     // Start Client Connection to Server
     var socketResult = socket.init();
@@ -87,23 +90,27 @@ function update() {
 
     player.update();
 
+    for (var ennemyId in ennemies)
+	{ 
+		var ennemy = ennemies[ennemyId];
+	    if (ennemy.sprite.x > 410)
+	    {
+	    	ennemy.sprite.body.velocity.x = -100;
+	        ennemy.sprite.animations.play('left');
+	    }
+	 
+	    if (ennemy.sprite.x < 10)
+	    {
+	    	ennemy.sprite.body.velocity.x = 100;
+	        ennemy.sprite.animations.play('right');
+	    }
+	}
 
     if (socket.io && player.doSync())
     {
         socket.sync(player);
     } 
-     
-    if (ennemy.sprite.x > 410)
-    {
-        ennemy.sprite.body.velocity.x = -100;
-        ennemy.sprite.animations.play('left');
-    }
- 
-    if (ennemy.sprite.x < 10)
-    {
-        ennemy.sprite.body.velocity.x = 100;
-        ennemy.sprite.animations.play('right');
-    }
+    
 }
 
 function render() {

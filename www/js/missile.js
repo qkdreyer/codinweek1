@@ -118,4 +118,6 @@ Missile.prototype.attackMissileHandling = function() {
         //console.log('!!! OUT OF MAP !!!');
     }
 
+    //console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
+
 };
