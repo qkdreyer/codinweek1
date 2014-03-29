@@ -18,7 +18,11 @@ Missile.prototype.update = function(){
     game.physics.arcade.collide(this.sprite, layer);
     for (var p in players){
         game.physics.arcade.collide(players[p].sprite, this.sprite, function(){
-            if (!self.attackTimer) players[p].lostHp(20);
+            console.log('collide');
+            if (!self.attackTimer){
+                console.log('here');
+                players[p].lostHp(players[p].stats.distanceDamage);
+            }
             self.setAttackTimer();
         });
     }
@@ -41,7 +45,7 @@ Missile.prototype.setAttackTimer = function(){
     this.attackTimer = true;
     setInterval(function(){
         self.attackTimer = false;
-    },1000);
+    },3000);
 };
 
     //Lance un missile
