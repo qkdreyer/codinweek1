@@ -43,5 +43,6 @@ var physics =
     update: function() {
         game.physics.arcade.collide(star, layer);
         game.physics.arcade.collide(player.sprite, layer);
+        player.sprite.body.velocity.x = 0;
     }
 };

@@ -46,7 +46,7 @@ function create() {
     //Adds a star
     //stars = game.add.group();
 
-    var starIsMoving = false;
+    starIsMoving = false;
 
     // Start Client Connection to Server
     socket.init();
@@ -56,7 +56,7 @@ function update() {
 
     physics.update();
 
-    player.sprite.body.velocity.x = 1;
+    
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
