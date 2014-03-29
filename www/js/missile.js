@@ -72,7 +72,6 @@ Missile.prototype.update = function(){
         });
     }
 
-
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
         this.startAttack();
