@@ -56,6 +56,14 @@ Player.prototype.init = function() {
     this.direction = 'right'
 };
 
+Player.prototype.kill = function() {
+    return this.sprite.kill();
+};
+
+Player.prototype.onSync = function() {
+
+};
+
 Player.prototype.lostHp = function(qtyHp) {
     this.stats.hp -= qtyHp;
     if (this.stats.hp <= 0) this.die();
