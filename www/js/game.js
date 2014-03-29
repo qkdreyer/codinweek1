@@ -25,7 +25,6 @@ function create() {
     //PHYSICS
     physics.init(mapInstance);
 
-    //layer.debug = true;
     layer.resizeWorld();
 
     //SPRITES

@@ -37,14 +37,12 @@ var physics =
         mapInstance.setCollision(14);
         // Overlap functions
         mapInstance.setTileIndexCallback(11, hitCoin, this);
-        mapInstance.setTileIndexCallback(12, hitMushroom, this);       
-        
+        mapInstance.setTileIndexCallback(12, hitMushroom, this);        
     },
 
     update: function() {
         
         game.physics.arcade.collide(player.sprite, layer);
-        game.physics.arcade.collide(ennemy.sprite, layer);
         player.sprite.body.velocity.x = 0;
 
     }

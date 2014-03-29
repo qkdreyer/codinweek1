@@ -93,7 +93,7 @@ Missile.prototype.attackMissileHandling = function() {
     else if (this.sprite.body.velocity.x === 0)
     {
         //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-        this.sprite.kill();
+        //this.sprite.kill();
         this.isMissileActive = false;
     }
 
