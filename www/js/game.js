@@ -18,7 +18,11 @@ var stars;
 var score = 0;
 var scoreText;
 
-function create_player(x, y) {
+function create_player(coordinates) {
+    var x = coordinates.x;
+    var y = coordinates.y;
+
+    console.log('creating player', x , y);
     // The player and its settings
     var player = game.add.sprite(x, y, 'dude');
 
@@ -68,7 +72,7 @@ function create() {
     ledge.body.immovable = true;
 
     // Create a Player
-    player = create_player(32, game.world.height - 150);
+    player = create_player({x: 32, y: game.world.height - 150});
 
     //  Finally some stars to collect
     stars = game.add.group();

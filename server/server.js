@@ -13,9 +13,9 @@ io.sockets.on('connection', function (socket) {
 	socket.userid = userid;
      
     //assigning client to userid
-    socket.emit('connection', {userid: userid});
-
+    socket.emit('connection', {userid: userid, clients: clients});
 	console.log('client connected', userid);
+
     //notifying other clients of client connection
     socket.broadcast.emit('client_connected', {userid: userid});
 
