@@ -48,6 +48,7 @@ var player =
         statusBarFrame.fixedToCamera = true;
         this.statusBar.sprite.fixedToCamera = true;
         //this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
+        this.direction = 'right'
     },
 
     add: function(coordinates) {

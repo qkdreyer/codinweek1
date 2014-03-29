@@ -59,18 +59,14 @@ var missile =
             if (this.parent.direction == 'left')
             {
                 missileVelocity = this.parent.velocity*-1;
-                missileStartX = this.parent.sprite.x;
-                missileStartY = this.parent.sprite.y;
+                missileStartX = this.parent.sprite.x - 30;
             }
             else if (this.parent.direction == 'right')
             {
                 missileVelocity = this.parent.velocity;
-                missileStartX = this.parent.sprite.x+20;
-                missileStartY = this.parent.sprite.y+20;
+                missileStartX = this.parent.sprite.x + 30;
             }
-
-            console.log(this.parent.direction);
-            console.log(missileVelocity);
+            missileStartY = this.parent.sprite.y;
 
             this.sprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.sprite);
@@ -95,11 +91,15 @@ var missile =
             this.sprite.body.velocity.x = parseInt(++this.sprite.body.velocity.x, 10);
         }
 
-        if (this.sprite.body.velocity.x === 0 || !map.contains(this.sprite.body))
+        if (this.sprite.body.velocity.x === 0)
         {
             //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
             this.sprite.kill();
             this.isMissileActive = false;
+        }
+
+        if (!map.contains(this.sprite.body)) {
+            console.log('!!! OUT OF MAP !!!');
         }
 
         console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
