@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/ennemies.js" afterPath="$PROJECT_DIR$/www/js/ennemies.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/missile.js" afterPath="$PROJECT_DIR$/www/js/missile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/player.js" afterPath="$PROJECT_DIR$/www/js/player.js" />
     </list>
@@ -42,10 +41,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="player.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="38" selection-start="3154" selection-end="3154" vertical-scroll-proportion="0.0">
+            <state line="30" column="1" selection-start="684" selection-end="684" vertical-scroll-proportion="0.3844011">
               <folding />
             </state>
           </provider>
@@ -90,7 +89,7 @@
       <file leaf-file-name="missile.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/missile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="4" selection-start="372" selection-end="397" vertical-scroll-proportion="0.0">
+            <state line="18" column="4" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc;n#Missile#0" expanded="false" />
               </folding>
@@ -98,10 +97,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ennemies.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ennemies.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="20" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.2803468">
+            <state line="76" column="20" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -128,8 +127,8 @@
         <option value="$PROJECT_DIR$/www/js/client.js" />
         <option value="$PROJECT_DIR$/www/js/game.js" />
         <option value="$PROJECT_DIR$/www/js/missile.js" />
-        <option value="$PROJECT_DIR$/www/js/player.js" />
         <option value="$PROJECT_DIR$/www/js/ennemies.js" />
+        <option value="$PROJECT_DIR$/www/js/player.js" />
       </list>
     </option>
   </component>
@@ -424,23 +423,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/missile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="4" selection-start="372" selection-end="397" vertical-scroll-proportion="0.0">
+        <state line="18" column="4" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!doc;n#Missile#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/player.js">
+    <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="38" selection-start="3154" selection-end="3154" vertical-scroll-proportion="0.0">
+        <state line="76" column="20" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
+    <entry file="file://$PROJECT_DIR$/www/js/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="20" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.2803468">
+        <state line="30" column="1" selection-start="684" selection-end="684" vertical-scroll-proportion="0.3844011">
           <folding />
         </state>
       </provider>

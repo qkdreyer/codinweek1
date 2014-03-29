@@ -25,7 +25,9 @@ function Player(x, y) {
     if (!y) y = 32;
 
     this.sprite = game.add.sprite(x, y, 'player');
+
     this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
+    this.sprite.anchor.setTo(0.5, 0.5);
 }
 
 Player.prototype.init = function() {

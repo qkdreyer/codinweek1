@@ -7,9 +7,13 @@
  */
 
 function Missile(parent){
-    this.sprite = game.add.sprite(0, 0, 'missile');
-    game.physics.enable(this.sprite);
-    this.sprite.visible = false;
+
+    this.missiles = game.add.group();
+    this.missiles.enableBody = true;
+    this.missiles.physicsBodyType = Phaser.Physics.ARCADE;
+    this.missiles.createMultiple(1, 'missile');
+    this.sprite = null;
+
     this.isActiveMissile = false;
     this.parent = parent;
     this.attackTimer = false;
@@ -24,8 +28,8 @@ Missile.prototype.render = function(missile_data) {
     if (!this.sprite) {
         this.sprite = game.add.sprite(missile_data.x, missile_data.y, 'missile');
     } else {
-        this.sprite.x = missile_data.x;
-        this.sprite.y = missile_data.y;
+        this.sprite.body.x = missile_data.x;
+        this.sprite.body.y = missile_data.y;
     }
 };
 
@@ -37,8 +41,8 @@ Missile.prototype.serialize = function() {
     if (!this.sprite) return null;
 
     return {
-        x: this.sprite.x,
-        y: this.sprite.y
+        x: this.sprite.body.x,
+        y: this.sprite.body.y
     };
 }
 var i =0;
@@ -86,8 +90,8 @@ Missile.prototype.setAttackTimer = function(){
     },3000);
 };
 
-    //Lance un missile
 Missile.prototype.startAttack = function () {
+
     //On ne peut lancer un nouveau missile que si aucun autre n'est en cours de déplacement
     if (!this.isMissileActive)
     {
@@ -105,14 +109,18 @@ Missile.prototype.startAttack = function () {
             missileVelocity = this.velocity;
             missileStartX = this.parent.sprite.x + 30;
         }
-        missileStartY = this.parent.sprite.y;
+        missileStartY = this.parent.sprite.y-20;
 
-        this.sprite.body.x = missileStartX;
-        this.sprite.body.y = missileStartY;
-        this.sprite.visible = true;
+        this.sprite = this.missiles.getFirstExists(false);
+
+        //Coordonnées du missile par rapport au joueur qui le lance
+        this.sprite.reset(missileStartX, missileStartY);
+        //Rebonds
         this.sprite.body.bounce.y = 0.7;
         this.sprite.body.bounce.x = 0.6;
+        //Vitesse
         this.sprite.body.velocity.x = missileVelocity;
+        //Gravité
         this.sprite.body.gravity.y = 100;
 
         this.isMissileActive = true;
@@ -129,17 +137,15 @@ Missile.prototype.attackMissileHandling = function() {
     {
         this.sprite.body.velocity.x = parseInt(++this.sprite.body.velocity.x, 10);
     }
-    else if (this.sprite.body.velocity.x === 0)
+    else
     {
-        //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-        //this.sprite.kill();
+        //Fin du déplacement : le missile disparait et on peut à nouveau en lancer un
+        this.sprite.kill();
         this.isMissileActive = false;
     }
 
     if (!map.contains(this.sprite.body)) {
         //console.log('!!! OUT OF MAP !!!');
     }
-
-    //console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
 
 };
