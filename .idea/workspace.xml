@@ -5,11 +5,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld-debug-unaligned.apk" afterPath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld-debug.apk" afterPath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld.ap_" afterPath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld.ap_.d" afterPath="$PROJECT_DIR$/platforms/android/ant-build/HelloWorld.ap_.d" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/index.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/control.js" afterPath="$PROJECT_DIR$/www/js/control.js" />
     </list>
     <ignored path="codinweek1.iws" />
@@ -60,7 +57,7 @@
       <file leaf-file-name="control.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/control.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="42" selection-start="435" selection-end="435" vertical-scroll-proportion="0.45506692">
+            <state line="20" column="40" selection-start="435" selection-end="435" vertical-scroll-proportion="0.45506692">
               <folding>
                 <element signature="e#0#157#0" expanded="false" />
               </folding>
@@ -439,7 +436,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/control.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="42" selection-start="435" selection-end="435" vertical-scroll-proportion="0.45506692">
+        <state line="20" column="40" selection-start="435" selection-end="435" vertical-scroll-proportion="0.45506692">
           <folding>
             <element signature="e#0#157#0" expanded="false" />
           </folding>

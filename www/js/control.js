@@ -16,9 +16,9 @@ var control =
         var self = this;
 
         // Create action buttons
-        this.buttons.enableBody = false;
         this.buttons = game.add.group();
         this.buttons.fixedToCamera = true;
+        this.buttons.enableBody = false;
 
         var upButton = this.buttons.create(20, game.height-40, 'star');
         var leftButton = this.buttons.create(0, game.height-20, 'star');
