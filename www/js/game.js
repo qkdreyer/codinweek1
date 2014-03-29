@@ -93,6 +93,8 @@ function update() {
     for (var ennemyId in ennemies)
 	{ 
 		var ennemy = ennemies[ennemyId];
+        if (!ennemy.sprite) continue;
+        
 	    if (ennemy.sprite.x > 410)
 	    {
 	    	ennemy.sprite.body.velocity.x = -100;

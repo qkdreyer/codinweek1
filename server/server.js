@@ -33,6 +33,29 @@ io.sockets.on('connection', function (socket) {
 		clients_count--;
 		io.sockets.emit('client_disconnected', {userid: socket.userid});
 	});
+
+	setInterval(function() {
+		// x:40-400, y: 160
+		server_data = {
+			0: [{
+				"id": 1,
+				"x": 100,
+				"y": 160,
+				"hp": 100,
+				"key": 'baddie'
+			},{
+				"id": 2,
+				"x": 400,
+				"y": 160,
+				"hp": 200,
+				"key": 'baddie'
+			}],
+			1: [{
+
+			}]
+		};
+		io.sockets.emit('server_data', server_data);
+	}, 10);
 });
 
 io.set('log level', log_level);

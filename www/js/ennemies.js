@@ -16,6 +16,19 @@ function Ennemy()
     this.velocity = 0;
 }
 
+Ennemy.handle_server_data = function(ennemies_data) {
+    for (var e in ennemies_data) {
+        var ennemy_data = ennemies_data[e];
+        var ennemy_id = ennemy_data.id;
+        
+        if (!ennemies[ennemy_id]) {
+            ennemies[ennemy_id] = new Ennemy();
+        }
+        //ennemies[ennemy_id].render();
+        //debugger;
+    }
+}
+
 //Liste des types d'ennemis existants, avec leurs propriétés 
 //(définissant les images utilisés dans le sprite, la vitesse de déplacement, la vitesse de changement d'image, les hp,
 //s'il est capable de tirer, et s'il vole)
