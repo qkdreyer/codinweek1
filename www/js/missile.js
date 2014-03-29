@@ -7,7 +7,9 @@
  */
 
 function Missile(parent){
-    this.sprite = null;
+    this.sprite = game.add.sprite(0, 0, 'missile');
+    game.physics.enable(this.sprite);
+    this.sprite.visible = false;
     this.isActiveMissile = false;
     this.parent = parent;
     this.attackTimer = false;
@@ -95,8 +97,9 @@ Missile.prototype.startAttack = function () {
         }
         missileStartY = this.parent.sprite.y;
 
-        this.sprite = game.add.sprite(missileStartX, missileStartY, 'missile');
-        game.physics.enable(this.sprite);
+        this.sprite.body.x = missileStartX;
+        this.sprite.body.y = missileStartY;
+        this.sprite.visible = true;
         this.sprite.body.bounce.y = 0.7;
         this.sprite.body.bounce.x = 0.6;
         this.sprite.body.velocity.x = missileVelocity;
@@ -119,7 +122,7 @@ Missile.prototype.attackMissileHandling = function() {
     else if (this.sprite.body.velocity.x === 0)
     {
         //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-        //this.sprite.kill();
+        this.sprite.kill();
         this.isMissileActive = false;
     }
 
