@@ -4,7 +4,8 @@ function Ennemy()
 {
 	this.sprite = null;
     this.stats = {
-        hp: 0,
+        maxHp: 0,
+        hp:0,
         power: 0
     };
     this.statusBar = {
@@ -15,6 +16,8 @@ function Ennemy()
     this.direction = null;
     this.attackTimer = false;
     this.velocity = 0;
+
+
 }
 
 Ennemy.handle_server_data = function(ennemies_data) {
@@ -45,9 +48,8 @@ var ennemyTypes = {
 Ennemy.prototype.init = function(ennemyType, x, y, direction) 
 {
     	 
-	
     this.sprite = game.add.sprite(x, y, ennemyType);
-    
+    this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 	
     //  Our two animations, walking left and right.
     this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
@@ -110,15 +112,53 @@ Ennemy.prototype.lostHp = function(qtyHp)
     {
     	this.die();
     }
-    //else  this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+    else
+    {
+        if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
+        {
+            this.miniStatus.setStyle({font: 'bold 13px Arial', fill: 'orange'});
+            this.miniStatus.y-=5;
+        }
+        else if (this.stats.hp <= this.stats.maxHp/2)
+        {
+            this.miniStatus.setStyle({font: 'bold 15px Arial', fill: 'red'});
+            this.miniStatus.y-=5;
+        }
+    }
+
 };
 
 
 Ennemy.prototype.die = function() 
 {
     this.stats.hp = 0;
+    this.miniStatus.text.kill();
     //this.statusBar.sprite.width = 0;
 	this.sprite.kill();
+};
+
+Ennemy.prototype.miniStatusBarPosition = function() {
+    this.miniStatus.x = this.sprite.x+10;
+    this.miniStatus.y = this.sprite.y-15;
+    this.miniStatus.text = this.stats.hp;
+};
+
+Ennemy.prototype.update = function()
+{
+
+    this.miniStatusBarPosition();
+
+    if (this.sprite.x > 410)
+    {
+        this.sprite.body.velocity.x = -100;
+        this.sprite.animations.play('left');
+    }
+ 
+    if (this.sprite.x < 10)
+    {
+        this.sprite.body.velocity.x = 100;
+        this.sprite.animations.play('right');
+    }
 };
 
 Ennemy.prototype.render = function(ennemy_data)
@@ -133,6 +173,7 @@ Ennemy.prototype.render = function(ennemy_data)
         this.sprite.y = ennemy_data.y;
     }
     this.hp = ennemy_data.hp;
+    this.miniStatus = player_data.miniStatus;
     
 };
 
