@@ -13,9 +13,11 @@ var control =
 
     initMoveButton: function()
     {
-        this.buttons = game.add.group();
         var self = this;
+
         // Create action buttons
+        this.buttons = game.add.group();
+        this.buttons.fixedToCamera = true;
         this.buttons.enableBody = false;
 
         var upButton = this.buttons.create(20, game.height-40, 'star');

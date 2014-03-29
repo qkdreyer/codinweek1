@@ -73,7 +73,7 @@ function create() {
 
     // Create a Player
     player = create_player({x: 32, y: game.world.height - 150});
-
+console.log("PLAYER OK");
     //  Finally some stars to collect
     stars = game.add.group();
 
