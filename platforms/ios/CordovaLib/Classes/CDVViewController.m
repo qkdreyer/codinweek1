@@ -520,7 +520,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return true;
 }
 
 - (NSUInteger)supportedInterfaceOrientations
