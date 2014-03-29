@@ -5,6 +5,8 @@ function preload() {
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     game.load.image('star', 'assets/star.png');
+    game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
+    game.load.image('statusBar', 'assets/players/statusbar.png');
 }
 
 var layer;
@@ -32,7 +34,7 @@ function create() {
     //COLLISIONS
 
     //SCORE
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 46, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     //CAMERA
     game.camera.follow(player.sprite);
@@ -54,9 +56,15 @@ function create() {
 
 function update() {
 
+    if (player.isDead()) {
+
+
+        return;
+    }
     physics.update();
 
     player.sprite.body.velocity.x = 1;
+
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
@@ -125,8 +133,6 @@ function update() {
     {
         player.sprite.animations.stop();
     }
-
-    player.statusBarPosition();
 
     if (socket.io) socket.sync(player.sprite);
 }

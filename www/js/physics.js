@@ -4,7 +4,7 @@
 function hitComestibleObject(sprite, tile, score) {
 
     tile.index = 1;
-    scoreText.text = 'Score: ' + score;
+    //scoreText.text = 'Score: ' + score;
 
     return false;
 
@@ -43,5 +43,8 @@ var physics =
     update: function() {
         game.physics.arcade.collide(star, layer);
         game.physics.arcade.collide(player.sprite, layer);
+        game.physics.arcade.collide(player.sprite, star, function(){
+            player.lostHp(100);
+        });
     }
 };

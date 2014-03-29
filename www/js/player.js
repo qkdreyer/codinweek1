@@ -11,9 +11,14 @@ var player =
 
     sprite: null,
     stats: {
-        hp: 0
+        hp: 0,
+        maxHp: 0
     },
-    statusBar: null,
+    statusBar: {
+        sprite: null,
+        maxWidth: 0
+    },
+    isActiveMissile: false,
 
     init: function(){
         this.sprite = game.add.sprite(32, 32, 'dude');
@@ -30,7 +35,18 @@ var player =
         this.sprite.body.collideWorldBounds = true;
 
         this.stats.hp = 100;
-        this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
+        this.stats.maxHp = this.stats.hp;
+
+        this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
+        var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
+        this.statusBar.maxWidth = 0.95*statusBarFrame.width;
+        this.statusBar.sprite.width = this.statusBar.maxWidth;
+
+        //statusBarFrame.width  => 100
+
+        statusBarFrame.fixedToCamera = true;
+        this.statusBar.sprite.fixedToCamera = true;
+        //this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
     },
 
     add: function(coordinates) {
@@ -45,6 +61,20 @@ var player =
 
     lostHp: function(qtyHp){
         this.stats.hp -= qtyHp;
+        if (this.stats.hp <= 0) this.die();
+        else this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+    },
+
+    isDead: function(){
+        return (this.stats.hp == 0);
+    },
+
+    die: function(){
+        this.stats.hp = 0;
+        this.statusBar.sprite.width = 0;
+        player.sprite.body.velocity.x = 0;
+        player.sprite.body.velocity.y = 0;
+        console.log('U DIE BITCH');
     },
 
     statusBarPosition: function(){
