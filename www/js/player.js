@@ -48,6 +48,7 @@ Player.prototype.init = function() {
     this.statusBar.sprite.width = this.statusBar.maxWidth;
     statusBarFrame.fixedToCamera = true;
     this.statusBar.sprite.fixedToCamera = true;
+    cursors = game.input.keyboard.createCursorKeys();
 };
 
 Player.prototype.render = function(player_data) {
@@ -124,6 +125,34 @@ Player.prototype.miniStatusBarPosition = function() {
 };
 
 Player.prototype.update = function() {
+    
+
+    if (cursors.up.isDown || control.moveButton == 'up')
+    {
+        if (player.sprite.body.onFloor())
+        {
+            player.sprite.body.velocity.y = -200;
+        }
+    }
+
+    if (cursors.left.isDown  || control.moveButton == 'left')
+    {
+        player.sprite.body.velocity.x = -150;
+        player.sprite.animations.play('left');
+        player.direction = 'left';
+    }
+    else if (cursors.right.isDown  || control.moveButton == 'right')
+    {
+        player.sprite.body.velocity.x = 150;
+        player.sprite.animations.play('right');
+        player.direction = 'right';
+    }
+    else
+    {
+        player.sprite.animations.stop();
+    }
+
+
     this.miniStatusBarPosition();
     if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
