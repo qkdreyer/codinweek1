@@ -57,10 +57,7 @@ function update() {
 
     physics.update();
 
-    player.sprite.body.velocity.x = 0;
-
-    
-    
+    player.sprite.body.velocity.x = 1;
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
@@ -74,7 +71,10 @@ function update() {
             //star = stars.create(player.x+20, player.y+20, 'star');
             star = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
             game.physics.enable(star);
-            star.body.velocity.x = 0;
+            //star.body.velocity.x = 1;
+            star.body.bounce.y = 0.7;
+            star.body.bounce.x = 0.6;
+            star.body.velocity.x = 300;
         }
                  
 
@@ -84,9 +84,23 @@ function update() {
 
     }
 
+    //Réduction de la vitesse
     if (starIsMoving)
     {
-        star.x+=0.5;
+        if (star.body.velocity.x > 0)
+        {
+            star.body.velocity.x--;
+        }
+        else if (star.body.velocity.x < 0)
+        {
+            star.body.velocity.x++;
+        }
+        else
+        {
+            console.log(star.body.velocity);
+            star.kill();
+        }
+
     }
 
 
