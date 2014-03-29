@@ -5,6 +5,7 @@ function preload() {
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     game.load.image('star', 'assets/star.png');
+    game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32); 
     game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
     game.load.image('statusBar', 'assets/players/statusbar.png');
 }
@@ -42,7 +43,11 @@ function create() {
     control.initMoveButton();
 
     cursors = game.input.keyboard.createCursorKeys();
-
+	 
+	     
+    //ENNEMIS
+    ennemy.init();
+   
     // Start Client Connection to Server
     socket.init();
 }
@@ -80,7 +85,17 @@ function update() {
 
     player.update();
 
+
     if (socket.io) socket.sync(player.sprite);
+     
+    if (ennemy.sprite.x > 410)
+    {
+    	ennemy.sprite.body.velocity.x = -85;
+    }
+    if (ennemy.sprite.x < 10)
+    {
+    	ennemy.sprite.body.velocity.x = 85;
+    }
 }
 
 function render() {

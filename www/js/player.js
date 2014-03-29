@@ -8,7 +8,6 @@
 
 var player =
 {
-
     sprite: null,
     stats: {
         hp: 0,
@@ -18,12 +17,11 @@ var player =
         sprite: null,
         maxWidth: 0
     },
-    isActiveMissile: false,
-    missileSprite: null,
+    missile: null,
     direction: null,
     velocity: 300,
 
-    init: function(){
+    init: function(){ 
         this.sprite = game.add.sprite(32, 32, 'dude');
 
         //  Our two animations, walking left and right.
@@ -45,7 +43,7 @@ var player =
         this.statusBar.maxWidth = 0.95*statusBarFrame.width;
         this.statusBar.sprite.width = this.statusBar.maxWidth;
 
-        //statusBarFrame.width  => 100
+        this.missile = missile.init(this);
 
         statusBarFrame.fixedToCamera = true;
         this.statusBar.sprite.fixedToCamera = true;
@@ -64,7 +62,10 @@ var player =
     lostHp: function(qtyHp){
         this.stats.hp -= qtyHp;
         if (this.stats.hp <= 0) this.die();
-        else this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        else {
+            console.log(this.stats.hp);
+            this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        }
     },
 
     isDead: function(){
@@ -86,19 +87,19 @@ var player =
         this.statusBar.text = this.stats.hp;
     },
 
-
     update: function()
     {
-        if (player.isDead()) 
+        if (player.isDead())
         {
             player.sprite.body.velocity.x = 0;
             return;
         }
 
-        game.physics.arcade.collide(this.missileSprite, layer);
-        game.physics.arcade.collide(this.sprite, this.missileSprite, function(){
+        game.physics.arcade.collide(this.missile.sprite, layer);
+        game.physics.arcade.collide(this.sprite, this.missile.sprite, function(){
             player.lostHp(100);
         });
+
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
         {
@@ -169,7 +170,9 @@ var player =
             //console.log("FIN DEPLACEMENT" , this.missileSprite.body.velocity.x, !map.contains(this.missileSprite.body), "coords :", this.missileSprite.body.x, " ", this.missileSprite.body.y);
         }
 
-    }
+        missile.update();
+    },
+
 
 
 }
