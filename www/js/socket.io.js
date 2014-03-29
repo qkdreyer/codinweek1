@@ -39,12 +39,15 @@
 			});
 
 			socket.on('client_moved', function(data) {
+				var player_id = data.userid;
+				var coordinates = data.userdata;
 				if (!players[data.userid]) {
-					var coordinates = data.userdata;
 					players[data.userid] = create_player(coordinates);
 				}
+				players[player_id].x = coordinates.x;
+				players[player_id].y = coordinates.y;
 				//players = merge(players, data);
-				console.log('client_moved', players);
+				console.log('client_moved', player_id, coordinates);
 			});
 		}
 	};
