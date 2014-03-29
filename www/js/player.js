@@ -62,7 +62,10 @@ var player =
     lostHp: function(qtyHp){
         this.stats.hp -= qtyHp;
         if (this.stats.hp <= 0) this.die();
-        else this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        else {
+            console.log(this.stats.hp);
+            this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        }
     },
 
     isDead: function(){
@@ -84,10 +87,9 @@ var player =
         this.statusBar.text = this.stats.hp;
     },
 
-
     update: function()
     {
-        if (player.isDead()) 
+        if (player.isDead())
         {
             return;
         }
