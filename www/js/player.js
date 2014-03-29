@@ -25,6 +25,7 @@ function Player(x, y) {
     if (!y) y = 32;
 
     this.sprite = game.add.sprite(x, y, 'player');
+    this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 }
 
 Player.prototype.init = function() {
@@ -97,16 +98,28 @@ Player.prototype.die = function() {
     endText.fixedToCamera = true;
 };
 
-Player.prototype.statusBarPosition = function() {
-    this.statusBar.x = this.sprite.x;
-    this.statusBar.y = this.sprite.y;
-    this.statusBar.text = this.stats.hp;
+Player.prototype.miniStatusBarPosition = function() {
+    this.miniStatus.x = this.sprite.x+5;
+    this.miniStatus.y = this.sprite.y;
+    this.miniStatus.text = this.stats.hp;
 };
 
 Player.prototype.update = function() {
+    this.miniStatusBarPosition();
     if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
         return;
+    }
+
+    for (var e in ennemies){
+        var self = this;
+        game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
+            if (!ennemies[e].attackTimer) {
+                console.log('ATTACK');
+                self.lostHp(20);
+            }
+            ennemies[e].setAttackTimer();
+        });
     }
 
     this.missile.update();
