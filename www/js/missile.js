@@ -12,6 +12,8 @@ function Missile(parent){
     this.missiles.enableBody = true;
     this.missiles.physicsBodyType = Phaser.Physics.ARCADE;
     this.missiles.createMultiple(1, 'missile');
+    this.missiles.setAll('anchor.x', 0.5);
+    this.missiles.setAll('anchor.y', 1);
     this.sprite = null;
 
     this.isActiveMissile = false;
@@ -28,8 +30,8 @@ Missile.prototype.render = function(missile_data) {
     if (!this.sprite) {
         this.sprite = game.add.sprite(missile_data.x, missile_data.y, 'missile');
     } else {
-        this.sprite.body.x = missile_data.x;
-        this.sprite.body.y = missile_data.y;
+        this.sprite.x = missile_data.x;
+        this.sprite.y = missile_data.y;
     }
 };
 
@@ -41,8 +43,8 @@ Missile.prototype.serialize = function() {
     if (!this.sprite) return null;
 
     return {
-        x: this.sprite.body.x,
-        y: this.sprite.body.y
+        x: this.sprite.x,
+        y: this.sprite.y
     };
 }
 var i =0;
@@ -102,14 +104,14 @@ Missile.prototype.startAttack = function () {
         if (this.parent.direction == 'left')
         {
             missileVelocity = this.velocity*-1;
-            missileStartX = this.parent.sprite.x - 30;
+            missileStartX = this.parent.sprite.x-10;
         }
         else if (this.parent.direction == 'right')
         {
             missileVelocity = this.velocity;
-            missileStartX = this.parent.sprite.x + 30;
+            missileStartX = this.parent.sprite.x+10;
         }
-        missileStartY = this.parent.sprite.y-20;
+        missileStartY = this.parent.sprite.y;
 
         this.sprite = this.missiles.getFirstExists(false);
 
