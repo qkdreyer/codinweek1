@@ -14,7 +14,7 @@ function Missile(parent){
 }
 
 Missile.prototype.doSync = function() {
-    return has_moved(this.sprite);
+    return this.sprite != null && has_moved(this.sprite);
 }
 
 Missile.prototype.serialize = function() {
