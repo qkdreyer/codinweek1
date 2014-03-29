@@ -124,7 +124,7 @@ function update() {
 
     player.statusBarPosition();
 
-    if (socket.io) socket.sync();
+    if (socket.io) socket.sync(player.sprite);
 }
 
 function render() {

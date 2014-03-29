@@ -45,7 +45,7 @@
 				var coordinates = data.userdata;
 				
 				if (!players[data.userid]) {
-					players[data.userid] = create_player(coordinates);
+					players[data.userid] = player.add(coordinates);
 				}
 				players[player_id].x = coordinates.x;
 				players[player_id].y = coordinates.y;
@@ -54,14 +54,16 @@
 			});
 		},
 
-		sync: function() {
+		sync: function(player) {
 			// Retrieves current player position
+
 			var x_int = parseInt(player.x, 10);
 			var y_int = parseInt(player.y, 10);
 
 			// Compare current to last player position
 			if ((player.x_int != x_int || player.y_int != y_int))
 			{
+				console.log("yes!");
 				// If it differs, notify server
 				socket.io.emit('client_moved', {x: player.x, y: player.y});
 			}
