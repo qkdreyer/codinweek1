@@ -46,5 +46,7 @@ var physics =
         game.physics.arcade.collide(player.sprite, star, function(){
             player.lostHp(100);
         });
+        player.sprite.body.velocity.x = 0;
+
     }
 };

@@ -48,7 +48,7 @@ function create() {
     //Adds a star
     //stars = game.add.group();
 
-    var starIsMoving = false;
+    starIsMoving = false;
 
     // Start Client Connection to Server
     socket.init();
@@ -63,16 +63,11 @@ function update() {
     }
     physics.update();
 
-    player.sprite.body.velocity.x = 1;
+    
 
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
-        /*if (starIsMoving)
-        {
-            star.kill();
-        }*/
-
         if (!starIsMoving)
         { 
             //star = stars.create(player.x+20, player.y+20, 'star');
@@ -82,6 +77,7 @@ function update() {
             star.body.bounce.y = 0.7;
             star.body.bounce.x = 0.6;
             star.body.velocity.x = 300;
+            star.body.gravity.y = 100;
         }
                  
 
@@ -96,18 +92,17 @@ function update() {
     {
         if (star.body.velocity.x > 0)
         {
-            star.body.velocity.x--;
+            star.body.velocity.x = parseInt(--star.body.velocity.x, 10);
         }
         else if (star.body.velocity.x < 0)
         {
-            star.body.velocity.x++;
+            star.body.velocity.x = parseInt(++star.body.velocity.x, 10);
         }
         else
         {
-            console.log(star.body.velocity);
             star.kill();
+            starIsMoving = false;
         }
-
     }
 
 

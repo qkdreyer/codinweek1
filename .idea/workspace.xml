@@ -2,8 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/assets/players/statusbar.png" afterPath="$PROJECT_DIR$/www/assets/players/statusbar.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/game.css" />
+      <change type="DELETED" beforePath="C:\wamp\www\codinweek1\www\js\index.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\codinweek1\www\js\test.multi.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\codinweek1\www\multi.html" afterPath="" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\js\phaser.min.js" afterPath="$PROJECT_DIR$/www/lib/phaser.min.js" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part1.html" afterPath="$PROJECT_DIR$/www/examples/part1.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part2.html" afterPath="$PROJECT_DIR$/www/examples/part2.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part3.html" afterPath="$PROJECT_DIR$/www/examples/part3.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part4.html" afterPath="$PROJECT_DIR$/www/examples/part4.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part5.html" afterPath="$PROJECT_DIR$/www/examples/part5.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part6.html" afterPath="$PROJECT_DIR$/www/examples/part6.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part7.html" afterPath="$PROJECT_DIR$/www/examples/part7.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part8.html" afterPath="$PROJECT_DIR$/www/examples/part8.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\part9.html" afterPath="$PROJECT_DIR$/www/examples/part9.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\spec.html" afterPath="$PROJECT_DIR$/www/examples/spec.html" />
+      <change type="MOVED" beforePath="C:\wamp\www\codinweek1\www\tutorial.html" afterPath="$PROJECT_DIR$/www/examples/tutorial.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/game.html" afterPath="$PROJECT_DIR$/www/game.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/client.js" afterPath="$PROJECT_DIR$/www/js/client.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/game.js" afterPath="$PROJECT_DIR$/www/js/game.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/physics.js" afterPath="$PROJECT_DIR$/www/js/physics.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/player.js" afterPath="$PROJECT_DIR$/www/js/player.js" />
@@ -53,10 +69,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="21" selection-start="332" selection-end="332" vertical-scroll-proportion="0.3616601">
+            <state line="21" column="0" selection-start="339" selection-end="339" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -65,16 +81,18 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="0" selection-start="1395" selection-end="1395" vertical-scroll-proportion="-6.24">
-              <folding />
+            <state line="56" column="0" selection-start="1342" selection-end="1342" vertical-scroll-proportion="-6.24">
+              <folding>
+                <marker date="1396110983700" expanded="true" signature="1400:1447" placeholder="/*...*/" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="physics.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="physics.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/physics.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="31" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.0">
+            <state line="44" column="58" selection-start="1233" selection-end="1233" vertical-scroll-proportion="0.6666667">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -85,7 +103,7 @@
       <file leaf-file-name="game.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/game.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="7" selection-start="46" selection-end="46" vertical-scroll-proportion="0.0">
+            <state line="3" column="7" selection-start="53" selection-end="53" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -108,9 +126,9 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/www/js/control.js" />
         <option value="$PROJECT_DIR$/www/game.html" />
-        <option value="$PROJECT_DIR$/www/js/physics.js" />
         <option value="$PROJECT_DIR$/www/js/game.js" />
         <option value="$PROJECT_DIR$/www/js/player.js" />
+        <option value="$PROJECT_DIR$/www/js/physics.js" />
       </list>
     </option>
   </component>
@@ -388,11 +406,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/multi.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.06036217" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="0" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0">
@@ -424,17 +437,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/game.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="7" selection-start="46" selection-end="46" vertical-scroll-proportion="0.0">
+        <state line="3" column="7" selection-start="53" selection-end="53" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.017208412">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -445,26 +449,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/physics.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="31" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="0" selection-start="1395" selection-end="1395" vertical-scroll-proportion="-6.24">
-          <folding />
+        <state line="56" column="0" selection-start="1342" selection-end="1342" vertical-scroll-proportion="-6.24">
+          <folding>
+            <marker date="1396110983700" expanded="true" signature="1400:1447" placeholder="/*...*/" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="21" selection-start="332" selection-end="332" vertical-scroll-proportion="0.3616601">
+        <state line="21" column="0" selection-start="339" selection-end="339" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/physics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="58" selection-start="1233" selection-end="1233" vertical-scroll-proportion="0.6666667">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
