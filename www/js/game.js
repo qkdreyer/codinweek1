@@ -60,11 +60,6 @@ function update() {
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
-        /*if (starIsMoving)
-        {
-            star.kill();
-        }*/
-
         if (!starIsMoving)
         { 
             //star = stars.create(player.x+20, player.y+20, 'star');
@@ -74,6 +69,7 @@ function update() {
             star.body.bounce.y = 0.7;
             star.body.bounce.x = 0.6;
             star.body.velocity.x = 300;
+            star.body.gravity.y = 100;
         }
                  
 
