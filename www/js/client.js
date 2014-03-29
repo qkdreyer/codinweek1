@@ -7,14 +7,14 @@
 		io: null,
 		init: function() {
 			if (typeof io === "undefined") return;
+			
 			console.log('Connecting to Server', url);
+			
 			var socket = io.connect(url);
 			exports.socket.io = socket;
 
 			// When current client is connected
 			socket.on('connection', function (data) {
-				console.log("SOCKET OK");
-				console.log('on connection', data, player);
 				player.userid = data.userid;
 				players[data.userid] = player;
 
@@ -27,10 +27,10 @@
 			});
 
 			// When another client is connected
-			socket.on('client_connected', function (data) {
+			/*socket.on('client_connected', function (data) {
 				console.log('client connected', data);
 				//TODO show client connected on map
-			});
+			});*/
 
 			// When current client id disconnected
 			socket.on('client_disconnected', function (data) {
@@ -42,13 +42,14 @@
 			socket.on('client_moved', function(data) {
 				var player_id = data.userid;
 				var coordinates = data.userdata;
+				
 				if (!players[data.userid]) {
 					players[data.userid] = create_player(coordinates);
 				}
 				players[player_id].x = coordinates.x;
 				players[player_id].y = coordinates.y;
-				//players = merge(players, data);
-				console.log('client_moved', player_id, coordinates);
+				
+				//console.log('client_moved', player_id, coordinates);
 			});
 		}
 	};
