@@ -1,38 +1,56 @@
-var user = {};
-var socket = io.connect('http://localhost:8200');
+(function(exports) {
 
-// When current client is connected
-socket.on('connection', function (data) {
-	console.log('on connection', data);
-	player.userid = data.userid;
-	players[data.userid] = player;
+	var port = 8200;
+	var url = location.origin + ":" + port;
+	
+	exports.socket = {
+		io: null,
+		init: function() {
+			if (typeof io === "undefined") return;
+			console.log('Connecting to Server', url);
+			var socket = io.connect(url);
+			exports.socket.io = socket;
 
-	// data.clients = hash of connected players
-	var connected_players = data.clients;
-	for (var id in connected_players) {
-		var coordinates = connected_players[id];
-		players[id] = create_player(coordinates);
-	}
-});
+			// When current client is connected
+			socket.on('connection', function (data) {
+				console.log("SOCKET OK");
+				console.log('on connection', data, player);
+				player.userid = data.userid;
+				players[data.userid] = player;
 
-// When another client is connected
-socket.on('client_connected', function (data) {
-	console.log('client connected', data);
-	//TODO show client connected on map
-});
+				// data.clients = hash of connected players
+				var connected_players = data.clients;
+				for (var id in connected_players) {
+					var coordinates = connected_players[id];
+					players[id] = create_player(coordinates);
+				}
+			});
 
-// When current client id disconnected
-socket.on('client_disconnected', function (data) {
-	console.log('client disconnected!', data);
-	players[data.userid].kill();
-	delete players[data.userid];
-});
+			// When another client is connected
+			socket.on('client_connected', function (data) {
+				console.log('client connected', data);
+				//TODO show client connected on map
+			});
 
-socket.on('client_moved', function(data) {
-	if (!players[data.userid]) {
-		var coordinates = data.userdata;
-		players[data.userid] = create_player(coordinates);
-	}
-	//players = merge(players, data);
-	console.log('client_moved', players);
-});
+			// When current client id disconnected
+			socket.on('client_disconnected', function (data) {
+				console.log('client disconnected!', data);
+				players[data.userid].kill();
+				delete players[data.userid];
+			});
+
+			socket.on('client_moved', function(data) {
+				var player_id = data.userid;
+				var coordinates = data.userdata;
+				if (!players[data.userid]) {
+					players[data.userid] = create_player(coordinates);
+				}
+				players[player_id].x = coordinates.x;
+				players[player_id].y = coordinates.y;
+				//players = merge(players, data);
+				console.log('client_moved', player_id, coordinates);
+			});
+		}
+	};
+
+})(window);

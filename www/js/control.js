@@ -1,10 +1,4 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: Soahar
- * Date: 29/03/14
- * Time: 10:27
- * To change this template use File | Settings | File Templates.
- */
+
 var control =
 {
 

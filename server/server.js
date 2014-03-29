@@ -6,15 +6,17 @@ var uuid = require('node-uuid');
 var util = require('util');
 
 var clients = {};
+var clients_count = 0;
 
 io.sockets.on('connection', function (socket) {
 	// generate unique userid
 	var userid = uuid();
 	socket.userid = userid;
+	clients_count++;
      
     //assigning client to userid
     socket.emit('connection', {userid: userid, clients: clients});
-	console.log('client connected', userid);
+	console.log('client connected', userid, clients_count);
 
     //notifying other clients of client connection
     socket.broadcast.emit('client_connected', {userid: userid});
@@ -33,8 +35,9 @@ io.sockets.on('connection', function (socket) {
 	})*/
 
 	socket.on('disconnect', function () {
-		console.log('client disconnected', socket.userid);
+		console.log('client disconnected', socket.userid, clients_count);
 		delete clients[socket.userid];
+		clients_count--;
 		io.sockets.emit('client_disconnected', {userid: socket.userid});
 	});
 });

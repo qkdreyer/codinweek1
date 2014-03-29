@@ -18,7 +18,7 @@ var stars;
 var score = 0;
 var scoreText;
 
-function create_player(coordinates) {
+function create_player(coordinates, enable_engine) {
     var x = coordinates.x;
     var y = coordinates.y;
 
@@ -26,17 +26,19 @@ function create_player(coordinates) {
     // The player and its settings
     var player = game.add.sprite(x, y, 'dude');
 
-    //  We need to enable physics on the player
-    game.physics.arcade.enable(player);
+    if (enable_engine) {
+        //  We need to enable physics on the player
+        game.physics.arcade.enable(player);
 
-    //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
-    player.body.collideWorldBounds = true;
+        //  Player physics properties. Give the little guy a slight bounce.
+        player.body.bounce.y = 0.2;
+        player.body.gravity.y = 300;
+        player.body.collideWorldBounds = true;
 
-    //  Our two animations, walking left and right.
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+        //  Our two animations, walking left and right.
+        player.animations.add('left', [0, 1, 2, 3], 10, true);
+        player.animations.add('right', [5, 6, 7, 8], 10, true);
+    }
 
     return player;
 }
@@ -72,7 +74,7 @@ function create() {
     ledge.body.immovable = true;
 
     // Create a Player
-    player = create_player({x: 32, y: game.world.height - 150});
+    player = create_player({x: 32, y: game.world.height - 150}, true);
 
     //  Finally some stars to collect
     stars = game.add.group();
@@ -99,13 +101,15 @@ function create() {
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
 
+    socket.init();
+    
     setInterval(function() {
         var x_int = parseInt(player.x, 10);
         var y_int = parseInt(player.y, 10);
 
-        if (socket && (player.x_int != x_int || player.y_int != player.y_int))
+        if (socket.io && (player.x_int != x_int || player.y_int != player.y_int))
         {
-            socket.emit('client_moved', {x: player.x, y: player.y});
+            socket.io.emit('client_moved', {x: player.x, y: player.y});
         }
         player.x_int = x_int;
         player.y_int = y_int;
