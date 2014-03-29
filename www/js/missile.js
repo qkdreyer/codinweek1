@@ -12,8 +12,6 @@ function Missile(parent){
     this.missiles.enableBody = true;
     this.missiles.physicsBodyType = Phaser.Physics.ARCADE;
     this.missiles.createMultiple(1, 'missile');
-    //this.missiles.setAll('anchor.x', 0.5);
-    //this.missiles.setAll('anchor.y', 1);
     this.sprite = null;
 
     this.isActiveMissile = false;

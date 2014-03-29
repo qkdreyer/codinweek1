@@ -94,10 +94,12 @@ Player.prototype.lostHp = function(qtyHp) {
         if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
         {
             this.miniStatus.setStyle({font: 'bold 13px Arial', fill: 'orange'});
+            this.miniStatus.y-=5;
         }
         else if (this.stats.hp <= this.stats.maxHp/2)
         {
             this.miniStatus.setStyle({font: 'bold 15px Arial', fill: 'red'});
+            this.miniStatus.y-=5;
         }
 
     }
@@ -116,8 +118,8 @@ Player.prototype.die = function() {
 };
 
 Player.prototype.miniStatusBarPosition = function() {
-    this.miniStatus.x = this.sprite.x;
-    this.miniStatus.y = this.sprite.y;
+    this.miniStatus.x = this.sprite.x+5;
+    this.miniStatus.y = this.sprite.y-5;
     this.miniStatus.text = this.stats.hp;
 };
 
