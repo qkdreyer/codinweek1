@@ -12,7 +12,8 @@ function Player(x, y) {
     this.stats = {
         hp: 100,
         maxHp: 100,
-        missileDamage: 20
+        missileDamage: 20,
+        fightDamage: 10
     };
     this.statusBar = {
         sprite: null,
@@ -25,9 +26,7 @@ function Player(x, y) {
     if (!y) y = 32;
 
     this.sprite = game.add.sprite(x, y, 'player');
-
     this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
-    this.sprite.anchor.setTo(0.5, 0.5);
 }
 
 Player.prototype.init = function() {
@@ -84,8 +83,24 @@ Player.prototype.serialize = function() {
 
 Player.prototype.lostHp = function(qtyHp) {
     this.stats.hp -= qtyHp;
-    if (this.stats.hp <= 0) this.die();
-    else  this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+    if (this.stats.hp <= 0) 
+    {
+        this.die();
+    }
+    else  
+    {
+        this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+
+        if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
+        {
+            this.miniStatus.setStyle({font: 'bold 13px Arial', fill: 'orange'});
+        }
+        else if (this.stats.hp <= this.stats.maxHp/2)
+        {
+            this.miniStatus.setStyle({font: 'bold 15px Arial', fill: 'red'});
+        }
+
+    }
 };
 
 Player.prototype.isDead = function() {
@@ -127,3 +142,5 @@ Player.prototype.update = function() {
 
     this.missile.update();
 };
+
+Player.prototype.fight = function () {}
