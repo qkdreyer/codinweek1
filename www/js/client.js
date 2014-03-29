@@ -41,37 +41,23 @@
 				delete players[data.userid];
 			});
 
-			socket.on('client_moved', function(data) {
-				var player_id = data.userid;
-				var coordinates = data.userdata;
+			socket.on('client_moved', function(player_data) {
+				var player_id = player_data.id;
 				
-				if (!players[data.userid]) {
-					players[data.userid] = new Player(coordinates.x, coordinates.y);
+				if (!players[player_id]) {
+					players[player_id] = new Player(player_data.x, player_data.y);
 				}
-				players[player_id].render(coordinates);
+				players[player_id].render(player_data);
 				
-				console.log('anoter_player_moved', player_id, coordinates);
+				console.log('another_player_moved', player_id, player_data);
 			});
             return true;
 		},
 
 		sync: function(player) {
-
-			// Retrieves current player position
-			var x_int = (player.x + 0.5) | 0;
-			var y_int = (player.y + 0.5) | 0;
-
-			// Compare current to last player position
-			if ((player.x_int != x_int || player.y_int != y_int))
-			{
-				// If it differs, notify server
-				socket.io.emit('client_moved', {x: player.x, y: player.y});
-				console.log("player_moved", player.x_int, x_int, player.y_int, y_int);
-			}
-
-			// Updates last player position
-			player.x_int = x_int;
-			player.y_int = y_int;			
+			var player_data = player.serialize();
+			socket.io.emit('client_moved', player_data);
+			console.log("player_moved", player.x_int, player.y_int, player_data);
 		}
 	};
 

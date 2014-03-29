@@ -46,7 +46,6 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
 	 
-	     
     //ENNEMIS
     ennemy.init();
    
@@ -89,17 +88,20 @@ function update() {
     player.update();
 
 
-    if (socket.io) socket.sync(player.sprite);
+    if (socket.io && player.hasMoved())
+    {
+        socket.sync(player);
+    } 
      
     if (ennemy.sprite.x > 410)
     {
-    	ennemy.sprite.body.velocity.x = -100;
+        ennemy.sprite.body.velocity.x = -100;
         ennemy.sprite.animations.play('left');
     }
  
     if (ennemy.sprite.x < 10)
     {
-    	ennemy.sprite.body.velocity.x = 100;
+        ennemy.sprite.body.velocity.x = 100;
         ennemy.sprite.animations.play('right');
     }
 }
