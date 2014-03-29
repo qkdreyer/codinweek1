@@ -18,7 +18,7 @@ function Player(x, y) {
         sprite: null,
         maxWidth: 0
     };
-    this.missile = null;
+    this.missile = new Missile(this);
     this.direction = 'right';
     this.velocity = 300;
 
@@ -41,8 +41,6 @@ Player.prototype.init = function() {
     //Don't leave the world zone when collides
     this.sprite.body.collideWorldBounds = true;
 
-    this.missile = new Missile(this);
-
     this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
     var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
     this.statusBar.maxWidth = 0.95*statusBarFrame.width;
@@ -57,8 +55,9 @@ Player.prototype.render = function(player_data) {
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
 
+
     if (player_data.missile) {
-        console.log('misssile X', player_data.missile.x);
+        this.missile.render(player_data.missile);
     }
 };
 
@@ -69,7 +68,7 @@ Player.prototype.kill = function() {
 
 Player.prototype.doSync = function() {
     return has_moved(this.sprite) || this.missile.doSync();
-}
+};
 
 Player.prototype.serialize = function() {
     return {

@@ -17,6 +17,15 @@ Missile.prototype.kill = function() {
     this.sprite.kill();
 }
 
+Missile.prototype.render = function(missile_data) {
+    if (!this.sprite) {
+        this.sprite = game.add.sprite(missile_data.x, missile_data.y, 'missile');
+    } else {
+        this.sprite.x = missile_data.x;
+        this.sprite.y = missile_data.y;
+    }
+};
+
 Missile.prototype.doSync = function() {
     return this.sprite != null && has_moved(this.sprite);
 }
