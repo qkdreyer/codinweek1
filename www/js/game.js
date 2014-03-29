@@ -14,6 +14,7 @@ var layer;
 var cursors;
 var scoreText;
 var score = 0;
+var player;
 var players = {};
 
 function create() {
@@ -28,6 +29,7 @@ function create() {
     layer.resizeWorld();
 
     //SPRITES
+    player = new Player();
     player.init();
 
     //COLLISIONS
