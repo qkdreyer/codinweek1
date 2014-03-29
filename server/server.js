@@ -33,29 +33,49 @@ io.sockets.on('connection', function (socket) {
 		clients_count--;
 		io.sockets.emit('client_disconnected', {userid: socket.userid});
 	});
-
-	setInterval(function() {
-		// x:40-400, y: 160
-		server_data = {
-			0: [{
-				"id": 1,
-				"x": 100,
-				"y": 180,
-				"hp": 100,
-				"key": 'baddie'
-			},{
-				"id": 2,
-				"x": 400,
-				"y": 180,
-				"hp": 200,
-				"key": 'baddie'
-			}],
-			1: [{
-
-			}]
-		};
-		io.sockets.emit('server_data', server_data);
-	}, 10);
 });
 
 io.set('log level', log_level);
+
+var game_loop = 0;
+// x:40-400, y: 160
+var ennemies_data = [{
+	"id": 1,
+	"x": 100,
+	"y": 180,
+	"hp": 100,
+	"key": 'baddie'
+}, {
+	"id": 2,
+	"x": 400,
+	"y": 180,
+	"hp": 200,
+	"key": 'baddie'
+}];
+var other_data = [];
+
+generate_ennemy_data = function(ennemy_data) {
+	if (ennemy_data.x > 0)
+		ennemy_data.x -= 1;
+	else 
+		ennemy_data.x += 1;
+
+	return ennemy_data;
+}
+	
+generate_server_data = function() {
+
+	for (var e in ennemies_data) {
+		var ennemy_data = ennemies_data[e];
+		ennemies_data[e] = generate_ennemy_data(ennemy_data);
+		console.log(ennemies_data[e].id, ennemies_data[e].x);
+	}
+
+	var server_data = {};
+	server_data[0] = ennemies_data;
+	server_data[1] = other_data;
+
+	io.sockets.emit('server_data', server_data);
+}
+
+setInterval(generate_server_data, 50);
