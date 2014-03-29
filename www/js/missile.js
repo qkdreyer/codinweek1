@@ -50,9 +50,6 @@ var missile =
                 missileStartY = this.parent.sprite.y+20;
             }
 
-            console.log(this.parent.direction);
-            console.log(missileVelocity);
-
             this.sprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.sprite);
             this.sprite.body.bounce.y = 0.7;
@@ -86,6 +83,5 @@ var missile =
             this.isMissileActive = false;
         }
 
-        console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
     }
 }
