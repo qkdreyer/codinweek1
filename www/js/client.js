@@ -48,10 +48,9 @@
 				if (!players[data.userid]) {
 					players[data.userid] = new Player(coordinates.x, coordinates.y);
 				}
-				players[player_id].x = coordinates.x;
-				players[player_id].y = coordinates.y;
+				players[player_id].render(coordinates);
 				
-				//console.log('client_moved', player_id, coordinates);
+				console.log('anoter_player_moved', player_id, coordinates);
 			});
             return true;
 		},
@@ -67,6 +66,7 @@
 			{
 				// If it differs, notify server
 				socket.io.emit('client_moved', {x: player.x, y: player.y});
+				console.log("player_moved", player.x, player.y);
 			}
 
 			// Updates last player position

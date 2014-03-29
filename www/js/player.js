@@ -56,6 +56,11 @@ Player.prototype.init = function() {
     this.direction = 'right'
 };
 
+Player.prototype.render = function(coordinates) {
+    this.sprite.x = coordinates.x;
+    this.sprite.y = coordinates.y;
+};
+
 Player.prototype.kill = function() {
     return this.sprite.kill();
 };
@@ -66,8 +71,9 @@ Player.prototype.onSync = function() {
 
 Player.prototype.lostHp = function(qtyHp) {
     this.stats.hp -= qtyHp;
-    if (this.stats.hp <= 0) this.die();
-    else {
+    if (this.stats.hp <= 0) {
+        this.die();
+    } else {
         console.log(this.stats.hp);
         this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
     }
