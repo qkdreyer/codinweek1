@@ -91,6 +91,7 @@ var player =
     {
         if (player.isDead()) 
         {
+            player.sprite.body.velocity.x = 0;
             return;
         }
 
@@ -135,6 +136,7 @@ var player =
             }
 
             console.log(this.direction);
+            console.log(missileVelocity);
 
             this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.missileSprite);
@@ -142,10 +144,12 @@ var player =
             this.missileSprite.body.bounce.x = 0.6;
             this.missileSprite.body.velocity.x = missileVelocity;
             this.missileSprite.body.gravity.y = 100;
+
+            this.isMissileActive = true;
         }
                  
 
-        this.isMissileActive = true;
+        
     },
 
     //Gère la vitesse du missile
@@ -166,6 +170,8 @@ var player =
             this.missileSprite.kill();
             this.isMissileActive = false;
         }
+
+        console.log("REDUCTION DE LA VITESSE : " + this.missileSprite.body.velocity.x);
     }
 
 
