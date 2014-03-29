@@ -8,11 +8,12 @@
 var control =
 {
 
-    moveButton: null,
+    moveButton: '',
     buttons: null,
 
     initMoveButton: function()
     {
+        this.buttons = game.add.group();
         var self = this;
         // Create action buttons
         this.buttons.enableBody = false;
