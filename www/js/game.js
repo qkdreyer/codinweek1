@@ -13,6 +13,7 @@ var scoreText;
 var score = 0;
 var starIsMoving;
 var star;
+var players = {};
 
 function create() {
 
@@ -114,7 +115,7 @@ function update() {
 
     player.statusBarPosition();
 
-    if (socket.io) client.sync();
+    if (socket.io) socket.sync();
 }
 
 function render() {
