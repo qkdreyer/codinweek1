@@ -13,8 +13,6 @@ var layer;
 var cursors;
 var scoreText;
 var score = 0;
-var starIsMoving;
-var star;
 var players = {};
 
 function create() {
@@ -44,11 +42,6 @@ function create() {
     control.initMoveButton();
 
     cursors = game.input.keyboard.createCursorKeys();
-
-    //Adds a star
-    //stars = game.add.group();
-
-    starIsMoving = false;
 
     // Start Client Connection to Server
     socket.init();
