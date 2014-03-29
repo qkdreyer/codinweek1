@@ -58,7 +58,6 @@ Player.prototype.render = function(player_data) {
     this.stats.hp = player_data.hp;
     this.miniStatus = player_data.miniStatus;
 
-
     if (player_data.missile) {
         this.missile.render(player_data.missile);
     }
@@ -102,7 +101,7 @@ Player.prototype.die = function() {
 };
 
 Player.prototype.miniStatusBarPosition = function() {
-    this.miniStatus.x = this.sprite.x+5;
+    this.miniStatus.x = this.sprite.x;
     this.miniStatus.y = this.sprite.y;
     this.miniStatus.text = this.stats.hp;
 };
@@ -118,8 +117,9 @@ Player.prototype.update = function() {
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
             if (!ennemies[e].attackTimer) {
-                console.log('ATTACK');
                 self.lostHp(20);
+                var angle = touchingEvent(ennemies[e].sprite);
+                //socket.io.emit('playerHit', {ennemyId: e, angle: angle});
             }
             ennemies[e].setAttackTimer();
         });
