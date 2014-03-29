@@ -134,8 +134,6 @@ var player =
                 var missileStartY = this.sprite.y+20;
             }
 
-            console.log(missileStartX);
-
             this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.missileSprite);
             this.missileSprite.body.bounce.y = 0.7;
