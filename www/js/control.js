@@ -13,6 +13,7 @@ var control =
 
     initMoveButton: function()
     {
+        this.buttons = game.add.group();
         var self = this;
         // Create action buttons
         this.buttons.enableBody = false;
