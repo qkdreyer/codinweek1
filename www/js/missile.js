@@ -74,8 +74,7 @@ var missile =
         {
             this.sprite.body.velocity.x = parseInt(++this.sprite.body.velocity.x, 10);
         }
-
-        if (this.sprite.body.velocity.x === 0)
+        else if (this.sprite.body.velocity.x === 0)
         {
             //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
             this.sprite.kill();
@@ -83,9 +82,9 @@ var missile =
         }
 
         if (!map.contains(this.sprite.body)) {
-            console.log('!!! OUT OF MAP !!!');
+            //console.log('!!! OUT OF MAP !!!');
         }
 
-        console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
+        //console.log("REDUCTION DE LA VITESSE : " + this.sprite.body.velocity.x);
     }
 }
