@@ -84,18 +84,17 @@ function update() {
     {
         if (star.body.velocity.x > 0)
         {
-            star.body.velocity.x--;
+            star.body.velocity.x = parseInt(--star.body.velocity.x, 10);
         }
         else if (star.body.velocity.x < 0)
         {
-            star.body.velocity.x++;
+            star.body.velocity.x = parseInt(++star.body.velocity.x, 10);
         }
         else
         {
-            console.log(star.body.velocity);
             star.kill();
+            starIsMoving = false;
         }
-
     }
 
 
