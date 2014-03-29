@@ -7,17 +7,20 @@ var control =
 
     initMoveButton: function()
     {
+        const CONTROL_BUTTON_X = 20;
+        const CONTROL_BUTTON_Y = game.height-20;
+
         var self = this;
 
         // Create action buttons
-        this.buttons = game.add.group();
+        this.buttons = game.add.group(); // Create group placed on 10/10 in the world.
         this.buttons.fixedToCamera = true;
         this.buttons.enableBody = false;
-
-        var upButton = this.buttons.create(20, game.height-40, 'star');
-        var leftButton = this.buttons.create(0, game.height-20, 'star');
-        var rightButton = this.buttons.create(40, game.height-20, 'star');
-
+        this.buttons.x = CONTROL_BUTTON_X;
+        this.buttons.y = CONTROL_BUTTON_Y;
+        var upButton = this.buttons.create(this.buttons.x+25, this.buttons.y-50, 'star');
+        var leftButton = this.buttons.create(this.buttons.x, this.buttons.y-25, 'star');
+        var rightButton = this.buttons.create(this.buttons.x+50, this.buttons.y-25, 'star');
         upButton.inputEnabled = true;
         upButton.events.onInputDown.add(function(){
             self.moveButton = 'up';
@@ -39,6 +42,5 @@ var control =
         upButton.events.onInputUp.add(function(){
             self.moveButton = '';
         });
-
     }
 };
