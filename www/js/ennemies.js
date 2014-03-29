@@ -20,6 +20,18 @@ function Ennemy()
 
 }
 
+Ennemy.handle_server_data = function(ennemies_data) {
+    for (var e in ennemies_data) {
+        var ennemy_data = ennemies_data[e];
+        var ennemy_id = ennemy_data.id;
+        
+        if (!ennemies[ennemy_id]) {
+            ennemies[ennemy_id] = new Ennemy();
+        }
+        ennemies[ennemy_id].render(ennemy_data);
+    }
+}
+
 //Liste des types d'ennemis existants, avec leurs propriétés 
 //(définissant les images utilisés dans le sprite, la vitesse de déplacement, la vitesse de changement d'image, les hp,
 //s'il est capable de tirer, et s'il vole)
@@ -151,7 +163,6 @@ Ennemy.prototype.update = function()
 
 Ennemy.prototype.render = function(ennemy_data)
 {
- 
     if (!this.sprite) 
     {
         this.sprite = game.add.sprite(ennemy_data.x, ennemy_data.y, ennemy_data.key);

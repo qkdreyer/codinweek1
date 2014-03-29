@@ -44,7 +44,7 @@ Player.prototype.init = function() {
 
     this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
     var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
-    this.statusBar.maxWidth = 0.95*statusBarFrame.width;
+    this.statusBar.maxWidth = 0.90*statusBarFrame.width;
     this.statusBar.sprite.width = this.statusBar.maxWidth;
     statusBarFrame.fixedToCamera = true;
     this.statusBar.sprite.fixedToCamera = true;
@@ -136,7 +136,7 @@ Player.prototype.update = function() {
             if (!ennemies[e].attackTimer) {
                 self.lostHp(20);
                 var angle = touchingEvent(ennemies[e].sprite);
-                //socket.io.emit('playerHit', {ennemyId: e, angle: angle});
+                socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
             }
             ennemies[e].setAttackTimer();
         });
