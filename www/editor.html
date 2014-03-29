@@ -20,7 +20,7 @@ var game = new Phaser.Game(1024, 320, Phaser.CANVAS, 'phaser-example', { preload
 
 function preload() {
 
-    game.load.tilemap('mario', 'assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('mario', 'assets/tilemaps/maps/map.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.image('player', 'assets/sprites/phaser-dude.png');
 
@@ -59,6 +59,12 @@ function create() {
     currentTile = map.getTile(2, 3);
 
     layer.resizeWorld();
+
+    // Save data to the current session's store
+/*sessionStorage.setItem("username", "John");
+
+// Access some stored data
+alert( "username = " + sessionStorage.getItem("username"));*/
 
 }
 
