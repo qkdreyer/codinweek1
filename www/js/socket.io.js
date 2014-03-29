@@ -1,5 +1,6 @@
+var user = {};
 var socket = io.connect('http://localhost:8200');
-socket.on('news', function (data) {
-	console.log(data);
-	socket.emit('my other event', { my: 'data' });
+socket.on('onconnected', function (data) {
+	user.userid = data.id
+	socket.emit('message', { text: 'hello server' });
 });
