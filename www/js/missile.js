@@ -13,6 +13,13 @@ function Missile(parent){
     this.attackTimer = false;
 }
 
+Missile.prototype.serialyze = function() {
+    return {
+        x: this.sprite.x,
+        y: this.sprite.y
+    };
+}
+
 Missile.prototype.update = function(){
     var self = this;
     game.physics.arcade.collide(this.sprite, layer);

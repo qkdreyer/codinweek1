@@ -81,7 +81,8 @@ Player.prototype.serialize = function() {
         id: this.userid,
         x: this.sprite.x,
         y: this.sprite.y,
-        hp: this.stats.hp
+        hp: this.stats.hp,
+        missile: this.missile.serialize()
     };
 };
 
