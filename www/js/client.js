@@ -56,17 +56,17 @@
 		},
 
 		sync: function(player) {
-			// Retrieves current player position
 
-			var x_int = parseInt(player.x, 10);
-			var y_int = parseInt(player.y, 10);
+			// Retrieves current player position
+			var x_int = (player.x + 0.5) | 0;
+			var y_int = (player.y + 0.5) | 0;
 
 			// Compare current to last player position
 			if ((player.x_int != x_int || player.y_int != y_int))
 			{
 				// If it differs, notify server
 				socket.io.emit('client_moved', {x: player.x, y: player.y});
-				console.log("player_moved", player.x, player.y);
+				console.log("player_moved", player.x_int, x_int, player.y_int, y_int);
 			}
 
 			// Updates last player position
