@@ -73,7 +73,7 @@ function create() {
 
     // Create a Player
     player = create_player({x: 32, y: game.world.height - 150});
-
+console.log("PLAYER OK");
     //  Finally some stars to collect
     stars = game.add.group();
 
@@ -98,12 +98,12 @@ function create() {
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
-
+    
     setInterval(function() {
         var x_int = parseInt(player.x, 10);
         var y_int = parseInt(player.y, 10);
 
-        if (socket && (player.x_int != x_int || player.y_int != player.y_int))
+        if (typeof socket != "undefined" && (player.x_int != x_int || player.y_int != player.y_int))
         {
             socket.emit('client_moved', {x: player.x, y: player.y});
         }
