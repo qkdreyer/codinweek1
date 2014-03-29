@@ -123,15 +123,15 @@ var player =
 
             if (this.direction == 'left')
             {
-                var missileVelocity = this.velocity*-1;
-                var missileStartX = this.sprite.x;
-                var missileStartY = this.sprite.y;
+                missileVelocity = this.velocity*-1;
+                missileStartX = this.sprite.x;
+                missileStartY = this.sprite.y;
             }
             else if (this.direction == 'right')
             {
-                var missileVelocity = this.velocity;
-                var missileStartX = this.sprite.x+20;
-                var missileStartY = this.sprite.y+20;
+                missileVelocity = this.velocity;
+                missileStartX = this.sprite.x+20;
+                missileStartY = this.sprite.y+20;
             }
 
             console.log(this.direction);
