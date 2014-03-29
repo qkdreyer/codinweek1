@@ -44,7 +44,7 @@ Player.prototype.init = function() {
 
     this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
     var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
-    this.statusBar.maxWidth = 0.95*statusBarFrame.width;
+    this.statusBar.maxWidth = 0.90*statusBarFrame.width;
     this.statusBar.sprite.width = this.statusBar.maxWidth;
     statusBarFrame.fixedToCamera = true;
     this.statusBar.sprite.fixedToCamera = true;
