@@ -46,6 +46,7 @@ var physics =
         
         game.physics.arcade.collide(player.sprite, layer);
         game.physics.arcade.collide(ennemies['baddie1'].sprite, layer);
+        game.physics.arcade.collide(ennemies['dragon1'].sprite, layer);
         player.sprite.body.velocity.x = 0;
 
     }
