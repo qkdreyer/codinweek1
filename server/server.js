@@ -33,6 +33,10 @@ io.sockets.on('connection', function (socket) {
 		clients_count--;
 		io.sockets.emit('client_disconnected', {userid: socket.userid});
 	});
+
+	socket.on('playerHit', handle_ennemy_collision);
+
+	socket.on('missileHit', handle_ennemy_hit);
 });
 
 io.set('log level', log_level);
@@ -54,8 +58,20 @@ var ennemies_data = [{
 }];
 var other_data = [];
 
-generate_ennemy_data = function(ennemy_data) {
-	if (ennemy_data.dir = 1) {
+var handle_ennemy_collision = function(collision_data) {
+	var ennemy_id = collision_data.ennemy_id;
+	var angle = collision_data.angle;
+};
+
+var handle_ennemy_hit = function(hit_data) {
+	var ennemy_id = hit_data.ennemy_id;
+	var damage = hit_data.damage;
+
+	ennemies_data[ennemy_id].hp -= damage;
+};
+
+var generate_ennemy_data = function(ennemy_data) {
+	if (ennemy_data.dir == 1) {
 		ennemy_data.x += 1;
 	} else {
 		ennemy_data.x -= 1;
@@ -70,7 +86,7 @@ generate_ennemy_data = function(ennemy_data) {
 	return ennemy_data;
 }
 	
-generate_server_data = function() {
+var generate_server_data = function() {
 
 	for (var e in ennemies_data) {
 		var ennemy_data = ennemies_data[e];

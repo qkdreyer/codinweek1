@@ -66,7 +66,8 @@ Missile.prototype.update = function(){
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
             if (!self.attackTimer) {
-                //socket.io.emit('missileHit', {ennemy_id: e, damage: self.parent.stats.missileDamage});
+                debugger;
+                socket.io.emit('missileHit', {ennemy_id: e, damage: self.parent.stats.missileDamage});
             }
             self.setAttackTimer();
         });
