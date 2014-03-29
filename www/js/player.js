@@ -134,10 +134,7 @@ var player =
                 missileStartX = this.sprite.x+20;
                 missileStartY = this.sprite.y+20;
             }
-
-            console.log(this.direction);
-            console.log(missileVelocity);
-
+            
             this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.missileSprite);
             this.missileSprite.body.bounce.y = 0.7;
@@ -169,9 +166,9 @@ var player =
             //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
             this.missileSprite.kill();
             this.isMissileActive = false;
+            //console.log("FIN DEPLACEMENT" , this.missileSprite.body.velocity.x, !map.contains(this.missileSprite.body), "coords :", this.missileSprite.body.x, " ", this.missileSprite.body.y);
         }
 
-        console.log("REDUCTION DE LA VITESSE : " + this.missileSprite.body.velocity.x);
     }
 
 
