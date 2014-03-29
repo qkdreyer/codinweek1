@@ -54,11 +54,12 @@ function create() {
     socket.init();
 }
 
-
 function update() {
 
-    
-
+    if (player.isDead()) {
+        player.sprite.body.velocity.x = 0;
+        return;
+    }
     physics.update();
     player.update();
 
