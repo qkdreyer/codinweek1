@@ -50,16 +50,26 @@ Missile.prototype.serialize = function() {
         y: this.sprite.body.y
     };
 }
-
+var i =0;
 Missile.prototype.update = function(){
     var self = this;
     game.physics.arcade.collide(this.sprite, layer);
-    for (var p in players){
+    /*for (var p in players){
         game.physics.arcade.collide(players[p].sprite, this.sprite, function(){
             console.log('collide');
             if (!self.attackTimer){
                 console.log('here');
                 players[p].lostHp(players[p].stats.distanceDamage);
+            }
+            self.setAttackTimer();
+        });
+    }*/
+
+    for (var e in ennemies){
+        var self = this;
+        game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
+            if (!self.attackTimer) {
+                ennemies[e].lostHp(self.parent.stats.distanceDamage);
             }
             self.setAttackTimer();
         });
@@ -136,7 +146,7 @@ Missile.prototype.attackMissileHandling = function() {
     else
     {
         //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-        this.sprite.kill();
+        //this.sprite.kill();
         this.isMissileActive = false;
     }
 
