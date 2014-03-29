@@ -24,7 +24,7 @@
 				var connected_players = data.clients;
 				for (var id in connected_players) {
 					var coordinates = connected_players[id];
-					players[id] = player.add(coordinates);
+					players[id] = new Player(coordinates.x, coordinates.y);
 				}
 			});
 
@@ -46,7 +46,7 @@
 				var coordinates = data.userdata;
 				
 				if (!players[data.userid]) {
-					players[data.userid] = player.add(coordinates);
+					players[data.userid] = new Player(coordinates.x, coordinates.y);
 				}
 				players[player_id].x = coordinates.x;
 				players[player_id].y = coordinates.y;

@@ -7,7 +7,7 @@
  */
 
 
-function Player() {
+function Player(x, y) {
     this.sprite = null;
     this.stats = {
         hp: 0,
@@ -19,11 +19,15 @@ function Player() {
     };
     this.missile = null;
     this.direction = null;
-    this.velocity = 300   ;
+    this.velocity = 300;
+
+    if (!x) x = 32;
+    if (!y) y = 32;
+
+    this.sprite = game.add.sprite(x, y, 'dude');
 }
 
 Player.prototype.init = function() {
-    this.sprite = game.add.sprite(32, 32, 'dude');
 
     //  Our two animations, walking left and right.
     this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -51,16 +55,6 @@ Player.prototype.init = function() {
     //this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
     this.direction = 'right'
 };
-
-Player.prototype.add = function(coordinates) {
-    var x = coordinates.x;
-    var y = coordinates.y;
-
-    console.log('Adding Player', x , y);
-
-    return game.add.sprite(x, y, 'dude');
-};
-
 
 Player.prototype.lostHp = function(qtyHp) {
     this.stats.hp -= qtyHp;
