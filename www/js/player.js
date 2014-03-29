@@ -10,15 +10,16 @@
 function Player(x, y) {
     this.sprite = null;
     this.stats = {
-        hp: 0,
-        maxHp: 0
+        hp: 100,
+        maxHp: 100,
+        distanceDamage: 20
     };
     this.statusBar = {
         sprite: null,
         maxWidth: 0
     };
     this.missile = null;
-    this.direction = null;
+    this.direction = 'right';
     this.velocity = 300;
 
     if (!x) x = 32;
@@ -40,20 +41,19 @@ Player.prototype.init = function() {
     //Don't leave the world zone when collides
     this.sprite.body.collideWorldBounds = true;
 
-    this.stats.hp = 100;
-    this.stats.maxHp = this.stats.hp;
+    this.missile = new Missile(this);
 
     this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
     var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
     this.statusBar.maxWidth = 0.95*statusBarFrame.width;
     this.statusBar.sprite.width = this.statusBar.maxWidth;
-
-    this.missile = new Missile(this);
-
     statusBarFrame.fixedToCamera = true;
     this.statusBar.sprite.fixedToCamera = true;
-    //this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
-    this.direction = 'right'
+};
+
+Player.prototype.render = function(coordinates) {
+    this.sprite.x = coordinates.x;
+    this.sprite.y = coordinates.y;
 };
 
 Player.prototype.kill = function() {
@@ -67,10 +67,7 @@ Player.prototype.onSync = function() {
 Player.prototype.lostHp = function(qtyHp) {
     this.stats.hp -= qtyHp;
     if (this.stats.hp <= 0) this.die();
-    else {
-        console.log(this.stats.hp);
-        this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
-    }
+    else  this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
 };
 
 Player.prototype.isDead = function() {
@@ -83,7 +80,6 @@ Player.prototype.die = function() {
 
     endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
     endText.fixedToCamera = true;
-    console.log('U DIE BITCH');
 };
 
 Player.prototype.statusBarPosition = function() {
@@ -93,8 +89,7 @@ Player.prototype.statusBarPosition = function() {
 };
 
 Player.prototype.update = function() {
-    if (this.isDead())
-    {
+    if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
         return;
     }
