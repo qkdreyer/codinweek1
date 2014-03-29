@@ -44,7 +44,7 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     //Don't leave the world zone when collides
     this.sprite.body.collideWorldBounds = true;
 
-    this.stats.hp = 100;
+    this.stats.hp = 20;
     this.stats.maxHp = this.stats.hp;
 
     this.statusBar.sprite = game.add.sprite(x, x-40, 'statusBar');
@@ -82,7 +82,7 @@ Ennemy.prototype.lostHp = function(qtyHp) {
 };
 
 
-Player.prototype.die = function() {
+    Ennemy.prototype.die = function() {
     this.stats.hp = 0;
     //this.statusBar.sprite.width = 0;
 	this.sprite.kill();
