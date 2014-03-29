@@ -14,6 +14,7 @@
 <body>
 
 <script type-"text/javascript" src="lib/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/control.js"></script>
 <script type="text/javascript">
 
 var game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
@@ -23,7 +24,7 @@ function preload() {
     game.load.tilemap('mario', 'assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.image('player', 'assets/sprites/phaser-dude.png');
-
+    game.load.image('star', 'assets/star.png');
 }
 
 var map;
@@ -32,7 +33,6 @@ var layer;
 var player;
 var cursors;
 var scoreText;
-var player;
 var score = 0;
 
 function create() {
@@ -42,6 +42,9 @@ function create() {
     game.stage.backgroundColor = '#787878';
 
     map = game.add.tilemap('mario');
+
+    control.buttons = game.add.group();
+    control.initMoveButton();
 
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
@@ -91,7 +94,7 @@ function update() {
 
     player.body.velocity.x = 0;
 
-    if (cursors.up.isDown)
+    if (cursors.up.isDown || control.moveButton == 'up')
     {
         if (player.body.onFloor())
         {
@@ -99,11 +102,11 @@ function update() {
         }
     }
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown  || control.moveButton == 'left')
     {
         player.body.velocity.x = -150;
     }
-    else if (cursors.right.isDown)
+    else if (cursors.right.isDown  || control.moveButton == 'right')
     {
         player.body.velocity.x = 150;
     }
