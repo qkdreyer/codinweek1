@@ -9,6 +9,18 @@ sudo npm install -g ios-sim
 
 ANDROID :
 
-install android sdk : http://developer.android.com/sdk/index.html
+1. install android sdk : http://developer.android.com/sdk/index.html
+add to path : ADT\sdk\platform-tools
+add to path : ADT\sdk\tools
 
-set PATH=%PATH%;C:\ADT\sdk\platform-tools;C:\ADT\sdk\tools;
+2. install ant : cinst ant
+add to path : apache-ant-1.9.3\bin
+create androiv virtual device : "android" -> tools/avd
+
+3. install java (jdk)
+set java_home
+add to path : %java_home%/bin
+
+4. bootstrap the app
+phonegap install android
+phonegap run android

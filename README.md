@@ -1,5 +1,10 @@
-codinweek1
+Codinweek1
 ==========
 
 PhoneGap Project
-1
+
+Usage
+=====
+
+1. node server/server.js
+2. http://localhost/
