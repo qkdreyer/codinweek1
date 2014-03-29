@@ -20,6 +20,8 @@ var player =
     },
     isActiveMissile: false,
     missileSprite: null,
+    direction: null,
+    velocity: 300,
 
     init: function(){
         this.sprite = game.add.sprite(32, 32, 'dude');
@@ -112,14 +114,33 @@ var player =
     startAttack: function ()
     {
 
+        //On ne peut lancer un nouveau missile que si aucun autre n'est en cours de déplacement
         if (!this.isMissileActive)
         { 
-            //star = stars.create(player.x+20, player.y+20, 'star');
-            this.missileSprite = game.add.sprite(player.sprite.x+20, player.sprite.y+20, 'star');
+            var missileVelocity;
+            var missileStartX;
+            var missileStartY;
+
+            if (this.direction == 'left')
+            {
+                var missileVelocity = this.velocity*-1;
+                var missileStartX = this.sprite.x;
+                var missileStartY = this.sprite.y;
+            }
+            else if (this.direction == 'right')
+            {
+                var missileVelocity = this.velocity;
+                var missileStartX = this.sprite.x+20;
+                var missileStartY = this.sprite.y+20;
+            }
+
+            console.log(missileStartX);
+
+            this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
             game.physics.enable(this.missileSprite);
             this.missileSprite.body.bounce.y = 0.7;
             this.missileSprite.body.bounce.x = 0.6;
-            this.missileSprite.body.velocity.x = 300;
+            this.missileSprite.body.velocity.x = missileVelocity;
             this.missileSprite.body.gravity.y = 100;
         }
                  

@@ -61,7 +61,7 @@ function update() {
         return;
     }
     physics.update();
-    player.update();
+    
 
 
     if (cursors.up.isDown || control.moveButton == 'up')
@@ -76,16 +76,20 @@ function update() {
     {
         player.sprite.body.velocity.x = -150;
         player.sprite.animations.play('left');
+        player.direction = 'left';
     }
     else if (cursors.right.isDown  || control.moveButton == 'right')
     {
         player.sprite.body.velocity.x = 150;
         player.sprite.animations.play('right');
+        player.direction = 'right';
     }
     else
     {
         player.sprite.animations.stop();
     }
+
+    player.update();
 
     if (socket.io) socket.sync(player.sprite);
 }
