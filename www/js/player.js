@@ -34,7 +34,6 @@ var player =
     },
 
     add: function(coordinates) {
-        console.log("coor", coordinates);
         var x = coordinates.x;
         var y = coordinates.y;
 
