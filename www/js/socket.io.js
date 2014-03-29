@@ -6,6 +6,7 @@
 	exports.socket = {
 		io: null,
 		init: function() {
+			if (typeof io === "undefined") return;
 			console.log('Connecting to Server', url);
 			var socket = io.connect(url);
 			exports.socket.io = socket;
