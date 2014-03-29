@@ -21,6 +21,7 @@
   "dependencies": {
     "express": "",
     "socket.io": "",
-    "node-uuid": ""
+    "node-uuid": "",
+    "bower": ""
   }
 }

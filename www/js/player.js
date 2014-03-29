@@ -18,7 +18,7 @@ var player =
     init: function(){
         this.sprite = game.add.sprite(32, 32, 'dude')
         this.stats.hp = 100;
-        this.statusBar = game.add.text(this.sprite.x, this.sprite.y, 'HP'+this.stats.hp, { fontSize: '32px', fill: '#000' });
+        this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
     },
 
     lostHp: function(qtyHp){
@@ -28,6 +28,7 @@ var player =
     statusBarPosition: function(){
         this.statusBar.x = this.sprite.x;
         this.statusBar.y = this.sprite.y;
+        this.statusBar.text = this.stats.hp;
     }
 
 
