@@ -1,7 +1,8 @@
 (function(exports) {
 
+	var host = "codinweek.zapto.org";
 	var port = 8200;
-	var url = location.origin + ":" + port;
+	var url = host + ":" + port;
 	
 	exports.socket = {
 		io: null,
