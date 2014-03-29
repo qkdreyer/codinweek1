@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/assets/players/statusbarframe.png" afterPath="$PROJECT_DIR$/www/assets/players/statusbarframe.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/missile.js" afterPath="$PROJECT_DIR$/www/js/missile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/player.js" afterPath="$PROJECT_DIR$/www/js/player.js" />
     </list>
     <ignored path="codinweek1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,16 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="player.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="16" selection-start="3769" selection-end="3828" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1396133455865" expanded="true" signature="2299:2578" placeholder="{...}" />
-                <marker date="1396133455865" expanded="true" signature="3469:3819" placeholder="{...}" />
-                <marker date="1396133455865" expanded="true" signature="3646:3822" placeholder="{...}" />
-                <marker date="1396133455865" expanded="true" signature="3642:3808" placeholder="{...}" />
-              </folding>
+            <state line="46" column="34" selection-start="1269" selection-end="1269" vertical-scroll-proportion="-0.7542373">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,7 +65,7 @@
       <file leaf-file-name="client.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/client.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="10" selection-start="1480" selection-end="1480" vertical-scroll-proportion="0.0">
+            <state line="63" column="10" selection-start="2169" selection-end="2169" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -77,7 +74,7 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="84" selection-start="1222" selection-end="1222" vertical-scroll-proportion="0.0">
+            <state line="41" column="12" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -101,10 +98,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="missile.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="missile.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/missile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="104" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.6292373">
+            <state line="67" column="36" selection-start="1829" selection-end="1829" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc;n#Missile#0" expanded="false" />
               </folding>
@@ -115,7 +112,7 @@
       <file leaf-file-name="ennemies.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="93" column="1" selection-start="2703" selection-end="2703" vertical-scroll-proportion="0.0">
+            <state line="105" column="1" selection-start="3037" selection-end="3037" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -413,7 +410,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/client.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="10" selection-start="1480" selection-end="1480" vertical-scroll-proportion="0.0">
+        <state line="63" column="10" selection-start="2169" selection-end="2169" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -427,7 +424,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="84" selection-start="1222" selection-end="1222" vertical-scroll-proportion="0.0">
+        <state line="41" column="12" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -443,29 +440,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="1" selection-start="2703" selection-end="2703" vertical-scroll-proportion="0.0">
+        <state line="105" column="1" selection-start="3037" selection-end="3037" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="16" selection-start="3769" selection-end="3828" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1396133455865" expanded="true" signature="2299:2578" placeholder="{...}" />
-            <marker date="1396133455865" expanded="true" signature="3469:3819" placeholder="{...}" />
-            <marker date="1396133455865" expanded="true" signature="3646:3822" placeholder="{...}" />
-            <marker date="1396133455865" expanded="true" signature="3642:3808" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/missile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="104" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.6292373">
+        <state line="67" column="36" selection-start="1829" selection-end="1829" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!doc;n#Missile#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="34" selection-start="1269" selection-end="1269" vertical-scroll-proportion="-0.7542373">
+          <folding />
         </state>
       </provider>
     </entry>
