@@ -100,78 +100,9 @@ var player =
             player.lostHp(100);
         });
 
-
-        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
-        {
-            this.startAttack();
-        }
-
-        if (this.isMissileActive)
-        {
-            this.attackMissileHandling();
-        }
-    },
-
-    //Lance un missile
-    startAttack: function ()
-    {
-
-        //On ne peut lancer un nouveau missile que si aucun autre n'est en cours de déplacement
-        if (!this.isMissileActive)
-        { 
-            var missileVelocity;
-            var missileStartX;
-            var missileStartY;
-
-            if (this.direction == 'left')
-            {
-                missileVelocity = this.velocity*-1;
-                missileStartX = this.sprite.x;
-                missileStartY = this.sprite.y;
-            }
-            else if (this.direction == 'right')
-            {
-                missileVelocity = this.velocity;
-                missileStartX = this.sprite.x+20;
-                missileStartY = this.sprite.y+20;
-            }
-            
-            this.missileSprite = game.add.sprite(missileStartX, missileStartY, 'star');
-            game.physics.enable(this.missileSprite);
-            this.missileSprite.body.bounce.y = 0.7;
-            this.missileSprite.body.bounce.x = 0.6;
-            this.missileSprite.body.velocity.x = missileVelocity;
-            this.missileSprite.body.gravity.y = 100;
-
-            this.isMissileActive = true;
-        }
-                 
-
-        
-    },
-
-    //Gère la vitesse du missile
-    attackMissileHandling: function()
-    {
-        if (this.missileSprite.body.velocity.x > 0)
-        {
-            this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
-        }
-        else if (this.missileSprite.body.velocity.x < 0)
-        {
-            this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
-        }
-
-        if (this.missileSprite.body.velocity.x === 0 || !map.contains(this.missileSprite.body))
-        {
-            //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
-            this.missileSprite.kill();
-            this.isMissileActive = false;
-            //console.log("FIN DEPLACEMENT" , this.missileSprite.body.velocity.x, !map.contains(this.missileSprite.body), "coords :", this.missileSprite.body.x, " ", this.missileSprite.body.y);
-        }
-
         missile.update();
     },
+
 
 
 
