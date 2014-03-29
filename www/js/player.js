@@ -56,6 +56,7 @@ Player.prototype.render = function(player_data) {
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
+    this.miniStatus = player_data.miniStatus;
 
 
     if (player_data.missile) {
