@@ -71,8 +71,9 @@ var player =
     die: function(){
         this.stats.hp = 0;
         this.statusBar.sprite.width = 0;
-        player.sprite.body.velocity.x = 0;
-        player.sprite.body.velocity.y = 0;
+
+        endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
+        endText.fixedToCamera = true;
         console.log('U DIE BITCH');
     },
 

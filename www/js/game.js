@@ -57,14 +57,10 @@ function create() {
 function update() {
 
     if (player.isDead()) {
-
-
+        player.sprite.body.velocity.x = 0;
         return;
     }
     physics.update();
-
-    
-
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
