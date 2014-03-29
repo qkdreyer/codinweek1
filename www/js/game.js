@@ -48,6 +48,8 @@ function create() {
 
     var starIsMoving = false;
 
+    // Start Client Connection to Server
+    socket.init();
 }
 
 function update() {
@@ -112,7 +114,7 @@ function update() {
 
     player.statusBarPosition();
 
-    if (socket.io) sync(player);
+    if (socket.io) client.sync();
 }
 
 function render() {
@@ -123,20 +125,3 @@ function render() {
 
 }
 
-function sync(player) {
-
-    // Retrieves current player position
-    var x_int = parseInt(player.x, 10);
-    var y_int = parseInt(player.y, 10);
-
-    // Compare current to last player position
-    if ((player.x_int != x_int || player.y_int != y_int))
-    {
-        // If it differs, notify server
-        socket.io.emit('client_moved', {x: player.x, y: player.y});
-    }
-
-    // Updates last player position
-    player.x_int = x_int;
-    player.y_int = y_int;
-}
