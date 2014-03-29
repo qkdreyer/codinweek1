@@ -13,7 +13,6 @@
 			console.log('Connecting to Server', url);
 			
 			var socket = io.connect(url);
-			exports.socket.io = socket;
 
 			// When current client is connected
 			socket.on('connection', function (data) {
@@ -26,6 +25,8 @@
 					var coordinates = connected_players[id];
 					players[id] = new Player(coordinates.x, coordinates.y);
 				}
+
+				exports.socket.io = socket;
 			});
 
 			// When another client is connected
@@ -43,7 +44,7 @@
 
 			socket.on('client_moved', function(player_data) {
 				var player_id = player_data.id;
-				
+
 				if (!players[player_id]) {
 					players[player_id] = new Player(player_data.x, player_data.y);
 				}
