@@ -40,13 +40,13 @@ io.sockets.on('connection', function (socket) {
 			0: [{
 				"id": 1,
 				"x": 100,
-				"y": 160,
+				"y": 180,
 				"hp": 100,
 				"key": 'baddie'
 			},{
 				"id": 2,
 				"x": 400,
-				"y": 160,
+				"y": 180,
 				"hp": 200,
 				"key": 'baddie'
 			}],

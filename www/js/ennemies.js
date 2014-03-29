@@ -24,8 +24,7 @@ Ennemy.handle_server_data = function(ennemies_data) {
         if (!ennemies[ennemy_id]) {
             ennemies[ennemy_id] = new Ennemy();
         }
-        //ennemies[ennemy_id].render();
-        //debugger;
+        ennemies[ennemy_id].render(ennemy_data);
     }
 }
 
@@ -110,7 +109,6 @@ Ennemy.prototype.die = function()
 
 Ennemy.prototype.render = function(ennemy_data)
 {
- 
     if (!this.sprite) 
     {
         this.sprite = game.add.sprite(ennemy_data.x, ennemy_data.y, ennemy_data.key);
