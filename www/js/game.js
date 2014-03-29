@@ -9,6 +9,7 @@ function preload() {
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32); 
     game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
     game.load.image('statusBar', 'assets/players/statusbar.png');
+    game.load.spritesheet('dragon', 'assets/dragon.png', 96, 64); 
 }
 
 var layer;
@@ -51,6 +52,11 @@ function create() {
     var ennemy = new Ennemy();
     ennemy.init('baddie', 400, 170, 'left');
     ennemies['baddie1'] = ennemy;
+    
+    ennemy = new Ennemy();
+    ennemy.init('dragon', 800, 50, 'left');
+    ennemies['dragon1'] = ennemy;
+   
    
     // Start Client Connection to Server
     var socketResult = socket.init();
