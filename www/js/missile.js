@@ -14,6 +14,8 @@ function Missile(parent){
 }
 
 Missile.prototype.serialize = function() {
+    if (!this.sprite) return {};
+    
     return {
         x: this.sprite.x,
         y: this.sprite.y
