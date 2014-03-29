@@ -151,7 +151,6 @@ var player =
     //Gère la vitesse du missile
     attackMissileHandling: function()
     {
-
         if (this.missileSprite.body.velocity.x > 0)
         {
             this.missileSprite.body.velocity.x = parseInt(--this.missileSprite.body.velocity.x, 10);
@@ -160,7 +159,8 @@ var player =
         {
             this.missileSprite.body.velocity.x = parseInt(++this.missileSprite.body.velocity.x, 10);
         }
-        else
+
+        if (this.missileSprite.body.velocity.x === 0 || !map.contains(this.missileSprite.body))
         {
             //Fin du déplacement : l'étoile disparait et on peut à nouveau en lancer une
             this.missileSprite.kill();

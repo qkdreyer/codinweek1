@@ -8,5 +8,10 @@ var map =
         layer = this.mapInstance.createLayer('World1');
 
         return this.mapInstance;
+    },
+
+    contains: function(obj) {
+		return obj.x > 0 && obj.x < this.mapInstance.widthInPixels && obj.y > 0 && obj.y < this.mapInstance.heightInPixels;
     }
+
 };
