@@ -13,6 +13,7 @@ function Missile(parent){
     this.isActiveMissile = false;
     this.parent = parent;
     this.attackTimer = false;
+    this.velocity = 300;
 }
 
 Missile.prototype.kill = function() {
@@ -87,12 +88,12 @@ Missile.prototype.startAttack = function () {
 
         if (this.parent.direction == 'left')
         {
-            missileVelocity = this.parent.velocity*-1;
+            missileVelocity = this.velocity*-1;
             missileStartX = this.parent.sprite.x - 30;
         }
         else if (this.parent.direction == 'right')
         {
-            missileVelocity = this.parent.velocity;
+            missileVelocity = this.velocity;
             missileStartX = this.parent.sprite.x + 30;
         }
         missileStartY = this.parent.sprite.y;

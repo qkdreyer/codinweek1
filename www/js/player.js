@@ -20,7 +20,6 @@ function Player(x, y) {
     };
     this.missile = new Missile(this);
     this.direction = 'right';
-    this.velocity = 300;
 
     if (!x) x = 32;
     if (!y) y = 32;
