@@ -3,10 +3,12 @@
 //Generic function for hit comestible objects
 function hitComestibleObject(sprite, tile, score) {
 
-    tile.index = 1;
-    scoreText.text = 'Score: ' + score;
-
-    return false;
+    //Seulement pour le joueur
+    if (sprite.key == "player")
+    {
+        tile.index = 1;
+        scoreText.text = 'Score: ' + score;
+    }
 
 }
 
