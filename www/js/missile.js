@@ -66,7 +66,7 @@ Missile.prototype.update = function(){
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
             if (!self.attackTimer) {
-                ennemies[e].lostHp(self.parent.stats.distanceDamage);
+                ennemies[e].lostHp(self.parent.stats.missileDamage);
             }
             self.setAttackTimer();
         });
@@ -74,7 +74,7 @@ Missile.prototype.update = function(){
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
-        this.startAttack();
+        this.startMissileAttack();
     }
 
     if (this.isMissileActive)
@@ -92,7 +92,7 @@ Missile.prototype.setAttackTimer = function(){
     },3000);
 };
 
-Missile.prototype.startAttack = function () {
+Missile.prototype.startMissileAttack = function () {
 
     //On ne peut lancer un nouveau missile que si aucun autre n'est en cours de déplacement
     if (!this.isMissileActive)
