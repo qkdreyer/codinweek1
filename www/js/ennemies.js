@@ -56,8 +56,14 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
     
     //Don't leave the world zone when collides
-    this.sprite.body.collideWorldBounds = true;
-
+	if (ennemyTypes[ennemyType].flyer == 1)
+	{    
+    	this.sprite.body.allowGravity = false;
+	}
+	else
+	{
+	    this.sprite.body.collideWorldBounds = true;	
+	}
     this.stats.hp = 20;
     this.stats.maxHp = this.stats.hp;
 
@@ -70,10 +76,7 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
 	{    
 		this.missile = new Missile(this);
 	}
-	if (ennemyTypes[ennemyType].flyer == 1)
-	{    
-		//this.missile = new Missile(this);
-	}
+
 
     statusBarFrame.fixedToCamera = true;
     this.statusBar.sprite.fixedToCamera = true;

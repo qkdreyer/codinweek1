@@ -28,3 +28,19 @@ var merge = function() {
     }
     return obj;
 };
+
+function touchingEvent($sprite)
+{
+    var touching = $sprite.body.touching;
+    if (touching.left){
+        return 'left';
+    } else if (touching.up){
+        return 'up';
+    } else if (touching.right){
+        return 'right';
+    } else if (touching.down){
+        return 'down';
+    } else {
+        return '';
+    }
+}
