@@ -3,9 +3,16 @@ var socket = io.connect('http://localhost:8200');
 
 // When current client is connected
 socket.on('connection', function (data) {
-	console.log('on connection');
+	console.log('on connection', data);
 	player.userid = data.userid;
 	players[data.userid] = player;
+
+	// data.clients = hash of connected players
+	var connected_players = data.clients;
+	for (var id in connected_players) {
+		var coordinates = connected_players[id];
+		players[id] = create_player(coordinates);
+	}
 });
 
 // When another client is connected
@@ -23,7 +30,8 @@ socket.on('client_disconnected', function (data) {
 
 socket.on('client_moved', function(data) {
 	if (!players[data.userid]) {
-		players[data.userid] = create_player(data.x, data.y);
+		var coordinates = data.userdata;
+		players[data.userid] = create_player(coordinates);
 	}
 	//players = merge(players, data);
 	console.log('client_moved', players);
