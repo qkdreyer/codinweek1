@@ -33,18 +33,10 @@ function create() {
     //SPRITES
     player.init();
 
-    //  Our two animations, walking left and right.
-    player.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
-
     //PHYSICS
     //game.physics.enable(player);
     game.physics.enable(player.sprite);
     game.physics.arcade.gravity.y = 250;
-    player.sprite.body.bounce.y = 0.2;
-    player.sprite.body.linearDamping = 1;
-    //Don't leave the world zone when collides
-    player.sprite.body.collideWorldBounds = true;
 
     //COLLISIONS
     collisions.initialize(map);

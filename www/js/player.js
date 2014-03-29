@@ -16,7 +16,19 @@ var player =
     statusBar: null,
 
     init: function(){
-        this.sprite = game.add.sprite(32, 32, 'dude')
+        this.sprite = game.add.sprite(32, 32, 'dude');
+
+        //  Our two animations, walking left and right.
+        this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
+        this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
+
+        game.physics.enable(this.sprite);
+
+        this.sprite.body.bounce.y = 0.2;
+        this.sprite.body.linearDamping = 1;
+        //Don't leave the world zone when collides
+        this.sprite.body.collideWorldBounds = true;
+
         this.stats.hp = 100;
         this.statusBar = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { fontSize: '32px', fill: '#000' });
     },
