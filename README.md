@@ -6,6 +6,7 @@ PhoneGap Project
 Usage
 =====
 
-1. npm install
-2. node server/server.js
-3. http://localhost/
+1. cinst nodejs
+2. npm install
+3. node server/server.js
+4. browse localhost
