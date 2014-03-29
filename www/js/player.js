@@ -52,9 +52,14 @@ Player.prototype.init = function() {
 };
 
 Player.prototype.render = function(player_data) {
+
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
+
+    if (player_data.missile) {
+        console.log('misssile X', player_data.missile.x);
+    }
 };
 
 Player.prototype.kill = function() {

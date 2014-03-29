@@ -22,7 +22,7 @@ Missile.prototype.doSync = function() {
 }
 
 Missile.prototype.serialize = function() {
-    if (!this.sprite) return {};
+    if (!this.sprite) return null;
 
     return {
         x: this.sprite.x,
