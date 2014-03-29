@@ -69,8 +69,14 @@ var handle_ennemy_hit = function(hit_data) {
 	var ennemy_id = hit_data.ennemy_id;
 	var damage = hit_data.damage;
 
-	ennemies_data[ennemy_id].hp -= damage;
 	console.log('EVENT handle_ennemy_hit', ennemy_id, damage);
+
+	ennemies_data[ennemy_id].hp -= damage;
+	if (ennemies_data[ennemy_id].hp <= 0) {
+		delete ennemies_data[ennemy_id];
+		console.log('EVENT ENNEMY DIE !!!!!');
+	}
+
 };
 
 var generate_ennemy_data = function(ennemy_data) {

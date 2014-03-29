@@ -159,6 +159,10 @@ Ennemy.prototype.update = function()
         this.sprite.body.velocity.x = 100;
         this.sprite.animations.play('right');
     }
+
+    if (this.hp <= 0) {
+        this.kill();
+    }
 };
 
 Ennemy.prototype.render = function(ennemy_data)
@@ -174,6 +178,7 @@ Ennemy.prototype.render = function(ennemy_data)
     }
     this.hp = ennemy_data.hp;
     this.miniStatus = player_data.miniStatus;
-    
+  
+      
 };
 
