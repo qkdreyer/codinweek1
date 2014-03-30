@@ -116,7 +116,8 @@ var generate_server_data = function() {
 	});
 
 	if (ennemy_count < 3) {
-		add_ennemy('baddie', 100, 175, 100);
+		var x_rnd = parseInt(100 * Math.random(), 10);
+		add_ennemy('baddie', x_rnd, 175, 100);
 	}
 
 	var server_data = {};
