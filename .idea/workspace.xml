@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/ennemies.js" afterPath="$PROJECT_DIR$/www/js/ennemies.js" />
     </list>
     <ignored path="codinweek1.iws" />
@@ -45,9 +43,9 @@
       <file leaf-file-name="ennemies.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="19" selection-start="1142" selection-end="1142" vertical-scroll-proportion="-3.3714285">
+            <state line="123" column="48" selection-start="3596" selection-end="3596" vertical-scroll-proportion="2.6964285">
               <folding>
-                <marker date="1396202863175" expanded="true" signature="4390:4565" placeholder="{...}" />
+                <marker date="1396202979689" expanded="true" signature="4211:4350" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -83,7 +81,7 @@
       <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="5" selection-start="2487" selection-end="2487" vertical-scroll-proportion="-11.04">
+            <state line="99" column="5" selection-start="2487" selection-end="2487" vertical-scroll-proportion="-7.92">
               <folding />
             </state>
           </provider>
@@ -460,16 +458,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="5" selection-start="2487" selection-end="2487" vertical-scroll-proportion="-11.04">
+        <state line="99" column="5" selection-start="2487" selection-end="2487" vertical-scroll-proportion="-7.92">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="19" selection-start="1142" selection-end="1142" vertical-scroll-proportion="-3.3714285">
+        <state line="123" column="48" selection-start="3596" selection-end="3596" vertical-scroll-proportion="2.6964285">
           <folding>
-            <marker date="1396202863175" expanded="true" signature="4390:4565" placeholder="{...}" />
+            <marker date="1396202979689" expanded="true" signature="4211:4350" placeholder="{...}" />
           </folding>
         </state>
       </provider>

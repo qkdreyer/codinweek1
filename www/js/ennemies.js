@@ -123,16 +123,6 @@ Ennemy.prototype.update = function()
     this.miniStatusBarPosition();
     this.sprite.animations.play(this.direction);
 
-    /*if (this.sprite.x > 410)
-    {
-        this.sprite.animations.play('left');
-    }
- 
-    if (this.sprite.x < 10)
-    {
-        this.sprite.animations.play('right');
-    }*/
-
     if (this.stats.hp <= 0) {
         this.kill();
     }
@@ -158,19 +148,14 @@ Ennemy.prototype.render = function(ennemy_data)
     this.sprite.reset(ennemy_data.x, ennemy_data.y);
     this.stats.hp_old = this.stats.hp;
     this.stats.hp = ennemy_data.hp;
-    console.log(ennemy_data.dir);
     this.switchDirection(ennemy_data.dir);
-
     this.lostHp();
-
 };
 
 Ennemy.prototype.switchDirection = function (direction){
-        if (direction  == '-1') {
-            direction = 'left';
-        } else {
-            direction = 'right';
-        }
+        if (direction  == '-1') direction = 'left';
+        else direction = 'right';
+
         if (this.sprite.animations.currentAnim.name != direction){
             this.direction = direction;
         }
