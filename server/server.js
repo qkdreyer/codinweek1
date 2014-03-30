@@ -47,14 +47,14 @@ var ennemies_data = {
 	1: {
 	"id":1,
     "x": 100,
-	"y": 180,
+	"y": 185,
 	"hp": 100,
 	"key": 'baddie'
 	},
 	2: {
 	"id":2,
     "x": 400,
-	"y": 180,
+	"y": 185,
 	"hp": 200,
 	"key": 'dragon'
 	}
