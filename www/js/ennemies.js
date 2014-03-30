@@ -27,7 +27,7 @@ Ennemy.handle_server_data = function(ennemies_data) {
         var ennemy_id = ennemy_data.id;
         
         if (!ennemies[ennemy_id]) {
-            ennemies[ennemy_id] = new Ennemy();
+            ennemies[ennemy_id] = new Ennemy(ennemy_data.key);
             ennemies[ennemy_id].init(ennemy_data.key, ennemy_data.x, ennemy_data.y, 'left');
         }
         ennemies[ennemy_id].render(ennemy_data);
