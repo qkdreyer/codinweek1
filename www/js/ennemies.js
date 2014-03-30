@@ -5,7 +5,8 @@
 
 var ennemyTypes = {
     'baddie':{velocity:100, leftImages:[0,1], imageSpeed:5, rightImages:[2,3], hp:20, shooter:0, flyer:0 },
-    'dragon':{velocity:130, leftImages:[6, 7, 8, 9, 10, 11], imageSpeed:10, rightImages:[0, 1, 2, 3, 4, 5], hp:80, shooter:1, flyer:1}
+    'dragon':{velocity:130, leftImages:[6, 7, 8, 9, 10, 11], imageSpeed:10, rightImages:[0, 1, 2, 3, 4, 5], hp:80, shooter:1, flyer:1},
+    'shroom':{velocity:100, leftImages:[0,1,2,3,4,5], imageSpeed:5, rightImages:[6,7,8,9,10,11], hp:20, shooter:0, flyer:0 }
 };
 
 function Ennemy(ennemy_id, ennemyKey)     
@@ -74,7 +75,6 @@ Ennemy.prototype.update = function()
     for (var p in players) {
         var player = players[p];
         game.physics.arcade.collide(self.sprite, player.sprite, function() {
-            alert('ennemy player collision');
             player.lostHp(20);
             var angle = touchingEvent(self.sprite);
             socket.io.emit('ennemyHit', {ennemy_id: self.id, angle: angle});

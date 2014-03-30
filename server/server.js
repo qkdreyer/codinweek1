@@ -65,7 +65,8 @@ var add_ennemy = function(key, x, y, hp, dir) {
 	}
 }
 
-add_ennemy('dragon', 50, 145, 200, -1);
+//add_ennemy('dragon', 50, 145, 200, -1);
+add_ennemy('shroom', 350, 172, 150, 1);
 //add_ennemy('baddie', 100, 175, 100, 1);
 
 var handle_ennemy_collision = function(collision_type, collision_data) {
