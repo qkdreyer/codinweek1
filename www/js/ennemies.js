@@ -47,8 +47,8 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 	
     //  Our two animations, walking left and right.
-    this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
-    this.sprite.animations.add('right', ennemyTypes[ennemyType].rightImages, ennemyTypes[ennemyType].imageSpeed, true);
+    //this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
+    //this.sprite.animations.add('right', ennemyTypes[ennemyType].rightImages, ennemyTypes[ennemyType].imageSpeed, true);
 
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
     
@@ -71,7 +71,7 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
 
 
     this.direction = direction;
-    this.sprite.animations.play(direction);
+    //this.sprite.animations.play(direction);
 };
 
 Ennemy.prototype.setAttackTimer = function(){
@@ -127,12 +127,12 @@ Ennemy.prototype.update = function()
 
     if (this.sprite.x > 410)
     {
-        this.sprite.animations.play('left');
+        //this.sprite.animations.play('left');
     }
  
     if (this.sprite.x < 10)
     {
-        this.sprite.animations.play('right');
+        //this.sprite.animations.play('right');
     }
 
     if (this.stats.hp <= 0) {
