@@ -137,6 +137,19 @@ Ennemy.prototype.update = function()
     if (this.stats.hp <= 0) {
         this.kill();
     }
+
+    for (var p in players) {
+        var player = this;
+        var player_sprite = players[p].sprite;
+        game.physics.arcade.collide(player_sprite, this.sprite, function() {
+            if (!ennemies[e].attackTimer) {
+                self.lostHp();
+                var angle = touchingEvent(ennemies[e].sprite);
+                socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
+            }
+            ennemies[e].setAttackTimer();
+        });
+    }
 };
 
 Ennemy.prototype.render = function(ennemy_data)
@@ -150,7 +163,10 @@ Ennemy.prototype.render = function(ennemy_data)
     {
         this.sprite.reset(ennemy_data.x, ennemy_data.y);
     }
+
+    this.stats.hp_old = this.stats.hp;
     this.stats.hp = ennemy_data.hp;
+
     this.lostHp();
 
 };

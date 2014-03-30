@@ -6,6 +6,7 @@ var map =
         this.mapInstance = game.add.tilemap('mario');
         this.mapInstance.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
         layer = this.mapInstance.createLayer('World1');
+        layer.resizeWorld();
 
         return this.mapInstance;
     },

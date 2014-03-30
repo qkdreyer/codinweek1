@@ -22,6 +22,7 @@
     "express": "",
     "socket.io": "",
     "node-uuid": "",
-    "bower": ""
+    "bower": "",
+    "underscore": ""
   }
 }
