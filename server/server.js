@@ -71,14 +71,11 @@ var handle_ennemy_collision = function(collision_data) {
 var handle_ennemy_hit = function(hit_data) {
 	var ennemy_id = hit_data.ennemy_id;
 	var damage = hit_data.damage;
+	if (!ennemies_data[ennemy_id])
 
 	console.log('EVENT handle_ennemy_hit', ennemy_id, damage);
 
 	ennemies_data[ennemy_id].hp -= damage;
-	if (ennemies_data[ennemy_id].hp <= 0) {
-		delete ennemies_data[ennemy_id];
-		console.log('EVENT ENNEMY DIE !!!!!');
-	}
 
 };
 
@@ -97,6 +94,11 @@ var generate_ennemy_data = function(ennemy_data) {
 		ennemy_data.dir = 1;
 	} else if (ennemy_data.x > 400) {
 		ennemy_data.dir = -1;
+	}
+
+	if (ennemy_data.hp <= 0) {
+		delete ennemies_data[ennemy_data.id];
+		console.log('EVENT ENNEMY DIE !!!!!');
 	}
 
 	return ennemy_data;
