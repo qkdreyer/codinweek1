@@ -27,7 +27,12 @@ function Ennemy(ennemy_id, ennemyKey)
     this.direction = null;
     this.attackTimer = false;
     this.velocity = 0;
-    this.miniStatus = null;
+
+    this.lifeBar = {
+        frame: null,
+        status: null,
+        maxWidth : 0
+    };
 }
 
 Ennemy.prototype.init = function(ennemyType, x, y, direction) 
@@ -35,15 +40,18 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     this.sprite = this.ennemies.getFirstExists(false);
     this.sprite.reset(x, y);
 
-    this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
-    
     //  Our two animations, walking left and right.
     this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
     this.sprite.animations.add('right', ennemyTypes[ennemyType].rightImages, ennemyTypes[ennemyType].imageSpeed, true);
 
-    game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
-    
-    this.stats.maxHp = this.stats.hp = 20;
+    game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
+
+    this.lifeBar.status = game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBar');
+    this.lifeBar.frame = game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBarFrame');
+    this.lifeBar.status.width = this.sprite.width;
+    this.lifeBar.frame.width = this.sprite.width;
+    this.lifeBar.maxWidth = this.sprite.width;
+
     this.direction = direction;
 
     if (ennemyTypes[ennemyType].shooter == 1)
@@ -61,7 +69,7 @@ Ennemy.prototype.die = function()
 
 Ennemy.prototype.update = function()
 {
-    this.miniStatusBarPosition();
+    this.updateLifeBarPosition();
     this.sprite.animations.play(this.direction);
 
     if (this.stats.hp <= 0) {
@@ -84,8 +92,8 @@ Ennemy.prototype.render = function(ennemy_data)
     this.sprite.reset(ennemy_data.x, ennemy_data.y);
     this.stats.hp_old = this.stats.hp;
     this.stats.hp = ennemy_data.hp;
+    if (this.stats.maxHp == 0) this.stats.maxHp = ennemy_data.hp;
     this.switchDirection(ennemy_data.dir);
-    this.miniStatusBarPosition();
     this.lostHp();
 };
 
@@ -99,11 +107,14 @@ Ennemy.prototype.switchDirection = function (direction)
         }
 }
 
-Ennemy.prototype.miniStatusBarPosition = function()
+Ennemy.prototype.updateLifeBarPosition = function()
 {
-    this.miniStatus.x = this.sprite.x+10;
-    this.miniStatus.y = this.sprite.y-15;
-    this.miniStatus.text = this.stats.hp;
+    this.lifeBar.status.x = this.sprite.x;
+    this.lifeBar.frame.x = this.sprite.x;
+    this.lifeBar.status.y = this.sprite.y;
+    this.lifeBar.frame.y = this.sprite.y;
+
+    this.lifeBar.status.width = this.lifeBar.maxWidth * this.stats.hp / this.stats.maxHp;
 };
 
 Ennemy.prototype.setAttackTimer = function()
@@ -125,16 +136,7 @@ Ennemy.prototype.lostHp = function()
     }
     else
     {
-        if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
-        {
-            this.miniStatus.setStyle({font: 'bold 13px Arial', fill: 'orange'});
-            this.miniStatus.y-=5;
-        }
-        else if (this.stats.hp <= this.stats.maxHp/2)
-        {
-            this.miniStatus.setStyle({font: 'bold 15px Arial', fill: 'red'});
-            this.miniStatus.y-=5;
-        }
+        this.updateLifeBarPosition();
     }
 
 };

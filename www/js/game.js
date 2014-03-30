@@ -15,14 +15,22 @@ function preload()
 {
     game.load.tilemap('mario', 'assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
-    game.load.spritesheet('player', 'assets/dude.png', 32, 48);
-    game.load.image('missile', 'assets/games/invaders/enemy-bullet.png');
     game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32); 
+
+    // Player
+    game.load.spritesheet('player', 'assets/dude.png', 32, 48);
     game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
     game.load.image('statusBar', 'assets/players/statusbar.png');
+    game.load.image('missile', 'assets/games/invaders/enemy-bullet.png');
+
+    // Monsters
+    game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
     game.load.spritesheet('dragon', 'assets/dragon.png', 96, 64);
     game.load.spritesheet('shroom', 'assets/shroom.png', 38, 38);
+
+    //Life Bar
+    game.load.image('lifeBarFrame', 'assets/lifeBarFrame.png');
+    game.load.image('lifeBar', 'assets/lifeBar.png');
 }
 
 function create()
