@@ -1,14 +1,12 @@
 
 
-function Ennemy()     
+function Ennemy(ennemyKey)     
 {
-	
-
 
     this.ennemies = game.add.group();
     this.ennemies.enableBody = true;
     this.ennemies.physicsBodyType = Phaser.Physics.ARCADE;
-    this.ennemies.createMultiple(1, 'baddie');
+    this.ennemies.createMultiple(1, ennemyKey);
 
     this.sprite = null;
     this.stats = {
