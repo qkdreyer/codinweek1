@@ -49,13 +49,13 @@ function create() {
     
 	 
     //ENNEMIS
-    var ennemy = new Ennemy();
+    /*var ennemy = new Ennemy();
     ennemy.init('baddie', 400, 170, 'left');
     ennemies['baddie1'] = ennemy;
     
     ennemy = new Ennemy();
     ennemy.init('dragon', 800, 50, 'left');
-    ennemies['dragon1'] = ennemy;
+    ennemies['dragon1'] = ennemy;*/
    
    
     // Start Client Connection to Server

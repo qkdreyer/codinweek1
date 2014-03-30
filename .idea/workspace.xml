@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/ennemies.js" afterPath="$PROJECT_DIR$/www/js/ennemies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/game.js" afterPath="$PROJECT_DIR$/www/js/game.js" />
     </list>
     <ignored path="codinweek1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,7 +44,7 @@
       <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="34" selection-start="1385" selection-end="1385" vertical-scroll-proportion="0.0">
+            <state line="49" column="34" selection-start="1426" selection-end="1426" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -98,23 +99,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ennemies.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ennemies.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="173" column="35" selection-start="4679" selection-end="4679" vertical-scroll-proportion="1.1482143">
+            <state line="14" column="13" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="game.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1396136850619" expanded="true" signature="2442:2499" placeholder="{...}" />
-                <marker date="1396136850619" expanded="true" signature="2526:2567" placeholder="{...}" />
-              </folding>
+            <state line="57" column="35" selection-start="1605" selection-end="1605" vertical-scroll-proportion="0.35357141">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -137,12 +135,12 @@
         <option value="$PROJECT_DIR$/www/js/control.js" />
         <option value="$PROJECT_DIR$/www/js/physics.js" />
         <option value="$PROJECT_DIR$/www/game.html" />
-        <option value="$PROJECT_DIR$/www/js/game.js" />
         <option value="$PROJECT_DIR$/www/js/util.js" />
         <option value="$PROJECT_DIR$/www/js/player.js" />
         <option value="$PROJECT_DIR$/www/js/missile.js" />
         <option value="$PROJECT_DIR$/www/js/client.js" />
         <option value="$PROJECT_DIR$/www/js/ennemies.js" />
+        <option value="$PROJECT_DIR$/www/js/game.js" />
       </list>
     </option>
   </component>
@@ -425,29 +423,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/missile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="36" selection-start="1660" selection-end="1660" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc;n#Missile#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="34" selection-start="1385" selection-end="1385" vertical-scroll-proportion="0.0">
+        <state line="49" column="34" selection-start="1426" selection-end="1426" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1396136850619" expanded="true" signature="2442:2499" placeholder="{...}" />
-            <marker date="1396136850619" expanded="true" signature="2526:2567" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -458,9 +437,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/missile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="36" selection-start="1660" selection-end="1660" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc;n#Missile#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/ennemies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="35" selection-start="4679" selection-end="4679" vertical-scroll-proportion="1.1482143">
+        <state line="14" column="13" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="35" selection-start="1605" selection-end="1605" vertical-scroll-proportion="0.35357141">
           <folding />
         </state>
       </provider>
