@@ -122,10 +122,10 @@ var generate_server_data = function() {
 		}
 	});
 
-	/*if (ennemy_count < 3) {
+	if (ennemy_count < 3) {
 		var x_rnd = parseInt(100 * Math.random(), 10);
-		add_ennemy('baddie', x_rnd, 175, 100);
-	}*/
+		add_ennemy('baddie', x_rnd, 175, 100, 'left');
+	}
 
 	var server_data = {};
 	server_data[0] = ennemies_data;

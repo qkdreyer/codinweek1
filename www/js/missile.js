@@ -16,6 +16,8 @@ function Missile(parent)
 Missile.prototype.kill = function()
 {
     this.sprite.kill();
+    this.isMissileActive = false;
+    this.outOfMap = false;
 }
 
 Missile.prototype.update = function()
@@ -26,10 +28,12 @@ Missile.prototype.update = function()
     for (var e in ennemies) {
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
-            if (!self.attackTimer) {
-                socket.io.emit('missileHit', {ennemy_id: e, damage: self.parent.stats.missileDamage});
+            /*if (!self.attackTimer) {
+                
             }
-            self.setAttackTimer();
+            self.setAttackTimer();*/
+            socket.io.emit('missileHit', {ennemy_id: e, damage: self.parent.stats.missileDamage});
+            self.kill();
         });
     }
 
@@ -128,11 +132,15 @@ Missile.prototype.attackMissileHandling = function()
     else
     {
         //Fin du déplacement : le missile disparait et on peut à nouveau en lancer un
-        this.sprite.kill();
-        this.isMissileActive = false;
+        this.kill();
     }
 
-    if (!map.contains(this.sprite.body)) {
+    if (!map.contains(this.sprite.body) && !this.outOfMap) {
+        this.outOfMap = true;
         console.log('!!! OUT OF MAP !!!');
+        var self = this;
+        setTimeout(function() {
+            self.kill();
+        }, 250);
     }
 };

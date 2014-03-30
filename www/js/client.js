@@ -3,7 +3,7 @@
         io: null,
         host: location.origin,
         port: 8200,
-        debug: true,
+        debug: false,
         log: function() {
             if (this.debug) console.log.apply(console, arguments);
         },
@@ -11,11 +11,11 @@
             return this.host + ":" + this.port;
         },
         init: function() {
-            if (typeof io === "undefined") return false;
+            if (typeof exports.io === "undefined") return false;
             
             var url = this.url();
             this.log('Connecting to Server', url);
-            var socket = io.connect();
+            var socket = io.connect(url);
 
             // When current client is connected
             socket.on('connection', function (data) {

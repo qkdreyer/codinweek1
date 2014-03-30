@@ -8,8 +8,9 @@ var ennemyTypes = {
     'dragon':{velocity:130, leftImages:[6, 7, 8, 9, 10, 11], imageSpeed:10, rightImages:[0, 1, 2, 3, 4, 5], hp:80, shooter:1, flyer:1}
 };
 
-function Ennemy(ennemyKey)     
+function Ennemy(ennemy_id, ennemyKey)     
 {
+    this.id = ennemy_id;
     this.ennemies = game.add.group();
     this.ennemies.enableBody = true;
     this.ennemies.physicsBodyType = Phaser.Physics.ARCADE;
@@ -70,7 +71,8 @@ Ennemy.prototype.update = function()
     for (var p in players) {
         var player = players[p];
         game.physics.arcade.collide(self.sprite, player.sprite, function() {
-            player.lostHp();
+        debugger;
+            player.lostHp(20);
             var angle = touchingEvent(self.sprite);
             socket.io.emit('ennemyHit', {ennemy_id: self.id, angle: angle});
         });
@@ -144,7 +146,7 @@ Ennemy.handle_server_data = function(ennemies_data)
         var ennemy_id = ennemy_data.id;
         
         if (!ennemies[ennemy_id]) {
-            ennemies[ennemy_id] = new Ennemy(ennemy_data.key);
+            ennemies[ennemy_id] = new Ennemy(ennemy_id, ennemy_data.key);
             ennemies[ennemy_id].init(ennemy_data.key, ennemy_data.x, ennemy_data.y, 'left');
         }
         ennemies[ennemy_id].render(ennemy_data);

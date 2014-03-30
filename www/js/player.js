@@ -79,11 +79,12 @@ Player.prototype.update = function()
         return;
     }
 
+    var self = this;
     for (var e in ennemies) {
-        var ennemy = this;
-        game.physics.arcade.collide(ennemy.sprite, this.sprite, function(){
+        var ennemy = ennemies[e];
+        game.physics.arcade.collide(ennemy.sprite, self.sprite, function(){
             if (!ennemy.attackTimer) {
-                ennemy.lostHp(20);
+                self.lostHp(20);
                 var angle = touchingEvent(ennemy.sprite);
                 socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
             }
@@ -124,7 +125,9 @@ Player.prototype.kill = function()
 
 Player.prototype.doSync = function()
 {
-    return has_moved(this.sprite) || this.missile.doSync();
+    var do_sync = this.do_sync || has_moved(this.sprite) || this.missile.doSync();
+    this.do_sync = false;
+    return do_sync;
 };
 
 Player.prototype.serialize = function()
@@ -159,8 +162,8 @@ Player.prototype.lostHp = function(qtyHp)
             this.miniStatus.setStyle({font: 'bold 15px Arial', fill: 'red'});
             this.miniStatus.y-=5;
         }
-
     }
+    this.sync = true;
 };
 
 Player.prototype.isDead = function()
