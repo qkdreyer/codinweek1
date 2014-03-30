@@ -163,6 +163,7 @@ Player.prototype.update = function() {
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
             if (!ennemies[e].attackTimer) {
+                console.log(ennemies);
                 self.lostHp(20);
                 var angle = touchingEvent(ennemies[e].sprite);
                 socket.io.emit('playerHit', {ennemy_id: e, angle: angle});

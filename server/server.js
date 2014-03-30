@@ -43,19 +43,22 @@ io.set('log level', log_level);
 
 var game_loop = 0;
 // x:40-400, y: 160
-var ennemies_data = [{
-	"id": 1,
-	"x": 100,
+var ennemies_data = {
+	1: {
+	"id":1,
+    "x": 100,
 	"y": 180,
 	"hp": 100,
 	"key": 'baddie'
-}, {
-	"id": 2,
-	"x": 400,
+	},
+	2: {
+	"id":2,
+    "x": 400,
 	"y": 180,
 	"hp": 200,
 	"key": 'dragon'
-}];
+	}
+};
 var other_data = [];
 
 var handle_ennemy_collision = function(collision_data) {
@@ -104,7 +107,6 @@ var generate_server_data = function() {
 	for (var e in ennemies_data) {
 		var ennemy_data = ennemies_data[e];
 		ennemies_data[e] = generate_ennemy_data(ennemy_data);
-		console.log(ennemies_data[e].id, ennemies_data[e].x);
 	}
 
 	var server_data = {};
