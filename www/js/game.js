@@ -21,7 +21,8 @@ function preload()
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32); 
     game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
     game.load.image('statusBar', 'assets/players/statusbar.png');
-    game.load.spritesheet('dragon', 'assets/dragon.png', 96, 64); 
+    game.load.spritesheet('dragon', 'assets/dragon.png', 96, 64);
+    game.load.spritesheet('shroom', 'assets/shroom.png', 38, 38);
 }
 
 function create()
