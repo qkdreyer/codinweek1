@@ -8,14 +8,11 @@ function Ennemy()
         hp:0,
         power: 0
     };
-    this.statusBar = {
-        sprite: null,
-        maxWidth: 0
-    };
     this.missile = null;
     this.direction = null;
     this.attackTimer = false;
     this.velocity = 0;
+    this.mini
 
 
 }
@@ -27,6 +24,7 @@ Ennemy.handle_server_data = function(ennemies_data) {
         
         if (!ennemies[ennemy_id]) {
             ennemies[ennemy_id] = new Ennemy();
+            ennemies[ennemy_id].init(ennemy_data.key, ennemy_data.x, ennemy_data.y, 'left');
         }
         ennemies[ennemy_id].render(ennemy_data);
     }
@@ -47,7 +45,6 @@ var ennemyTypes = {
 //s'il est capable de tirer, et s'il vole)
 Ennemy.prototype.init = function(ennemyType, x, y, direction) 
 {
-    	 
     this.sprite = game.add.sprite(x, y, ennemyType);
     this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 	
@@ -69,19 +66,12 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     this.stats.hp = 20;
     this.stats.maxHp = this.stats.hp;
 
-    this.statusBar.sprite = game.add.sprite(x, x-40, 'statusBar');
-    var statusBarFrame = game.add.sprite(x, x-40, 'statusBarFrame');
-    this.statusBar.maxWidth = 0.95*statusBarFrame.width;
-    this.statusBar.sprite.width = this.statusBar.maxWidth;
-
 	if (ennemyTypes[ennemyType].shooter == 1)
 	{    
 		this.missile = new Missile(this);
 	}
 
 
-    statusBarFrame.fixedToCamera = true;
-    this.statusBar.sprite.fixedToCamera = true;
     this.direction = direction;
     this.sprite.animations.play(direction);
     
@@ -132,11 +122,11 @@ Ennemy.prototype.die = function()
 {
     this.stats.hp = 0;
     this.miniStatus.text.kill();
-    //this.statusBar.sprite.width = 0;
 	this.sprite.kill();
 };
 
 Ennemy.prototype.miniStatusBarPosition = function() {
+    if (this.miniStatus == null) debugger;
     this.miniStatus.x = this.sprite.x+10;
     this.miniStatus.y = this.sprite.y-15;
     this.miniStatus.text = this.stats.hp;
@@ -144,7 +134,7 @@ Ennemy.prototype.miniStatusBarPosition = function() {
 
 Ennemy.prototype.update = function()
 {
-
+if (this == window) alert(1);
     this.miniStatusBarPosition();
 
     if (this.sprite.x > 410)
@@ -177,7 +167,6 @@ Ennemy.prototype.render = function(ennemy_data)
     }
     this.stats.hp = ennemy_data.hp;
     this.lostHp();
-    this.miniStatus = player_data.miniStatus;
 
 };
 

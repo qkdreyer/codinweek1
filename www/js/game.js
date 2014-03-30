@@ -69,7 +69,7 @@ function update() {
     physics.update();
     player.update();
 
-    for (var ennemyId in ennemies)
+    for (var ennemyId in ennemies) {
 		ennemies[ennemyId].update();
 	}
 
