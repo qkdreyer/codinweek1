@@ -43,6 +43,7 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     //  Our two animations, walking left and right.
     this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
     this.sprite.animations.add('right', ennemyTypes[ennemyType].rightImages, ennemyTypes[ennemyType].imageSpeed, true);
+    this.sprite.animations.play(direction);
 
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
 
@@ -60,10 +61,12 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     }
 };
 
-Ennemy.prototype.die = function() 
+Ennemy.prototype.kill = function() 
 {
+    game.physics.destroy(this.sprite);
+
     this.stats.hp = 0;
-    this.miniStatus.text.kill();
+    this.miniStatus.text = "";
     this.sprite.kill();
 };
 
@@ -89,6 +92,7 @@ Ennemy.prototype.update = function()
 
 Ennemy.prototype.render = function(ennemy_data)
 {
+    this.switchDirection(ennemy_data.dir);
     this.sprite.reset(ennemy_data.x, ennemy_data.y);
     this.stats.hp_old = this.stats.hp;
     this.stats.hp = ennemy_data.hp;
@@ -99,12 +103,20 @@ Ennemy.prototype.render = function(ennemy_data)
 
 Ennemy.prototype.switchDirection = function (direction)
 {
-        if (direction  == '-1') direction = 'left';
-        else direction = 'right';
-
-        if (this.sprite.animations.currentAnim.name != direction){
-            this.direction = direction;
+    if (direction  == '-1') direction = 'left';
+    else direction = 'right';
+    
+    if (!this.sprite.animations.currentAnim) {
+        if (!this.switchDirection_warn) {
+            console.warn("Ennemy.switchDirection");
+            this.switchDirection_warn = true;
         }
+        return;
+    }
+
+    if (this.sprite.animations.currentAnim.name != direction) {
+        this.direction = direction;
+    }
 }
 
 Ennemy.prototype.updateLifeBarPosition = function()
@@ -132,7 +144,7 @@ Ennemy.prototype.lostHp = function()
 {
     if (this.stats.hp <= 0) 
     {
-        this.die();
+        this.kill();
     }
     else
     {
@@ -141,15 +153,27 @@ Ennemy.prototype.lostHp = function()
 
 };
 
+Ennemy.get = function(i)
+{
+    if (i < 0) return;
+
+    var n = 0;
+    for (var e in ennemies) {
+        if (i == n) return ennemies[e];
+        n++;
+    }
+}
+
 Ennemy.handle_server_data = function(ennemies_data)
 {
     for (var e in ennemies_data) {
         var ennemy_data = ennemies_data[e];
         var ennemy_id = ennemy_data.id;
-        
+        var z;
         if (!ennemies[ennemy_id]) {
             ennemies[ennemy_id] = new Ennemy(ennemy_id, ennemy_data.key);
             ennemies[ennemy_id].init(ennemy_data.key, ennemy_data.x, ennemy_data.y, 'left');
+            z = true;
         }
         ennemies[ennemy_id].render(ennemy_data);
     }

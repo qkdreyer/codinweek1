@@ -82,13 +82,17 @@ Player.prototype.update = function()
     var self = this;
     for (var e in ennemies) {
         var ennemy = ennemies[e];
-        game.physics.arcade.collide(ennemy.sprite, self.sprite, function(){
-            if (!ennemy.attackTimer) {
+        game.physics.arcade.collide(ennemy.sprite, self.sprite, function() {
+            if (!self.immune) {
                 self.lostHp(20);
                 var angle = touchingEvent(ennemy.sprite);
                 socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
+                self.immune = true;
+
+                setTimeout(function() {
+                    self.immune = false;
+                }, 1000);
             }
-            ennemy.setAttackTimer();
         });
     }
 
@@ -101,6 +105,9 @@ Player.prototype.render = function(player_data)
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
     this.miniStatusBarPosition();
+
+    console.log("player_data.dir", player_data.dir);
+    this.sprite.animations.play(player_data.dir);
 
     if (player_data.missile) {
         this.missile.render(player_data.missile);
@@ -137,6 +144,7 @@ Player.prototype.serialize = function()
         x: this.sprite.x,
         y: this.sprite.y,
         hp: this.stats.hp,
+        dir: this.direction,
         missile: this.missile.serialize()
     };
 };
@@ -182,3 +190,16 @@ Player.prototype.fight = function ()
 {
 
 };
+
+Player.count = 0;
+
+Player.get = function(i)
+{
+    if (i < 0) return;
+
+    var n = 0;
+    for (var p in players) {
+        if (i == n) return players[p];
+        n++;
+    }    
+}

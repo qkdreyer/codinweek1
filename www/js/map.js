@@ -13,6 +13,11 @@ var map =
 
     contains: function(obj) {
 		return obj.x > 0 && obj.x < this.mapInstance.widthInPixels && obj.y > 0 && obj.y < this.mapInstance.heightInPixels;
+    },
+
+    out: function(obj) {
+        console.log(obj.x, game.width);
+        return obj.x > 0 && obj.x < game.width && obj.y > 0 && obj.y < game.height;
     }
 
 };
