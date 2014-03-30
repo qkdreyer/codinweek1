@@ -1,4 +1,6 @@
 
+Missile.attack_delay = 200;
+
 function Missile(parent)
 {
     this.missiles = game.add.group();
@@ -11,13 +13,19 @@ function Missile(parent)
     this.parent = parent;
     this.attackTimer = false;
     this.velocity = 300;
+    this.can_attack = true;
 }
 
 Missile.prototype.kill = function()
 {
     this.sprite.kill();
     this.isMissileActive = false;
-    this.outOfMap = false;
+    this.can_attack = false;
+
+    var self = this;
+    setTimeout(function() {
+        self.can_attack = true;
+    }, Missile.attack_delay);
 }
 
 Missile.prototype.update = function()
@@ -28,16 +36,12 @@ Missile.prototype.update = function()
     for (var e in ennemies) {
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
-            /*if (!self.attackTimer) {
-                
-            }
-            self.setAttackTimer();*/
             socket.io.emit('missileHit', {ennemy_id: e, damage: self.parent.stats.missileDamage});
             self.kill();
         });
     }
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
+    if (this.can_attack && game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
     {
         this.startMissileAttack();
     }
@@ -103,7 +107,7 @@ Missile.prototype.startMissileAttack = function()
         missileStartY = this.parent.sprite.y+20;
 
         this.sprite = this.missiles.getFirstExists(false);
-
+        if (!this.sprite) alert();
         //Coordonnées du missile par rapport au joueur qui le lance
         this.sprite.reset(missileStartX, missileStartY);
         //Rebonds
@@ -135,23 +139,25 @@ Missile.prototype.attackMissileHandling = function()
         this.kill();
     }
 
-    if (this.isOutOfScreen() && !this.outOfMap) {
-        this.outOfMap = true;
-        console.log('!!! OUT OF MAP !!!');
-        var self = this;
-        setTimeout(function() {
-            self.kill();
-        }, 250);
+    if (this.isInvisible()) {
+        this.kill();
     }
 };
 
-Missile.prototype.isOutOfScreen = function()
+Missile.prototype.isInvisible = function()
 {
-    var body = this.sprite.body;
-    var parent_body = this.parent.sprite.body;
-    console.log(body.x, game.width, this.parent.sprite.body.x);
-    var game_x = body.x - parent_body.x;
-    var game_y = body.x - parent_body.y;
-    console.log(body.x, game_x, game.width);
-    return body.x > 0 && game_x < game.width && body.y > 0 && game_y < game.height;
+    var missile = this.sprite.body;
+    var game_padding = 100;
+
+    var left_bound = 0 - game_padding + game.camera.view.x;
+    var right_bound = game.width + game_padding + game.camera.view.x;
+    var top_bound = 0 - game_padding + game.camera.view.y;
+    var bot_bound = game.height + game_padding + game.camera.view.y;
+
+    var is_left = missile.x < left_bound;
+    var is_right = missile.x > right_bound;
+    var is_top = missile.y < top_bound;
+    var is_bot = missile.y > bot_bound;
+
+    return is_left || is_right || is_top || is_bot;
 };
