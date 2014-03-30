@@ -52,7 +52,7 @@
                 }
                 players[player_id].render(player_data);
                 
-                console.log('another_player_moved', player_id, player_data);
+                //console.log('another_player_moved', player_id, player_data);
             });
 
             socket.on('server_data', function(server_data) {

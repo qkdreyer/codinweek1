@@ -65,7 +65,8 @@ Player.prototype.render = function(player_data) {
 
 Player.prototype.kill = function() {
     this.sprite.kill();
-    this.missile.kill();
+    this.miniStatus.text = '';
+    if (this.missile) this.missile.kill();
 };
 
 Player.prototype.doSync = function() {
@@ -125,7 +126,7 @@ Player.prototype.miniStatusBarPosition = function() {
 };
 
 Player.prototype.update = function() {
-    
+    this.miniStatusBarPosition();
 
     if (cursors.up.isDown || control.moveButton == 'up')
     {
