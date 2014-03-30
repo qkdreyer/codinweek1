@@ -4,6 +4,7 @@ var server = app.listen(8200);
 var io = require('socket.io').listen(server);
 var uuid = require('node-uuid');
 var util = require('util');
+var _ = require('underscore');
 
 var clients = {};
 var clients_count = 0;
@@ -36,30 +37,30 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('missileHit', handle_ennemy_hit);
 	socket.on('playerHit', handle_ennemy_collision);
+	socket.on('ennemyHit', handle_ennemy_collision);
 	socket.on('obstacleHit', handle_ennemy_collision);
 });
 
 io.set('log level', log_level);
 
 var game_loop = 0;
-// x:40-400, y: 160
-var ennemies_data = {
-	1: {
-	"id":1,
-    "x": 100,
-	"y": 175,
-	"hp": 100,
-	"key": 'baddie'
-	},
-	2: {
-	"id":2,
-    "x": 400,
-	"y": 145,
-	"hp": 200,
-	"key": 'dragon'
-	}
-};
+var ennemies_data = {}
 var other_data = [];
+
+var add_ennemy = function(key, x, y, hp) {
+	var ennemy_id = uuid();
+
+	ennemies_data[ennemy_id] = {
+		"id": ennemy_id,
+		"x": x,
+		"y": y,
+		"hp": hp,
+		"key": key
+	}
+}
+
+add_ennemy('dragon', 400, 145, 200);
+add_ennemy('baddie', 100, 175, 100);
 
 var handle_ennemy_collision = function(collision_data) {
 	var ennemy_id = collision_data.ennemy_id;
@@ -74,12 +75,15 @@ var handle_ennemy_hit = function(hit_data) {
 	var damage = hit_data.damage;
 
 	console.log('EVENT handle_ennemy_hit', ennemy_id, damage);
+	if (!ennemies_data[ennemy_id]) {
+		console.warn('undefined');
+		return;
+	}
 
 	ennemies_data[ennemy_id].hp -= damage;
-
 };
 
-var generate_ennemy_data = function(ennemy_data) {
+var update_generate_data = function(ennemy_data) {
 
 	if (ennemy_data.dir == 1) {
 		ennemy_data.x += 1;
@@ -102,10 +106,18 @@ var generate_ennemy_data = function(ennemy_data) {
 	
 var generate_server_data = function() {
 
-	for (var e in ennemies_data) {
-		var ennemy_data = ennemies_data[e];
-		var new_ennemy_data = generate_ennemy_data(ennemy_data);
-		if (new_ennemy_data) ennemies_data[e] = new_ennemy_data;
+	var ennemy_count = 0;
+	_.each(ennemies_data, function(ennemy_data, ennemy_id) {
+		var new_ennemy_data = update_generate_data(ennemy_data);
+		if (new_ennemy_data) {
+			ennemies_data[ennemy_id] = new_ennemy_data;
+			ennemy_count++;
+		}
+	});
+
+	if (ennemy_count < 3) {
+		var x_rnd = parseInt(100 * Math.random(), 10);
+		add_ennemy('baddie', x_rnd, 175, 100);
 	}
 
 	var server_data = {};

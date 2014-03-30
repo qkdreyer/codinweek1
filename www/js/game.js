@@ -28,8 +28,6 @@ function create() {
     //PHYSICS
     physics.init(mapInstance);
 
-    layer.resizeWorld();
-
     //SPRITES
     player = new Player();
     player.init();

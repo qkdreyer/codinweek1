@@ -56,7 +56,7 @@ Player.prototype.render = function(player_data) {
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
-    this.miniStatus = player_data.miniStatus;
+    this.miniStatusBarPosition();
 
     if (player_data.missile) {
         this.missile.render(player_data.missile);
@@ -129,41 +129,40 @@ Player.prototype.update = function() {
 
     if (cursors.up.isDown || control.moveButton == 'up')
     {
-        if (player.sprite.body.onFloor())
+        if (this.sprite.body.onFloor())
         {
-            player.sprite.body.velocity.y = -200;
+            this.sprite.body.velocity.y = -200;
         }
     }
 
     if (cursors.left.isDown  || control.moveButton == 'left')
     {
-        player.sprite.body.velocity.x = -150;
-        player.sprite.animations.play('left');
-        player.direction = 'left';
+        this.sprite.body.velocity.x = -150;
+        this.sprite.animations.play('left');
+        this.direction = 'left';
     }
     else if (cursors.right.isDown  || control.moveButton == 'right')
     {
-        player.sprite.body.velocity.x = 150;
-        player.sprite.animations.play('right');
-        player.direction = 'right';
+        this.sprite.body.velocity.x = 150;
+        this.sprite.animations.play('right');
+        this.direction = 'right';
     }
     else
     {
-        player.sprite.animations.stop();
+        this.sprite.animations.stop();
     }
 
 
-    this.miniStatusBarPosition();
     if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
         return;
     }
 
     for (var e in ennemies){
-        var self = this;
+        var ennemy = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
             if (!ennemies[e].attackTimer) {
-                self.lostHp(20);
+                ennemy.lostHp(20);
                 var angle = touchingEvent(ennemies[e].sprite);
                 socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
             }
