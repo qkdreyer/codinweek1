@@ -3,10 +3,10 @@
 function Ennemy(ennemyKey)     
 {
 
-    this.ennemies = game.add.group();
+    /*this.ennemies = game.add.group();
     this.ennemies.enableBody = true;
     this.ennemies.physicsBodyType = Phaser.Physics.ARCADE;
-    this.ennemies.createMultiple(1, ennemyKey);
+    this.ennemies.createMultiple(1, ennemyKey);*/
 
     this.sprite = null;
     this.stats = {
@@ -49,14 +49,14 @@ var ennemyTypes = {
 //s'il est capable de tirer, et s'il vole)
 Ennemy.prototype.init = function(ennemyType, x, y, direction) 
 {
-    //this.sprite = game.add.sprite(x, y, ennemyType);
-    this.sprite = this.ennemies.getFirstExists(false);
-    this.sprite.reset(x, y);
+    this.sprite = game.add.sprite(x, y, ennemyType);
+    //this.sprite = this.ennemies.getFirstExists(false);
+    //this.sprite.reset(x, y);
     this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 	
     //  Our two animations, walking left and right.
-    //this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
-    //this.sprite.animations.add('right', ennemyTypes[ennemyType].rightImages, ennemyTypes[ennemyType].imageSpeed, true);
+    this.sprite.animations.add('left', ennemyTypes[ennemyType].leftImages, ennemyTypes[ennemyType].imageSpeed, true);
+    this.sprite.animations.add('right', ennemyTypes[ennemyType].rightImages, ennemyTypes[ennemyType].imageSpeed, true);
 
     //game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
     
@@ -79,7 +79,7 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
 
 
     this.direction = direction;
-    //this.sprite.animations.play(direction);
+    this.sprite.animations.play(direction);
 };
 
 Ennemy.prototype.setAttackTimer = function(){
@@ -135,12 +135,12 @@ Ennemy.prototype.update = function()
 
     if (this.sprite.x > 410)
     {
-        //this.sprite.animations.play('left');
+        this.sprite.animations.play('left');
     }
  
     if (this.sprite.x < 10)
     {
-        //this.sprite.animations.play('right');
+        this.sprite.animations.play('right');
     }
 
     if (this.stats.hp <= 0) {
@@ -152,14 +152,16 @@ Ennemy.prototype.render = function(ennemy_data)
 {
     if (!this.sprite) 
     {
-       //this.sprite = game.add.sprite(ennemy_data.x, ennemy_data.y, ennemy_data.key);
-       this.sprite = this.ennemies.getFirstExists(false);
+       this.sprite = game.add.sprite(ennemy_data.x, ennemy_data.y, ennemy_data.key);
+       //this.sprite = this.ennemies.getFirstExists(false);
        //Coordonnées du missile par rapport au joueur qui le lance
-        this.sprite.reset(ennemy_data.x, ennemy_data.y);
+        //this.sprite.reset(ennemy_data.x, ennemy_data.y);
     } 
     else 
     {
-        this.sprite.reset(ennemy_data.x, ennemy_data.y);
+        this.sprite.x = ennemy_data.x;
+        this.sprite.y = ennemy_data.y;
+        //this.sprite.reset(ennemy_data.x, ennemy_data.y);
     }
     this.stats.hp = ennemy_data.hp;
     this.lostHp();
