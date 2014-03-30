@@ -34,9 +34,9 @@ io.sockets.on('connection', function (socket) {
 		io.sockets.emit('client_disconnected', {userid: socket.userid});
 	});
 
-	socket.on('playerHit', handle_ennemy_collision);
 	socket.on('missileHit', handle_ennemy_hit);
-	socket.on('obstacleHit', handle_ennemy_obstacle);
+	socket.on('playerHit', handle_ennemy_collision);
+	socket.on('obstacleHit', handle_ennemy_collision);
 });
 
 io.set('log level', log_level);
@@ -47,14 +47,14 @@ var ennemies_data = {
 	1: {
 	"id":1,
     "x": 100,
-	"y": 185,
+	"y": 175,
 	"hp": 100,
 	"key": 'baddie'
 	},
 	2: {
 	"id":2,
     "x": 400,
-	"y": 185,
+	"y": 145,
 	"hp": 200,
 	"key": 'dragon'
 	}
@@ -64,6 +64,7 @@ var other_data = [];
 var handle_ennemy_collision = function(collision_data) {
 	var ennemy_id = collision_data.ennemy_id;
 	var angle = collision_data.angle;
+	ennemies_data[ennemy_id].dir *= -1;
 
 	console.log('EVENT handle_ennemy_collision', ennemy_id, angle);
 };
@@ -76,10 +77,6 @@ var handle_ennemy_hit = function(hit_data) {
 
 	ennemies_data[ennemy_id].hp -= damage;
 
-};
-
-var handle_ennemy_obstacle = function(obstacle_data) {
-	console.log('EVENT handle_ennemy_obstacle');
 };
 
 var generate_ennemy_data = function(ennemy_data) {

@@ -38,8 +38,10 @@
             // When current client id disconnected
             socket.on('client_disconnected', function (data) {
                 console.log('client disconnected!', data);
-                players[data.userid].kill();
-                delete players[data.userid];
+                if (players[data.userid]) {
+                    players[data.userid].kill();
+                    delete players[data.userid];
+                }
             });
 
             socket.on('client_moved', function(player_data) {
