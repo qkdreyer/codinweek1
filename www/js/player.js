@@ -56,7 +56,7 @@ Player.prototype.render = function(player_data) {
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
-    this.miniStatus = player_data.miniStatus;
+    this.miniStatusBarPosition();
 
     if (player_data.missile) {
         this.missile.render(player_data.missile);
@@ -153,7 +153,6 @@ Player.prototype.update = function() {
     }
 
 
-    this.miniStatusBarPosition();
     if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
         return;
