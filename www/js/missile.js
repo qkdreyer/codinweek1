@@ -26,7 +26,7 @@ Missile.prototype.kill = function() {
 
 Missile.prototype.render = function(missile_data) {
     if (!this.sprite) {
-        this.sprite = game.add.sprite(missile_data.x, missile_data.y, 'missile');
+        this.sprite = this.missiles.getFirstExists(false);
     } else {
         this.sprite.x = missile_data.x;
         this.sprite.y = missile_data.y;

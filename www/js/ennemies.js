@@ -3,6 +3,11 @@
 function Ennemy(ennemyKey)     
 {
 
+    this.ennemies = game.add.group();
+    this.ennemies.enableBody = true;
+    this.ennemies.physicsBodyType = Phaser.Physics.ARCADE;
+    this.ennemies.createMultiple(1, ennemyKey);
+
     this.sprite = null;
     this.stats = {
         maxHp: 0,
@@ -44,7 +49,9 @@ var ennemyTypes = {
 //s'il est capable de tirer, et s'il vole)
 Ennemy.prototype.init = function(ennemyType, x, y, direction) 
 {
-    this.sprite = game.add.sprite(x, y, ennemyType);
+    this.sprite = this.ennemies.getFirstExists(false);
+    this.sprite.reset(x, y);
+
     this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 	
     //  Our two animations, walking left and right.
@@ -136,7 +143,8 @@ Ennemy.prototype.render = function(ennemy_data)
 {
     if (!this.sprite) 
     {
-       this.sprite = game.add.sprite(ennemy_data.x, ennemy_data.y, ennemy_data.key);
+       this.sprite = this.ennemies.getFirstExists(false);
+       this.sprite.reset(ennemy_data.x, ennemy_data.y);
     } 
     else 
     {
