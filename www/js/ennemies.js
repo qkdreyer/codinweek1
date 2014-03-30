@@ -53,14 +53,14 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE); 
     
     //Don't leave the world zone when collides
-	if (ennemyTypes[ennemyType].flyer == 1)
+	/*if (ennemyTypes[ennemyType].flyer == 1)
 	{    
     	this.sprite.body.allowGravity = false;
 	}
 	else
 	{
 	    this.sprite.body.collideWorldBounds = true;	
-	}
+	}*/
     this.stats.hp = 20;
     this.stats.maxHp = this.stats.hp;
 
@@ -72,15 +72,6 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
 
     this.direction = direction;
     this.sprite.animations.play(direction);
-    
-    /*if (direction = 'left')
-    {
-    	this.sprite.body.velocity.x = -ennemyTypes[ennemyType].velocity;
-    }
-    else
-    {
-    	this.sprite.body.velocity.x = ennemyTypes[ennemyType].velocity;    	
-    }*/
 };
 
 Ennemy.prototype.setAttackTimer = function(){
@@ -136,13 +127,11 @@ Ennemy.prototype.update = function()
 
     if (this.sprite.x > 410)
     {
-        //this.sprite.body.velocity.x = -100;
         this.sprite.animations.play('left');
     }
  
     if (this.sprite.x < 10)
     {
-        //this.sprite.body.velocity.x = 100;
         this.sprite.animations.play('right');
     }
 
@@ -159,8 +148,8 @@ Ennemy.prototype.render = function(ennemy_data)
     } 
     else 
     {
-        this.sprite.body.x = ennemy_data.x;
-        this.sprite.body.y = ennemy_data.y;
+        this.sprite.x = ennemy_data.x;
+        this.sprite.y = ennemy_data.y;
     }
     this.stats.hp = ennemy_data.hp;
     this.lostHp();
