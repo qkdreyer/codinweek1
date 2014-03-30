@@ -114,7 +114,6 @@ Ennemy.prototype.die = function()
 };
 
 Ennemy.prototype.miniStatusBarPosition = function() {
-    if (this.miniStatus == null)
     this.miniStatus.x = this.sprite.x+10;
     this.miniStatus.y = this.sprite.y-15;
     this.miniStatus.text = this.stats.hp;

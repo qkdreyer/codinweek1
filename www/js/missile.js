@@ -28,8 +28,6 @@ Missile.prototype.render = function(missile_data) {
     if (!this.sprite) {
         this.sprite = this.missiles.getFirstExists(false);
     } else {
-        /*this.sprite.x = missile_data.x;
-        this.sprite.y = missile_data.y;*/
         this.sprite.reset(missile_data.x, missile_data.y);
     }
 };
