@@ -138,15 +138,12 @@ Ennemy.prototype.update = function()
     }
 
     for (var p in players) {
-        var player = this;
+        var self = this;
         var player_sprite = players[p].sprite;
         game.physics.arcade.collide(player_sprite, this.sprite, function() {
-            if (!ennemies[e].attackTimer) {
-                self.lostHp();
-                var angle = touchingEvent(ennemies[e].sprite);
-                socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
-            }
-            ennemies[e].setAttackTimer();
+            //self.lostHp();
+            var angle = touchingEvent(ennemies[e].sprite);
+            socket.io.emit('ennemyHit', {ennemy_id: this.id, angle: angle});
         });
     }
 };

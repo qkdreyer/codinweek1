@@ -37,6 +37,7 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('missileHit', handle_ennemy_hit);
 	socket.on('playerHit', handle_ennemy_collision);
+	socket.on('ennemyHit', handle_ennemy_collision);
 	socket.on('obstacleHit', handle_ennemy_collision);
 });
 

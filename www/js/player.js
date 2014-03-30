@@ -129,29 +129,29 @@ Player.prototype.update = function() {
 
     if (cursors.up.isDown || control.moveButton == 'up')
     {
-        if (this.player.sprite.body.onFloor())
+        if (this.sprite.body.onFloor())
         {
-            this.player.sprite.body.velocity.y = -200;
+            this.sprite.body.velocity.y = -200;
         }
     }
 
     if (cursors.left.isDown  || control.moveButton == 'left')
     {
-        this.player.sprite.body.velocity.x = -150;
-        this.player.sprite.animations.play('left');
-        this.player.direction = 'left';
+        this.sprite.body.velocity.x = -150;
+        this.sprite.animations.play('left');
+        this.direction = 'left';
     }
     else if (cursors.right.isDown  || control.moveButton == 'right')
     {
-        this.player.sprite.body.velocity.x = 150;
-        this.player.sprite.animations.play('right');
-        this.player.direction = 'right';
+        this.sprite.body.velocity.x = 150;
+        this.sprite.animations.play('right');
+        this.direction = 'right';
     }
     else
     {
-        this.player.sprite.animations.stop();
+        this.sprite.animations.stop();
     }
-    
+
 
     this.miniStatusBarPosition();
     if (this.isDead()) {
