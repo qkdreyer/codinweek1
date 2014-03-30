@@ -47,7 +47,7 @@ var game_loop = 0;
 var ennemies_data = {}
 var other_data = [];
 
-var add_ennemy = function(key, x, y, hp) {
+var add_ennemy = function(key, x, y, hp, dir) {
 	var ennemy_id = uuid();
 
 	ennemies_data[ennemy_id] = {
@@ -55,12 +55,13 @@ var add_ennemy = function(key, x, y, hp) {
 		"x": x,
 		"y": y,
 		"hp": hp,
-		"key": key
+		"key": key,
+        "dir": dir
 	}
 }
 
-add_ennemy('dragon', 400, 145, 200);
-add_ennemy('baddie', 100, 175, 100);
+add_ennemy('dragon', 400, 145, 200, 1);
+add_ennemy('baddie', 100, 175, 100, 1);
 
 var handle_ennemy_collision = function(collision_data) {
 	var ennemy_id = collision_data.ennemy_id;
@@ -84,7 +85,6 @@ var handle_ennemy_hit = function(hit_data) {
 };
 
 var update_generate_data = function(ennemy_data) {
-
 	if (ennemy_data.dir == 1) {
 		ennemy_data.x += 1;
 	} else {
