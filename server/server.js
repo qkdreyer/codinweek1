@@ -35,8 +35,8 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('playerHit', handle_ennemy_collision);
-
 	socket.on('missileHit', handle_ennemy_hit);
+	socket.on('obstacleHit', handle_ennemy_obstacle);
 });
 
 io.set('log level', log_level);
@@ -77,6 +77,10 @@ var handle_ennemy_hit = function(hit_data) {
 		console.log('EVENT ENNEMY DIE !!!!!');
 	}
 
+};
+
+var handle_ennemy_obstacle = function(obstacle_data) {
+	console.log('EVENT handle_ennemy_obstacle');
 };
 
 var generate_ennemy_data = function(ennemy_data) {
