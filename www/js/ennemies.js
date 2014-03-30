@@ -12,9 +12,7 @@ function Ennemy()
     this.direction = null;
     this.attackTimer = false;
     this.velocity = 0;
-    this.mini
-
-
+    this.miniStatus = null;
 }
 
 Ennemy.handle_server_data = function(ennemies_data) {
