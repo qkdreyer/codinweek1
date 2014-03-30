@@ -1,13 +1,6 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: Soahar
- * Date: 29/03/14
- * Time: 18:39
- * To change this template use File | Settings | File Templates.
- */
 
-function Missile(parent){
-
+function Missile(parent)
+{
     this.missiles = game.add.group();
     this.missiles.enableBody = true;
     this.missiles.physicsBodyType = Phaser.Physics.ARCADE;
@@ -20,46 +13,17 @@ function Missile(parent){
     this.velocity = 300;
 }
 
-Missile.prototype.kill = function() {
+Missile.prototype.kill = function()
+{
     this.sprite.kill();
 }
 
-Missile.prototype.render = function(missile_data) {
-    if (!this.sprite) {
-        this.sprite = this.missiles.getFirstExists(false);
-    } else {
-        this.sprite.reset(missile_data.x, missile_data.y);
-    }
-};
-
-Missile.prototype.doSync = function() {
-    return this.sprite != null && has_moved(this.sprite);
-}
-
-Missile.prototype.serialize = function() {
-    if (!this.sprite) return null;
-
-    return {
-        x: this.sprite.x,
-        y: this.sprite.y
-    };
-}
-var i =0;
-Missile.prototype.update = function(){
+Missile.prototype.update = function()
+{
     var self = this;
     game.physics.arcade.collide(this.sprite, layer);
-    /*for (var p in players){
-        game.physics.arcade.collide(players[p].sprite, this.sprite, function(){
-            console.log('collide');
-            if (!self.attackTimer){
-                console.log('here');
-                players[p].lostHp(players[p].stats.distanceDamage);
-            }
-            self.setAttackTimer();
-        });
-    }*/
 
-    for (var e in ennemies){
+    for (var e in ennemies) {
         var self = this;
         game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
             if (!self.attackTimer) {
@@ -80,8 +44,32 @@ Missile.prototype.update = function(){
     }
 };
 
+Missile.prototype.render = function(missile_data)
+{
+    if (!this.sprite) {
+        this.sprite = this.missiles.getFirstExists(false);
+    } else {
+        this.sprite.reset(missile_data.x, missile_data.y);
+    }
+};
 
-Missile.prototype.setAttackTimer = function(){
+Missile.prototype.doSync = function()
+{
+    return this.sprite != null && has_moved(this.sprite);
+}
+
+Missile.prototype.serialize = function()
+{
+    if (!this.sprite) return null;
+
+    return {
+        x: this.sprite.x,
+        y: this.sprite.y
+    };
+}
+
+Missile.prototype.setAttackTimer = function()
+{
     var self = this;
     this.attackTimer = true;
     setInterval(function(){
@@ -89,8 +77,8 @@ Missile.prototype.setAttackTimer = function(){
     },3000);
 };
 
-Missile.prototype.startMissileAttack = function () {
-
+Missile.prototype.startMissileAttack = function()
+{
     //On ne peut lancer un nouveau missile que si aucun autre n'est en cours de déplacement
     if (!this.isMissileActive)
     {
@@ -127,7 +115,8 @@ Missile.prototype.startMissileAttack = function () {
 };
 
 //Gère la vitesse du missile
-Missile.prototype.attackMissileHandling = function() {
+Missile.prototype.attackMissileHandling = function()
+{
     if (this.sprite.body.velocity.x > 0)
     {
         this.sprite.body.velocity.x = parseInt(--this.sprite.body.velocity.x, 10);
@@ -144,7 +133,6 @@ Missile.prototype.attackMissileHandling = function() {
     }
 
     if (!map.contains(this.sprite.body)) {
-        //console.log('!!! OUT OF MAP !!!');
+        console.log('!!! OUT OF MAP !!!');
     }
-
 };

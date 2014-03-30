@@ -1,13 +1,6 @@
-/**
- * Created with JetBrains PhpStorm.
- * User: Soahar
- * Date: 29/03/14
- * Time: 14:43
- * To change this template use File | Settings | File Templates.
- */
 
-
-function Player(x, y) {
+function Player(x, y)
+{
     this.sprite = null;
     this.stats = {
         hp: 100,
@@ -29,8 +22,8 @@ function Player(x, y) {
     this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 }
 
-Player.prototype.init = function() {
-
+Player.prototype.init = function()
+{
     //  Our two animations, walking left and right.
     this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
     this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -48,11 +41,61 @@ Player.prototype.init = function() {
     this.statusBar.sprite.width = this.statusBar.maxWidth;
     statusBarFrame.fixedToCamera = true;
     this.statusBar.sprite.fixedToCamera = true;
-    cursors = game.input.keyboard.createCursorKeys();
+    this.cursors = game.input.keyboard.createCursorKeys();
 };
 
-Player.prototype.render = function(player_data) {
+Player.prototype.update = function()
+{
+    this.miniStatusBarPosition();
 
+    if (this.cursors.up.isDown || control.moveButton == 'up')
+    {
+        if (this.sprite.body.onFloor())
+        {
+            this.sprite.body.velocity.y = -200;
+        }
+    }
+
+    if (this.cursors.left.isDown || control.moveButton == 'left')
+    {
+        this.sprite.body.velocity.x = -150;
+        this.sprite.animations.play('left');
+        this.direction = 'left';
+    }
+    else if (this.cursors.right.isDown || control.moveButton == 'right')
+    {
+        this.sprite.body.velocity.x = 150;
+        this.sprite.animations.play('right');
+        this.direction = 'right';
+    }
+    else
+    {
+        this.sprite.animations.stop();
+    }
+
+
+    if (this.isDead()) {
+        this.sprite.body.velocity.x = 0;
+        return;
+    }
+
+    for (var e in ennemies) {
+        var ennemy = this;
+        game.physics.arcade.collide(ennemy.sprite, this.sprite, function(){
+            if (!ennemy.attackTimer) {
+                ennemy.lostHp(20);
+                var angle = touchingEvent(ennemy.sprite);
+                socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
+            }
+            ennemy.setAttackTimer();
+        });
+    }
+
+    this.missile.update();
+};
+
+Player.prototype.render = function(player_data)
+{
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
@@ -63,17 +106,29 @@ Player.prototype.render = function(player_data) {
     }
 };
 
-Player.prototype.kill = function() {
-    this.sprite.kill();
-    this.miniStatus.text = '';
-    if (this.missile) this.missile.kill();
+Player.prototype.die = function()
+{
+    this.stats.hp = 0;
+    this.statusBar.sprite.width = 0;
+
+    endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
+    endText.fixedToCamera = true;
 };
 
-Player.prototype.doSync = function() {
+Player.prototype.kill = function()
+{
+    this.sprite.kill();
+    this.miniStatus.text = '';
+    if (this.missile.sprite) this.missile.kill();
+};
+
+Player.prototype.doSync = function()
+{
     return has_moved(this.sprite) || this.missile.doSync();
 };
 
-Player.prototype.serialize = function() {
+Player.prototype.serialize = function()
+{
     return {
         id: this.userid,
         x: this.sprite.x,
@@ -83,7 +138,8 @@ Player.prototype.serialize = function() {
     };
 };
 
-Player.prototype.lostHp = function(qtyHp) {
+Player.prototype.lostHp = function(qtyHp)
+{
     this.stats.hp -= qtyHp;
     if (this.stats.hp <= 0) 
     {
@@ -107,71 +163,19 @@ Player.prototype.lostHp = function(qtyHp) {
     }
 };
 
-Player.prototype.isDead = function() {
+Player.prototype.isDead = function()
+{
     return (this.stats.hp === 0);
 };
 
-Player.prototype.die = function() {
-    this.stats.hp = 0;
-    this.statusBar.sprite.width = 0;
-
-    endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
-    endText.fixedToCamera = true;
-};
-
-Player.prototype.miniStatusBarPosition = function() {
+Player.prototype.miniStatusBarPosition = function()
+{
     this.miniStatus.x = this.sprite.x+5;
     this.miniStatus.y = this.sprite.y-5;
     this.miniStatus.text = this.stats.hp;
 };
 
-Player.prototype.update = function() {
-    this.miniStatusBarPosition();
+Player.prototype.fight = function ()
+{
 
-    if (cursors.up.isDown || control.moveButton == 'up')
-    {
-        if (this.sprite.body.onFloor())
-        {
-            this.sprite.body.velocity.y = -200;
-        }
-    }
-
-    if (cursors.left.isDown  || control.moveButton == 'left')
-    {
-        this.sprite.body.velocity.x = -150;
-        this.sprite.animations.play('left');
-        this.direction = 'left';
-    }
-    else if (cursors.right.isDown  || control.moveButton == 'right')
-    {
-        this.sprite.body.velocity.x = 150;
-        this.sprite.animations.play('right');
-        this.direction = 'right';
-    }
-    else
-    {
-        this.sprite.animations.stop();
-    }
-
-
-    if (this.isDead()) {
-        this.sprite.body.velocity.x = 0;
-        return;
-    }
-
-    for (var e in ennemies){
-        var ennemy = this;
-        game.physics.arcade.collide(ennemies[e].sprite, this.sprite, function(){
-            if (!ennemies[e].attackTimer) {
-                ennemy.lostHp(20);
-                var angle = touchingEvent(ennemies[e].sprite);
-                socket.io.emit('playerHit', {ennemy_id: e, angle: angle});
-            }
-            ennemies[e].setAttackTimer();
-        });
-    }
-
-    this.missile.update();
 };
-
-Player.prototype.fight = function () {}

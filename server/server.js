@@ -36,9 +36,9 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('missileHit', handle_ennemy_hit);
-	socket.on('playerHit', handle_ennemy_collision);
-	socket.on('ennemyHit', handle_ennemy_collision);
-	socket.on('obstacleHit', handle_ennemy_collision);
+	socket.on('playerHit', handle_ennemy_collision.bind(socket, 1));
+	socket.on('ennemyHit', handle_ennemy_collision.bind(socket, 2));
+	socket.on('obstacleHit', handle_ennemy_collision.bind(socket, 3));
 });
 
 io.set('log level', log_level);
@@ -63,14 +63,18 @@ var add_ennemy = function(key, x, y, hp, dir) {
 add_ennemy('dragon', 50, 145, 200, -1);
 //add_ennemy('baddie', 100, 175, 100, 1);
 
-var handle_ennemy_collision = function(collision_data) {
+var handle_ennemy_collision = function(collision_type, collision_data) {
 	var ennemy_id = collision_data.ennemy_id;
 	var angle = collision_data.angle;
-    if (ennemy_id) {
-        ennemies_data[ennemy_id].dir *= -1;
+
+	console.log('EVENT handle_ennemy_collision', ennemy_id, angle, collision_type, collision_data);
+
+    if (!ennemies_data[ennemy_id]) {
+		console.warn('handle_ennemy_collision ennemy_id undefined');
+		return;
     }
 
-	console.log('EVENT handle_ennemy_collision', ennemy_id, angle);
+    ennemies_data[ennemy_id].dir *= -1;
 };
 
 var handle_ennemy_hit = function(hit_data) {
@@ -78,8 +82,9 @@ var handle_ennemy_hit = function(hit_data) {
 	var damage = hit_data.damage;
 
 	console.log('EVENT handle_ennemy_hit', ennemy_id, damage);
+
 	if (!ennemies_data[ennemy_id]) {
-		console.warn('undefined');
+		console.warn('handle_ennemy_hit ennemy_id undefined');
 		return;
 	}
 

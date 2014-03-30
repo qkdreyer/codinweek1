@@ -1,6 +1,18 @@
-var game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', {
+    preload: preload,
+    create: create, update: update,
+    render: render
+});
 
-function preload() {
+var layer;
+var scoreText;
+var score = 0;
+var player;
+var players = {};
+var ennemies = {};
+
+function preload()
+{
     game.load.tilemap('mario', 'assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilemaps/tiles/super_mario.png');
     game.load.spritesheet('player', 'assets/dude.png', 32, 48);
@@ -12,16 +24,8 @@ function preload() {
     game.load.spritesheet('dragon', 'assets/dragon.png', 96, 64); 
 }
 
-var layer;
-var cursors;
-var scoreText;
-var score = 0;
-var player;
-var players = {};
-var ennemies = {};
-
-function create() {
-
+function create()
+{
     //MAP
     var mapInstance = map.init();
 
@@ -61,9 +65,8 @@ function create() {
     if (socketResult == false) players[1] = player;
 }
 
-function update() {
-
-    
+function update()
+{    
     physics.update();
     player.update();
 
@@ -74,15 +77,12 @@ function update() {
     if (socket.io && player.doSync())
     {
         socket.sync(player);
-    } 
-    
+    }    
 }
 
-function render() {
-
+function render()
+{
     // game.debug.body(player);
     //
     //game.debug.bodyInfo(player, 32, 320);
-
 }
-
