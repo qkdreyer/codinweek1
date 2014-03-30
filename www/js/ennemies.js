@@ -73,14 +73,14 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
     this.direction = direction;
     this.sprite.animations.play(direction);
     
-    if (direction = 'left')
+    /*if (direction = 'left')
     {
     	this.sprite.body.velocity.x = -ennemyTypes[ennemyType].velocity;
     }
     else
     {
     	this.sprite.body.velocity.x = ennemyTypes[ennemyType].velocity;    	
-    }
+    }*/
 };
 
 Ennemy.prototype.setAttackTimer = function(){
@@ -132,22 +132,21 @@ Ennemy.prototype.miniStatusBarPosition = function() {
 
 Ennemy.prototype.update = function()
 {
-if (this == window) alert(1);
     this.miniStatusBarPosition();
 
     if (this.sprite.x > 410)
     {
-        this.sprite.body.velocity.x = -100;
+        //this.sprite.body.velocity.x = -100;
         this.sprite.animations.play('left');
     }
  
     if (this.sprite.x < 10)
     {
-        this.sprite.body.velocity.x = 100;
+        //this.sprite.body.velocity.x = 100;
         this.sprite.animations.play('right');
     }
 
-    if (this.hp <= 0) {
+    if (this.stats.hp <= 0) {
         this.kill();
     }
 };
@@ -160,8 +159,8 @@ Ennemy.prototype.render = function(ennemy_data)
     } 
     else 
     {
-        this.sprite.x = ennemy_data.x;
-        this.sprite.y = ennemy_data.y;
+        this.sprite.body.x = ennemy_data.x;
+        this.sprite.body.y = ennemy_data.y;
     }
     this.stats.hp = ennemy_data.hp;
     this.lostHp();
