@@ -39,7 +39,8 @@ var physics =
         mapInstance.setCollision(14);
         // Overlap functions
         mapInstance.setTileIndexCallback(11, hitCoin, this);
-        mapInstance.setTileIndexCallback(12, hitMushroom, this);        
+        mapInstance.setTileIndexCallback(12, hitMushroom, this);      
+        mapInstance.setTileIndexCallback(18, hitMushroom, this);     
     },
 
     update: function() {
