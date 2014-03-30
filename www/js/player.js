@@ -102,6 +102,9 @@ Player.prototype.render = function(player_data)
     this.stats.hp = player_data.hp;
     this.miniStatusBarPosition();
 
+    console.log("player_data.dir", player_data.dir);
+    this.sprite.animations.play(player_data.dir);
+
     if (player_data.missile) {
         this.missile.render(player_data.missile);
     }
@@ -137,6 +140,7 @@ Player.prototype.serialize = function()
         x: this.sprite.x,
         y: this.sprite.y,
         hp: this.stats.hp,
+        dir: this.direction,
         missile: this.missile.serialize()
     };
 };
@@ -182,3 +186,16 @@ Player.prototype.fight = function ()
 {
 
 };
+
+Player.count = 0;
+
+Player.get = function(i)
+{
+    if (i < 0) return;
+
+    var n = 0;
+    for (var p in players) {
+        if (i == n) return players[p];
+        n++;
+    }    
+}

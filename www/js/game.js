@@ -1,15 +1,29 @@
-var game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', {
-    preload: preload,
-    create: create, update: update,
-    render: render
-});
-
+var game
 var layer;
 var scoreText;
-var score = 0;
+var score;
 var player;
-var players = {};
-var ennemies = {};
+var players;
+var ennemies;
+
+function init()
+{
+    if (game) game.physics.destroy();
+    setTimeout(function() {
+    
+        game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', {
+            preload: preload,
+            create: create, update: update,
+            render: render
+        });
+
+        score = 0;
+        players = {};
+        ennemies = {};
+
+        console.log("game init");
+    }, 1000);
+}
 
 function preload()
 {
@@ -36,8 +50,6 @@ function create()
     player = new Player();
     player.init();
 
-    //COLLISIONS
-
     //SCORE
     scoreText = game.add.text(16, 46, 'score: 0', { fontSize: '32px', fill: '#000' });
 
@@ -46,23 +58,13 @@ function create()
     scoreText.fixedToCamera = true;
 
     //CONTROl
-    control.initMoveButton();
+    control.initMoveButton();   
+   
+    //SOCKET
+    socket.init();
 
-    
-	 
-    //ENNEMIS
-    /*var ennemy = new Ennemy();
-    ennemy.init('baddie', 400, 170, 'left');
-    ennemies['baddie1'] = ennemy;
-    
-    ennemy = new Ennemy();
-    ennemy.init('dragon', 800, 50, 'left');
-    ennemies['dragon1'] = ennemy;*/
-   
-   
-    // Start Client Connection to Server
-    var socketResult = socket.init();
-    if (socketResult == false) players[1] = player;
+    // Single Player
+    if (typeof io != "undefined") players[1] = player;
 }
 
 function update()

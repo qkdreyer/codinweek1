@@ -1,7 +1,7 @@
 (function(exports) {    
     exports.socket = {
         io: null,
-        host: location.origin,
+        host: "192.168.1.12",
         port: 8200,
         debug: false,
         log: function() {
@@ -14,6 +14,7 @@
             if (typeof exports.io === "undefined") return false;
             
             var url = this.url();
+            var self = this;
             this.log('Connecting to Server', url);
             var socket = io.connect(url);
 
@@ -34,13 +35,13 @@
 
             // When another client is connected
             socket.on('client_connected', function (player_data) {
-                this.log('client_connected', player_data);
+                self.log('client_connected', player_data);
             });
 
             // When current client id disconnected
             socket.on('client_disconnected', function (player_data) {
                 var player_id = player_data.userid;
-                this.log('client_disconnected', player_id, player_data);
+                self.log('client_disconnected', player_id, player_data);
 
                 if (players[player_id]) {
                     players[player_id].kill();
@@ -50,7 +51,7 @@
 
             socket.on('client_moved', function(player_data) {
                 var player_id = player_data.id;
-                this.log('client_moved', player_id, player_data);
+                self.log('client_moved', player_id, player_data);
 
                 if (!players[player_id]) {
                     players[player_id] = new Player(player_data.x, player_data.y);
@@ -64,6 +65,15 @@
                 var items_data = server_data[1];
 
                 Ennemy.handle_server_data(ennemies_data);
+            });
+
+            socket.on('server_start', function() {
+                /*console.log("ss");
+                for (var p in players) {
+                    if (p != players[p]) {
+                        players[p].kill();
+                    }
+                }*/
             });
             
             return true;

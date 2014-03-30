@@ -135,7 +135,7 @@ Missile.prototype.attackMissileHandling = function()
         this.kill();
     }
 
-    if (!map.contains(this.sprite.body) && !this.outOfMap) {
+    if (this.isOutOfScreen() && !this.outOfMap) {
         this.outOfMap = true;
         console.log('!!! OUT OF MAP !!!');
         var self = this;
@@ -143,4 +143,15 @@ Missile.prototype.attackMissileHandling = function()
             self.kill();
         }, 250);
     }
+};
+
+Missile.prototype.isOutOfScreen = function()
+{
+    var body = this.sprite.body;
+    var parent_body = this.parent.sprite.body;
+    console.log(body.x, game.width, this.parent.sprite.body.x);
+    var game_x = body.x - parent_body.x;
+    var game_y = body.x - parent_body.y;
+    console.log(body.x, game_x, game.width);
+    return body.x > 0 && game_x < game.width && body.y > 0 && game_y < game.height;
 };
