@@ -60,13 +60,15 @@ var add_ennemy = function(key, x, y, hp, dir) {
 	}
 }
 
-add_ennemy('dragon', 400, 145, 200, 1);
-add_ennemy('baddie', 100, 175, 100, 1);
+add_ennemy('dragon', 50, 145, 200, -1);
+//add_ennemy('baddie', 100, 175, 100, 1);
 
 var handle_ennemy_collision = function(collision_data) {
 	var ennemy_id = collision_data.ennemy_id;
 	var angle = collision_data.angle;
-	ennemies_data[ennemy_id].dir *= -1;
+    if (ennemy_id) {
+        ennemies_data[ennemy_id].dir *= -1;
+    }
 
 	console.log('EVENT handle_ennemy_collision', ennemy_id, angle);
 };
@@ -115,10 +117,10 @@ var generate_server_data = function() {
 		}
 	});
 
-	if (ennemy_count < 3) {
+	/*if (ennemy_count < 3) {
 		var x_rnd = parseInt(100 * Math.random(), 10);
 		add_ennemy('baddie', x_rnd, 175, 100);
-	}
+	}*/
 
 	var server_data = {};
 	server_data[0] = ennemies_data;

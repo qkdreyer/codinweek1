@@ -40,7 +40,7 @@ Ennemy.handle_server_data = function(ennemies_data) {
 
 var ennemyTypes = {
 	'baddie':{velocity:100, leftImages:[0,1], imageSpeed:5, rightImages:[2,3], hp:20, shooter:0, flyer:0 },
-	'dragon':{velocity:130, leftImages:[7, 8, 9, 10, 11, 12], imageSpeed:10, rightImages:[1, 2, 3, 4, 5, 6], hp:80, shooter:1, flyer:1}
+	'dragon':{velocity:130, leftImages:[6, 7, 8, 9, 10, 11], imageSpeed:10, rightImages:[0, 1, 2, 3, 4, 5], hp:80, shooter:1, flyer:1}
 };
 
 //création d'ennemi avec paramètres: 
@@ -70,7 +70,6 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
 
 
     this.direction = direction;
-    this.sprite.animations.play(direction);
 };
 
 Ennemy.prototype.setAttackTimer = function(){
@@ -122,8 +121,9 @@ Ennemy.prototype.miniStatusBarPosition = function() {
 Ennemy.prototype.update = function()
 {
     this.miniStatusBarPosition();
+    this.sprite.animations.play(this.direction);
 
-    if (this.sprite.x > 410)
+    /*if (this.sprite.x > 410)
     {
         this.sprite.animations.play('left');
     }
@@ -131,7 +131,7 @@ Ennemy.prototype.update = function()
     if (this.sprite.x < 10)
     {
         this.sprite.animations.play('right');
-    }
+    }*/
 
     if (this.stats.hp <= 0) {
         this.kill();
@@ -158,8 +158,21 @@ Ennemy.prototype.render = function(ennemy_data)
     this.sprite.reset(ennemy_data.x, ennemy_data.y);
     this.stats.hp_old = this.stats.hp;
     this.stats.hp = ennemy_data.hp;
+    console.log(ennemy_data.dir);
+    this.switchDirection(ennemy_data.dir);
 
     this.lostHp();
 
 };
+
+Ennemy.prototype.switchDirection = function (direction){
+        if (direction  == '-1') {
+            direction = 'left';
+        } else {
+            direction = 'right';
+        }
+        if (this.sprite.animations.currentAnim.name != direction){
+            this.direction = direction;
+        }
+}
 
