@@ -1,7 +1,7 @@
 
 function Player(x, y, isMain)
 {
-    this.sprite = game.add.sprite(x, y, 'player');
+    this.sprite = null;
     this.stats = {
         hp: 100,
         maxHp: 100,
@@ -11,52 +11,63 @@ function Player(x, y, isMain)
     if (isMain) {
         this.isMain = true;
         this.playerLifeBar = {
-            sprite: game.add.sprite(10, 10, 'playerLifeBar'),
+            sprite: null,
             maxWidth: 0
         };
     }
     else {
         this.lifeBar = {
-            status: game.add.sprite(this.sprite.x, this.sprite.y, 'allyLifeBar'),
-            frame: game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBarFrame'),
-            maxWidth : this.sprite.width
+            status: null,
+            frame: null,
+            maxWidth : 0
         };
+    }
+
+    this.missile = null;
+    this.direction = 'right';
+    this.cursors = null;
+
+    if (!x) x = 32;
+    if (!y) y = 32;
+
+    this.init(x,y);
+}
+
+Player.prototype.init = function(x,y)
+{
+    this.sprite = game.add.sprite(x, y, 'player');
+
+    if (this.isMain) {
+        this.playerLifeBar.sprite = game.add.sprite(10, 10, 'playerLifeBar');
+        var playerLifeBarFrame = game.add.sprite(10, 10, 'playerLifeBarFrame');
+        this.playerLifeBar.maxWidth = this.playerLifeBar.sprite.width;
+        playerLifeBarFrame.fixedToCamera = true;
+        this.playerLifeBar.sprite.fixedToCamera = true;
+
+        this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
+        this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
+
+        game.physics.enable(this.sprite);
+
+        this.sprite.body.bounce.y = 0.2;
+        this.sprite.body.linearDamping = 1;
+        //Don't leave the world zone when collides
+        this.sprite.body.collideWorldBounds = true;
+
+        this.cursors = game.input.keyboard.createCursorKeys();
+    } else {
+        this.lifeBar.status = game.add.sprite(this.sprite.x, this.sprite.y, 'allyLifeBar');
+        this.lifeBar.frame = game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBarFrame');
+        this.lifeBar.maxWidth = this.sprite.width;
         this.lifeBar.status.width = this.sprite.width;
         this.lifeBar.frame.width = this.sprite.width;
     }
 
     this.missile = new Missile(this);
-    this.direction = 'right';
-
-    if (!x) x = 32;
-    if (!y) y = 32;
-}
-
-Player.prototype.init = function()
-{
-    //  Our two animations, walking left and right.
-    this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
-    this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
-
-    game.physics.enable(this.sprite);
-
-    this.sprite.body.bounce.y = 0.2;
-    this.sprite.body.linearDamping = 1;
-    //Don't leave the world zone when collides
-    this.sprite.body.collideWorldBounds = true;
-
-    var playerLifeBarFrame = game.add.sprite(10, 10, 'playerLifeBarFrame');
-    this.playerLifeBar.maxWidth = this.playerLifeBar.sprite.width;
-    playerLifeBarFrame.fixedToCamera = true;
-    this.playerLifeBar.sprite.fixedToCamera = true;
-
-    this.cursors = game.input.keyboard.createCursorKeys();
 };
 
 Player.prototype.update = function()
 {
-    this.updateLifeBarPosition();
-
     if (this.cursors.up.isDown || control.moveButton == 'up')
     {
         if (this.sprite.body.onFloor())
@@ -114,7 +125,6 @@ Player.prototype.updateLifeBarPosition = function()
         this.lifeBar.frame.x = this.sprite.x;
         this.lifeBar.status.y = this.sprite.y;
         this.lifeBar.frame.y = this.sprite.y;
-
         this.lifeBar.status.width = this.lifeBar.maxWidth * this.stats.hp / this.stats.maxHp;
     }
 };
@@ -124,7 +134,7 @@ Player.prototype.render = function(player_data)
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
-    //this.miniStatusBarPosition();
+    this.updateLifeBarPosition();
 
     this.sprite.animations.play(player_data.dir);
 
@@ -136,7 +146,7 @@ Player.prototype.render = function(player_data)
 Player.prototype.die = function()
 {
     this.stats.hp = 0;
-    this.playerLifeBar.sprite.width = 0;
+    if (this.isMain) this.playerLifeBar.sprite.width = 0;
 
     endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
     endText.fixedToCamera = true;
@@ -145,7 +155,8 @@ Player.prototype.die = function()
 Player.prototype.kill = function()
 {
     this.sprite.kill();
-    //this.miniStatus.text = '';
+    this.lifeBar.status.kill();
+    this.lifeBar.frame.kill();
     if (this.missile.sprite) this.missile.kill();
 };
 
@@ -177,7 +188,7 @@ Player.prototype.lostHp = function(qtyHp)
     }
     else  
     {
-        this.playerLifeBar.sprite.width = this.playerLifeBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        if (this.isMain) this.playerLifeBar.sprite.width = this.playerLifeBar.maxWidth * (this.stats.hp / this.stats.maxHp);
 
         /*if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
         {

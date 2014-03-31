@@ -62,8 +62,7 @@ function create()
     physics.init(mapInstance);
 
     //SPRITES
-    player = new Player(0,0,true);
-    player.init();
+    player = new Player(null,null,true);
 
     //SCORE
     scoreText = game.add.text(16, 46, 'score: 0', { fontSize: '32px', fill: '#000' });
