@@ -40,7 +40,7 @@ Player.prototype.init = function()
     this.playerLifeBar.maxWidth = this.playerLifeBar.sprite.width;
     playerLifeBarFrame.fixedToCamera = true;
     this.playerLifeBar.sprite.fixedToCamera = true;
-    
+
     this.cursors = game.input.keyboard.createCursorKeys();
 };
 

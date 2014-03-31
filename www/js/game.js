@@ -37,6 +37,11 @@ function preload()
     game.load.image('playerLifeBar', 'assets/players/playerLifeBar.png');
     game.load.image('missile', 'assets/games/invaders/enemy-bullet.png');
 
+    // Controls
+    game.load.image('control-left', 'assets/controls/left.png');
+    game.load.image('control-right', 'assets/controls/right.png');
+    game.load.image('control-up', 'assets/controls/up.png');
+
     // Monsters
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
     game.load.spritesheet('dragon', 'assets/dragon.png', 96, 64);
