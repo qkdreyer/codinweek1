@@ -33,8 +33,8 @@ function preload()
 
     // Player
     game.load.spritesheet('player', 'assets/dude.png', 32, 48);
-    game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
-    game.load.image('statusBar', 'assets/players/statusbar.png');
+    game.load.image('playerLifeBarFrame', 'assets/players/playerLifeBarFrame.png');
+    game.load.image('playerLifeBar', 'assets/players/playerLifeBar.png');
     game.load.image('missile', 'assets/games/invaders/enemy-bullet.png');
 
     // Monsters

@@ -8,7 +8,7 @@ function Player(x, y)
         missileDamage: 20,
         fightDamage: 10
     };
-    this.statusBar = {
+    this.playerLifeBar = {
         sprite: null,
         maxWidth: 0
     };
@@ -35,12 +35,12 @@ Player.prototype.init = function()
     //Don't leave the world zone when collides
     this.sprite.body.collideWorldBounds = true;
 
-    this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
-    var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
-    this.statusBar.maxWidth = 0.90*statusBarFrame.width;
-    this.statusBar.sprite.width = this.statusBar.maxWidth;
-    statusBarFrame.fixedToCamera = true;
-    this.statusBar.sprite.fixedToCamera = true;
+    this.playerLifeBar.sprite = game.add.sprite(10, 10, 'playerLifeBar');
+    var playerLifeBarFrame = game.add.sprite(10, 10, 'playerLifeBarFrame');
+    this.playerLifeBar.maxWidth = this.playerLifeBar.sprite.width;
+    playerLifeBarFrame.fixedToCamera = true;
+    this.playerLifeBar.sprite.fixedToCamera = true;
+    
     this.cursors = game.input.keyboard.createCursorKeys();
 };
 
@@ -117,7 +117,7 @@ Player.prototype.render = function(player_data)
 Player.prototype.die = function()
 {
     this.stats.hp = 0;
-    this.statusBar.sprite.width = 0;
+    this.playerLifeBar.sprite.width = 0;
 
     endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
     endText.fixedToCamera = true;
@@ -158,7 +158,7 @@ Player.prototype.lostHp = function(qtyHp)
     }
     else  
     {
-        this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        this.playerLifeBar.sprite.width = this.playerLifeBar.maxWidth * (this.stats.hp / this.stats.maxHp);
 
         if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
         {
