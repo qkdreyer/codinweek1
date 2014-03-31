@@ -40,8 +40,8 @@ io.sockets.on('connection', function (socket) {
 	socket.on('ennemyHit', handle_ennemy_collision.bind(socket, 2));
 	socket.on('obstacleHit', handle_ennemy_collision.bind(socket, 3));
 
-	socket.set("heartbeat timeout", 10);
-	socket.set("heartbeat interval", 5);
+	//socket.set("heartbeat timeout", 10);
+	//socket.set("heartbeat interval", 5);
 });
 
 io.sockets.emit("server_start");

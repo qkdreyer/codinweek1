@@ -1,7 +1,7 @@
 (function(exports) {    
     exports.socket = {
         io: null,
-        host: "192.168.1.12",
+        host: "localhost",
         port: 8200,
         debug: false,
         log: function() {
