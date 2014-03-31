@@ -47,7 +47,7 @@ Ennemy.prototype.init = function(ennemyType, x, y, direction)
 
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
 
-    this.lifeBar.status = game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBar');
+    this.lifeBar.status = game.add.sprite(this.sprite.x, this.sprite.y, 'ennemyLifeBar');
     this.lifeBar.frame = game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBarFrame');
     this.lifeBar.status.width = this.sprite.width;
     this.lifeBar.frame.width = this.sprite.width;

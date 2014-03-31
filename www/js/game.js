@@ -49,7 +49,8 @@ function preload()
 
     //Life Bar
     game.load.image('lifeBarFrame', 'assets/lifeBarFrame.png');
-    game.load.image('lifeBar', 'assets/lifeBar.png');
+    game.load.image('ennemyLifeBar', 'assets/ennemyLifeBar.png');
+    game.load.image('allyLifeBar', 'assets/allyLifeBar.png');
 }
 
 function create()
@@ -61,7 +62,7 @@ function create()
     physics.init(mapInstance);
 
     //SPRITES
-    player = new Player();
+    player = new Player(0,0,true);
     player.init();
 
     //SCORE

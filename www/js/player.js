@@ -1,25 +1,35 @@
 
-function Player(x, y)
+function Player(x, y, isMain)
 {
-    this.sprite = null;
+    this.sprite = game.add.sprite(x, y, 'player');
     this.stats = {
         hp: 100,
         maxHp: 100,
         missileDamage: 20,
         fightDamage: 10
     };
-    this.playerLifeBar = {
-        sprite: null,
-        maxWidth: 0
-    };
+    if (isMain) {
+        this.isMain = true;
+        this.playerLifeBar = {
+            sprite: game.add.sprite(10, 10, 'playerLifeBar'),
+            maxWidth: 0
+        };
+    }
+    else {
+        this.lifeBar = {
+            status: game.add.sprite(this.sprite.x, this.sprite.y, 'allyLifeBar'),
+            frame: game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBarFrame'),
+            maxWidth : this.sprite.width
+        };
+        this.lifeBar.status.width = this.sprite.width;
+        this.lifeBar.frame.width = this.sprite.width;
+    }
+
     this.missile = new Missile(this);
     this.direction = 'right';
 
     if (!x) x = 32;
     if (!y) y = 32;
-
-    this.sprite = game.add.sprite(x, y, 'player');
-    this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
 }
 
 Player.prototype.init = function()
@@ -35,7 +45,6 @@ Player.prototype.init = function()
     //Don't leave the world zone when collides
     this.sprite.body.collideWorldBounds = true;
 
-    this.playerLifeBar.sprite = game.add.sprite(10, 10, 'playerLifeBar');
     var playerLifeBarFrame = game.add.sprite(10, 10, 'playerLifeBarFrame');
     this.playerLifeBar.maxWidth = this.playerLifeBar.sprite.width;
     playerLifeBarFrame.fixedToCamera = true;
@@ -46,7 +55,7 @@ Player.prototype.init = function()
 
 Player.prototype.update = function()
 {
-    this.miniStatusBarPosition();
+    this.updateLifeBarPosition();
 
     if (this.cursors.up.isDown || control.moveButton == 'up')
     {
@@ -73,7 +82,6 @@ Player.prototype.update = function()
         this.sprite.animations.stop();
     }
 
-
     if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
         return;
@@ -99,14 +107,25 @@ Player.prototype.update = function()
     this.missile.update();
 };
 
+Player.prototype.updateLifeBarPosition = function()
+{
+    if (!this.isMain) {
+        this.lifeBar.status.x = this.sprite.x;
+        this.lifeBar.frame.x = this.sprite.x;
+        this.lifeBar.status.y = this.sprite.y;
+        this.lifeBar.frame.y = this.sprite.y;
+
+        this.lifeBar.status.width = this.lifeBar.maxWidth * this.stats.hp / this.stats.maxHp;
+    }
+};
+
 Player.prototype.render = function(player_data)
 {
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
-    this.miniStatusBarPosition();
+    //this.miniStatusBarPosition();
 
-    console.log("player_data.dir", player_data.dir);
     this.sprite.animations.play(player_data.dir);
 
     if (player_data.missile) {
@@ -126,7 +145,7 @@ Player.prototype.die = function()
 Player.prototype.kill = function()
 {
     this.sprite.kill();
-    this.miniStatus.text = '';
+    //this.miniStatus.text = '';
     if (this.missile.sprite) this.missile.kill();
 };
 
@@ -160,7 +179,7 @@ Player.prototype.lostHp = function(qtyHp)
     {
         this.playerLifeBar.sprite.width = this.playerLifeBar.maxWidth * (this.stats.hp / this.stats.maxHp);
 
-        if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
+        /*if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
         {
             this.miniStatus.setStyle({font: 'bold 13px Arial', fill: 'orange'});
             this.miniStatus.y-=5;
@@ -169,7 +188,7 @@ Player.prototype.lostHp = function(qtyHp)
         {
             this.miniStatus.setStyle({font: 'bold 15px Arial', fill: 'red'});
             this.miniStatus.y-=5;
-        }
+        }*/
     }
     this.sync = true;
 };
@@ -177,13 +196,6 @@ Player.prototype.lostHp = function(qtyHp)
 Player.prototype.isDead = function()
 {
     return (this.stats.hp === 0);
-};
-
-Player.prototype.miniStatusBarPosition = function()
-{
-    this.miniStatus.x = this.sprite.x+5;
-    this.miniStatus.y = this.sprite.y-5;
-    this.miniStatus.text = this.stats.hp;
 };
 
 Player.prototype.fight = function ()
