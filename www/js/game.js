@@ -33,9 +33,14 @@ function preload()
 
     // Player
     game.load.spritesheet('player', 'assets/dude.png', 32, 48);
-    game.load.image('statusBarFrame', 'assets/players/statusbarframe.png');
-    game.load.image('statusBar', 'assets/players/statusbar.png');
+    game.load.image('playerLifeBarFrame', 'assets/players/playerLifeBarFrame.png');
+    game.load.image('playerLifeBar', 'assets/players/playerLifeBar.png');
     game.load.image('missile', 'assets/games/invaders/enemy-bullet.png');
+
+    // Controls
+    game.load.image('control-left', 'assets/controls/left.png');
+    game.load.image('control-right', 'assets/controls/right.png');
+    game.load.image('control-up', 'assets/controls/up.png');
 
     // Monsters
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
@@ -44,7 +49,8 @@ function preload()
 
     //Life Bar
     game.load.image('lifeBarFrame', 'assets/lifeBarFrame.png');
-    game.load.image('lifeBar', 'assets/lifeBar.png');
+    game.load.image('ennemyLifeBar', 'assets/ennemyLifeBar.png');
+    game.load.image('allyLifeBar', 'assets/allyLifeBar.png');
 }
 
 function create()
@@ -56,8 +62,7 @@ function create()
     physics.init(mapInstance);
 
     //SPRITES
-    player = new Player();
-    player.init();
+    player = new Player(null,null,true);
 
     //SCORE
     scoreText = game.add.text(16, 46, 'score: 0', { fontSize: '32px', fill: '#000' });

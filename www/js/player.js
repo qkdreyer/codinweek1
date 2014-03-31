@@ -1,5 +1,5 @@
 
-function Player(x, y)
+function Player(x, y, isMain)
 {
     this.sprite = null;
     this.stats = {
@@ -8,46 +8,66 @@ function Player(x, y)
         missileDamage: 20,
         fightDamage: 10
     };
-    this.statusBar = {
-        sprite: null,
-        maxWidth: 0
-    };
-    this.missile = new Missile(this);
+    if (isMain) {
+        this.isMain = true;
+        this.playerLifeBar = {
+            sprite: null,
+            maxWidth: 0
+        };
+    }
+    else {
+        this.lifeBar = {
+            status: null,
+            frame: null,
+            maxWidth : 0
+        };
+    }
+
+    this.missile = null;
     this.direction = 'right';
+    this.cursors = null;
 
     if (!x) x = 32;
     if (!y) y = 32;
 
-    this.sprite = game.add.sprite(x, y, 'player');
-    this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
+    this.init(x,y);
 }
 
-Player.prototype.init = function()
+Player.prototype.init = function(x,y)
 {
-    //  Our two animations, walking left and right.
-    this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
-    this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
+    this.sprite = game.add.sprite(x, y, 'player');
 
-    game.physics.enable(this.sprite);
+    if (this.isMain) {
+        this.playerLifeBar.sprite = game.add.sprite(10, 10, 'playerLifeBar');
+        var playerLifeBarFrame = game.add.sprite(10, 10, 'playerLifeBarFrame');
+        this.playerLifeBar.maxWidth = this.playerLifeBar.sprite.width;
+        playerLifeBarFrame.fixedToCamera = true;
+        this.playerLifeBar.sprite.fixedToCamera = true;
 
-    this.sprite.body.bounce.y = 0.2;
-    this.sprite.body.linearDamping = 1;
-    //Don't leave the world zone when collides
-    this.sprite.body.collideWorldBounds = true;
+        this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
+        this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
 
-    this.statusBar.sprite = game.add.sprite(10, 10, 'statusBar');
-    var statusBarFrame = game.add.sprite(10, 10, 'statusBarFrame');
-    this.statusBar.maxWidth = 0.90*statusBarFrame.width;
-    this.statusBar.sprite.width = this.statusBar.maxWidth;
-    statusBarFrame.fixedToCamera = true;
-    this.statusBar.sprite.fixedToCamera = true;
-    this.cursors = game.input.keyboard.createCursorKeys();
+        game.physics.enable(this.sprite);
+
+        this.sprite.body.bounce.y = 0.2;
+        this.sprite.body.linearDamping = 1;
+        //Don't leave the world zone when collides
+        this.sprite.body.collideWorldBounds = true;
+
+        this.cursors = game.input.keyboard.createCursorKeys();
+    } else {
+        this.lifeBar.status = game.add.sprite(this.sprite.x, this.sprite.y, 'allyLifeBar');
+        this.lifeBar.frame = game.add.sprite(this.sprite.x, this.sprite.y, 'lifeBarFrame');
+        this.lifeBar.maxWidth = this.sprite.width;
+        this.lifeBar.status.width = this.sprite.width;
+        this.lifeBar.frame.width = this.sprite.width;
+    }
+
+    this.missile = new Missile(this);
 };
 
 Player.prototype.update = function()
 {
-    this.miniStatusBarPosition();
-
     if (this.cursors.up.isDown || control.moveButton == 'up')
     {
         if (this.sprite.body.onFloor())
@@ -72,7 +92,6 @@ Player.prototype.update = function()
     {
         this.sprite.animations.stop();
     }
-
 
     if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
@@ -99,14 +118,24 @@ Player.prototype.update = function()
     this.missile.update();
 };
 
+Player.prototype.updateLifeBarPosition = function()
+{
+    if (!this.isMain) {
+        this.lifeBar.status.x = this.sprite.x;
+        this.lifeBar.frame.x = this.sprite.x;
+        this.lifeBar.status.y = this.sprite.y;
+        this.lifeBar.frame.y = this.sprite.y;
+        this.lifeBar.status.width = this.lifeBar.maxWidth * this.stats.hp / this.stats.maxHp;
+    }
+};
+
 Player.prototype.render = function(player_data)
 {
     this.sprite.x = player_data.x;
     this.sprite.y = player_data.y;
     this.stats.hp = player_data.hp;
-    this.miniStatusBarPosition();
+    this.updateLifeBarPosition();
 
-    console.log("player_data.dir", player_data.dir);
     this.sprite.animations.play(player_data.dir);
 
     if (player_data.missile) {
@@ -117,7 +146,7 @@ Player.prototype.render = function(player_data)
 Player.prototype.die = function()
 {
     this.stats.hp = 0;
-    this.statusBar.sprite.width = 0;
+    if (this.isMain) this.playerLifeBar.sprite.width = 0;
 
     endText = game.add.text(100, 100, 'U DIE BITCH', { fontSize: '32px', fill: '#000' });
     endText.fixedToCamera = true;
@@ -126,7 +155,8 @@ Player.prototype.die = function()
 Player.prototype.kill = function()
 {
     this.sprite.kill();
-    this.miniStatus.text = '';
+    this.lifeBar.status.kill();
+    this.lifeBar.frame.kill();
     if (this.missile.sprite) this.missile.kill();
 };
 
@@ -158,9 +188,9 @@ Player.prototype.lostHp = function(qtyHp)
     }
     else  
     {
-        this.statusBar.sprite.width = this.statusBar.maxWidth * (this.stats.hp / this.stats.maxHp);
+        if (this.isMain) this.playerLifeBar.sprite.width = this.playerLifeBar.maxWidth * (this.stats.hp / this.stats.maxHp);
 
-        if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
+        /*if (this.stats.hp <= this.stats.maxHp/2 && this.stats.hp > this.stats.maxHp/4)
         {
             this.miniStatus.setStyle({font: 'bold 13px Arial', fill: 'orange'});
             this.miniStatus.y-=5;
@@ -169,7 +199,7 @@ Player.prototype.lostHp = function(qtyHp)
         {
             this.miniStatus.setStyle({font: 'bold 15px Arial', fill: 'red'});
             this.miniStatus.y-=5;
-        }
+        }*/
     }
     this.sync = true;
 };
@@ -177,13 +207,6 @@ Player.prototype.lostHp = function(qtyHp)
 Player.prototype.isDead = function()
 {
     return (this.stats.hp === 0);
-};
-
-Player.prototype.miniStatusBarPosition = function()
-{
-    this.miniStatus.x = this.sprite.x+5;
-    this.miniStatus.y = this.sprite.y-5;
-    this.miniStatus.text = this.stats.hp;
 };
 
 Player.prototype.fight = function ()

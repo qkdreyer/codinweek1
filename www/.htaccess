@@ -1,5 +1,5 @@
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine On
-    RewriteRule socket/(.*) http://%{HTTP_HOST}:8200/$1
+    RewriteRule socket/(.*) http://queue.node.ci:8200/$1
 </IfModule>
