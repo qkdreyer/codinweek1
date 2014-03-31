@@ -25,16 +25,11 @@ function Player(x, y, isMain)
         this.lifeBar.frame.width = this.sprite.width;
     }
 
-
-
     this.missile = new Missile(this);
     this.direction = 'right';
 
     if (!x) x = 32;
     if (!y) y = 32;
-
-    //this.miniStatus = game.add.text(this.sprite.x, this.sprite.y, this.stats.hp, { font: 'bold 10px Arial' });
-
 }
 
 Player.prototype.init = function()
@@ -60,7 +55,6 @@ Player.prototype.init = function()
 
 Player.prototype.update = function()
 {
-    //this.miniStatusBarPosition();
     this.updateLifeBarPosition();
 
     if (this.cursors.up.isDown || control.moveButton == 'up')
@@ -87,7 +81,6 @@ Player.prototype.update = function()
     {
         this.sprite.animations.stop();
     }
-
 
     if (this.isDead()) {
         this.sprite.body.velocity.x = 0;
@@ -203,13 +196,6 @@ Player.prototype.lostHp = function(qtyHp)
 Player.prototype.isDead = function()
 {
     return (this.stats.hp === 0);
-};
-
-Player.prototype.miniStatusBarPosition = function()
-{
-    this.miniStatus.x = this.sprite.x+5;
-    this.miniStatus.y = this.sprite.y-5;
-    this.miniStatus.text = this.stats.hp;
 };
 
 Player.prototype.fight = function ()

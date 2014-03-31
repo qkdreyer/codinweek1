@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b03bec29-4a1c-4968-a798-716366e92690" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\wamp\www\codinweek1\www\assets\lifeBar.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/ennemies.js" afterPath="$PROJECT_DIR$/www/js/ennemies.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/game.js" afterPath="$PROJECT_DIR$/www/js/game.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/player.js" afterPath="$PROJECT_DIR$/www/js/player.js" />
     </list>
     <ignored path="codinweek1.iws" />
@@ -37,7 +34,7 @@
       <file leaf-file-name="player.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="24" selection-start="413" selection-end="413" vertical-scroll-proportion="0.5">
+            <state line="198" column="2" selection-start="5248" selection-end="5248" vertical-scroll-proportion="1.4744898">
               <folding />
             </state>
           </provider>
@@ -46,7 +43,7 @@
       <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="6" selection-start="1381" selection-end="1381" vertical-scroll-proportion="0.0">
+            <state line="42" column="6" selection-start="1341" selection-end="1417" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -407,20 +404,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/client.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="24" selection-start="90" selection-end="90" vertical-scroll-proportion="-2.04">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="6" selection-start="1381" selection-end="1381" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/control.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="98" selection-start="789" selection-end="789" vertical-scroll-proportion="0.0">
@@ -442,9 +425,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/client.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="24" selection-start="90" selection-end="90" vertical-scroll-proportion="-2.04">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="6" selection-start="1341" selection-end="1417" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="24" selection-start="413" selection-end="413" vertical-scroll-proportion="0.5">
+        <state line="198" column="2" selection-start="5248" selection-end="5248" vertical-scroll-proportion="1.4744898">
           <folding />
         </state>
       </provider>
