@@ -1,7 +1,7 @@
 (function(exports) {    
     exports.socket = {
         io: null,
-        host: "localhost",
+        host: "queue.node.ci",
         port: 8200,
         debug: false,
         log: function() {
