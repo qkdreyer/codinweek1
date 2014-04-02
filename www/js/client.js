@@ -63,7 +63,7 @@
             socket.on('server_data', function(server_data) {
                 var ennemies_data = server_data[0];
                 var items_data = server_data[1];
-
+                
                 Ennemy.handle_server_data(ennemies_data);
             });
 

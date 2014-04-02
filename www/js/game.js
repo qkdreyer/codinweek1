@@ -55,6 +55,26 @@ function preload()
 
 function create()
 {
+
+    if (this.game.device.desktop)
+    {
+        $('#restart').show();
+        this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
+        this.scale.setScreenSize(true);
+    } else {
+        this.stage.scale.forceLandscape = true;
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.scale.minWidth = 480;
+        this.scale.minHeight = 260;
+        this.scale.maxWidth = 1024;
+        this.scale.maxHeight = 768;
+        this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
+        this.scale.forceOrientation(true, false);
+        this.scale.setScreenSize(true);
+    }
+
     //MAP
     var mapInstance = map.init();
 

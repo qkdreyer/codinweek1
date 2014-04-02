@@ -1,0 +1,31 @@
+# Tricks
+
+'Math.round(x)' is slower than '(x + 0.5) | 0'
+'String(x)' is slower than 'x + ""'
+
+# Operators
+
+&& (AND)
+&= (AND=)
+|| (OR)
+|= (OR=)
+~ 
+! (!)
+
+# Weirdness
+
+typeof NaN === "number" : true
+NaN !== NaN : true
+0.1 + 0.2 === 0.30000000000000004 : true
+
+# Dynamic Typing
+
+
+# IIFE (Immediate Invoked Function Expression)
+
+Creates a new scope different than the global namespace
+Clojures makes variables act as shared between scopes
+
+(function(exports) {
+	
+})(window);
