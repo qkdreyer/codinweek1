@@ -11,8 +11,8 @@ var control =
         const CONTROL_BUTTON_X = 20;
         const CONTROL_BUTTON_Y = game.height-20;
 
-        const CONTROL2_BUTTON_X = game.width-50;
-        const CONTROL2_BUTTON_Y = game.height-50;
+        const CONTROL2_BUTTON_X = game.width-60;
+        const CONTROL2_BUTTON_Y = game.height-60;
 
         var self = this;
 
@@ -25,7 +25,7 @@ var control =
         var upButton = this.buttons.create(this.buttons.x+25, this.buttons.y-50, 'control-up');
         var leftButton = this.buttons.create(this.buttons.x, this.buttons.y-25, 'control-left');
         var rightButton = this.buttons.create(this.buttons.x+50, this.buttons.y-25, 'control-right');
-        var attackButton = this.buttons.create(CONTROL2_BUTTON_X, CONTROL2_BUTTON_Y, 'control-right');
+        var attackButton = this.buttons.create(CONTROL2_BUTTON_X, CONTROL2_BUTTON_Y, 'control-attack');
         upButton.inputEnabled = true;
         upButton.events.onInputDown.add(function(){
             self.moveButton = 'up';

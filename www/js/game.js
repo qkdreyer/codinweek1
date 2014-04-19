@@ -41,6 +41,7 @@ function preload()
     game.load.image('control-left', 'assets/controls/left.png');
     game.load.image('control-right', 'assets/controls/right.png');
     game.load.image('control-up', 'assets/controls/up.png');
+    game.load.image('control-attack', 'assets/controls/attack.png');
 
     // Monsters
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
