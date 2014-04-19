@@ -41,7 +41,12 @@ Missile.prototype.update = function()
         });
     }
 
-    if (this.can_attack && game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true)
+    if (this.can_attack && (
+            game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) == true
+            ||
+            control.attackButton == 'missile'
+        )
+    )
     {
         this.startMissileAttack();
     }
