@@ -10,8 +10,7 @@ function init()
 {
     if (game) game.physics.destroy();
     setTimeout(function() {
-    
-        game = new Phaser.Game(460, 320, Phaser.CANVAS, 'phaser-example', {
+        game = new Phaser.Game(screen.width, screen.height, Phaser.CANVAS, 'phaser-example', {
             preload: preload,
             create: create, update: update,
             render: render
@@ -56,25 +55,9 @@ function preload()
 
 function create()
 {
-
-    if (this.game.device.desktop)
-    {
-        $('#restart').show();
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
-        this.scale.setScreenSize(true);
-    } else {
-        this.stage.scale.forceLandscape = true;
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.scale.minWidth = 480;
-        this.scale.minHeight = 260;
-        this.scale.maxWidth = 1024;
-        this.scale.maxHeight = 768;
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
-        this.scale.forceOrientation(true, false);
-        this.scale.setScreenSize(true);
-    }
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+    if (this.game.device.desktop) $('#restart').show();
 
     //MAP
     var mapInstance = map.init();
